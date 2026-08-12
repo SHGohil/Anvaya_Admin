@@ -32,7 +32,6 @@ export class ChangerequestComponent implements OnInit {
 
   onviewdeails(val,content)
 {
-  debugger
   this.modalService.open(content, { size: 'xl'})
   this.changedetails = val;
 this.geteventdetails(val.eventsId)
@@ -65,7 +64,6 @@ geteventdetails(id: number) {
   return istDate;
  }
  post(id,val){
-  debugger;
 if(id==1){
   this.isapproved= true;
 }

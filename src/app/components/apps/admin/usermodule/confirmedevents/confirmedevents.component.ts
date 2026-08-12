@@ -21,7 +21,6 @@ export class ConfirmedeventsComponent implements OnInit {
 
   onviewdeails(val,content)
 {
-  debugger
   this.modalService.open(content, { size: 'lg'})
 this.geteventdetails(val.eventsId)
 }

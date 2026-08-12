@@ -1,3 +1,4 @@
+import { readAuthToken } from './auth-token';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -6,19 +7,12 @@ import { environment } from '../../../environments/environment';
  providedIn: 'root'
 })
 export class YourServiceName {
- token: string;
+ /** Read per request - see auth-token.ts for why this is not cached. */
+ get token(): string { return readAuthToken(); }
 
- constructor(public http: HttpClient) {
-    let user;
-    if (typeof window !== 'undefined' && window.localStorage) {
-      user = localStorage.getItem('user');
-    }
-    var userdata = JSON.parse(user);
-    this.token = userdata.token;
- }
-   
+ constructor(public http: HttpClient) { }
+
  getnotification() {
-  debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -27,7 +21,6 @@ export class YourServiceName {
  }
 
  getEventdetail(id) {
-    debugger
   const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   // const date = new Date().toISOString().split('.')[0];
   var url = environment.backendAPIURL+`/Events/${id}`

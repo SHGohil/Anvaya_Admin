@@ -106,7 +106,6 @@ export class NavService implements OnDestroy {
   { path: "/admin/notification", title: "Notification", icon: "learning", type: "link" },
  ];
   private getMenuItemsByRole(): Menu[] {
-    debugger;
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
       user = localStorage.getItem('user');

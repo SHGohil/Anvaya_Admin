@@ -1,3 +1,4 @@
+import { readAuthToken } from './auth-token';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -5,17 +6,11 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UsersService {
-  token: any;
+  /** Read per request - see auth-token.ts for why this is not cached. */
+  get token(): string { return readAuthToken(); }
 
   constructor(public http : HttpClient) 
-  {
-    let user;
-    if (typeof window !== 'undefined' && window.localStorage) {
-     user = localStorage.getItem('user');
-    }
-    var userdata = JSON.parse(user);
-    this.token = userdata.token;
-  }
+  {  }
 
   getUsers() {
     

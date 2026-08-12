@@ -377,9 +377,7 @@ getonecaledetdata(month){
   }
   onviewdeails(item,content)
   {
-   debugger;
    this.modalService.open(content, { size: 'lg'})
-   debugger;
     this.test=item.guestName
     this.currentStatus =parseInt(item.eventStatusId) ;
     this.status =parseInt(item.eventStatusId) ;
@@ -485,7 +483,6 @@ getonecaledetdata(month){
     }
   }
   changebumpinbumpout(events) {
-    debugger;
     if (!Array.isArray(events)) {
         console.error('events is not an array');
         return;
@@ -527,7 +524,6 @@ getonecaledetdata(month){
     return istDate;
    }
   Save() {
-    debugger
     if(this.eventform.invalid){
       this.eventform.markAllAsTouched();
       return;
@@ -669,7 +665,6 @@ const currentDateTimeISO = currentDateTime.toISOString();
   // Add your update logic here, e.g., make an API call to update the event status
 }
   onclickdata(day,name) {
-   debugger
     this.showedit=false;
    var date = day.date;
    this.currentdateselected = date;
@@ -692,7 +687,6 @@ const currentDateTimeISO = currentDateTime.toISOString();
 // Call the function
  
   getoncedatedata(date){
-  debugger
     this.calendarService.currentdateevents(date).subscribe((apidata=[])=>{
       this.eventdatedata = apidata;
       // if(this.eventdatedata.previousDateEvents[0]?.eventDate)

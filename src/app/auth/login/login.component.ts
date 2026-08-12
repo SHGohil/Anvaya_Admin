@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    debugger
       let user = {
         email: this.loginForm.value["email"],
         password: this.loginForm.value["password"],

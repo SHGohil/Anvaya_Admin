@@ -1,3 +1,4 @@
+import { readAuthToken } from './auth-token';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -6,19 +7,13 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class EventDataService {
-  token: any;
+  /** Read per request - see auth-token.ts for why this is not cached. */
+  get token(): string { return readAuthToken(); }
 
   private eventDataSource = new BehaviorSubject<any>(null);
   currentEventData = this.eventDataSource.asObservable();
   constructor(public http : HttpClient) 
-  {
-    let user;
-    if (typeof window !== 'undefined' && window.localStorage) {
-     user = localStorage.getItem('user');
-    }
-    var userdata = JSON.parse(user);
-    this.token = userdata.token;
-  }
+  {  }
 
 
  changeEventData(data: any) {
@@ -33,7 +28,6 @@ export class EventDataService {
     return this.http.get(url, { headers, responseType: 'json' });
  }
   getTime(dates:any,venues:any) {
-    debugger;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     const date = new Date().toISOString().split('.')[0];
     var url = environment.backendAPIURL+`/EventTimes`
@@ -41,7 +35,6 @@ export class EventDataService {
     return this.http.get(url, { headers, responseType: 'json' });
  }
   getonTime(dates:any,venues:any) {
-    debugger;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     const date = new Date().toISOString().split('.')[0];
     var url = environment.backendAPIURL+`/EventTimes/available?date=${dates}&venueIds=${venues}`

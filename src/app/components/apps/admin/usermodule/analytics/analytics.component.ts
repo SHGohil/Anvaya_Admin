@@ -36,7 +36,6 @@ export class AnalyticsComponent implements OnInit {
   this.getanalytics(val.target.value)
  }
   getanalytics (val){
-    debugger;
     this.todaysservice.getanalytics(val).subscribe((apidata:any)=>{
       const total = apidata.open + apidata.tentative + apidata.confirmed + apidata.lost;
       var open =apidata.open;

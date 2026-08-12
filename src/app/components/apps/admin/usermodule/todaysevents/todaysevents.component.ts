@@ -62,7 +62,6 @@ export class TodayseventsComponent implements OnInit {
    }
   onviewdeails(val,content)
 {
-  debugger
   this.modalService.open(content, { size: 'lg'})
 this.geteventdetails(val.eventsId)
 }

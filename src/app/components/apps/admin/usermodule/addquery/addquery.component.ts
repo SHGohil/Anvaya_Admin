@@ -57,7 +57,6 @@ export class AddqueryComponent implements OnInit {
   }
 
   getValue(value:any){
-    debugger
     console.log(value)
      if(this.form.controls.eventDate.value){
       this.isAllVenueSelected= value;
@@ -70,7 +69,6 @@ export class AddqueryComponent implements OnInit {
   
      }
      else{
-      debugger;
       this.form.controls.eventDate.markAsTouched();
       console.log(this.isAllVenueSelected,"hjjj");
     
@@ -120,10 +118,8 @@ geteventtime(){
 }
 
 gettime(date, venues){
-  debugger;
   this.service.getonTime(date,venues).subscribe(apidata=>{
     this.timedata = apidata;
-    debugger;
     if(this.timedata.length==0){
       Swal.fire({
         icon: 'error',
@@ -137,7 +133,6 @@ gettime(date, venues){
 
 
 onDateChange(value: any) {
-  debugger
   // Update the eventDate form control value when the input changes
  this.eventDate=value;
   // You can also perform additional logic here if needed
@@ -149,7 +144,6 @@ onDateChange(value: any) {
 
 
 onSelect(event: any) {
-  debugger
   if(event){
     const selectedIds = event.map((item: any) => item.venueId); 
 
@@ -186,7 +180,6 @@ onSelect(event: any) {
   // }
 }
 onSelectTime(event: any) {
-  debugger
   const selectedIds = event.map((item: any) => item.eventTimeId); 
 
   this.selectedTimeIds = this.selectedTimeIds.filter(id => selectedIds.includes(id));
@@ -263,7 +256,6 @@ onSelectTime(event: any) {
 
 
   post(val){
-    debugger
     // if((!this.isAllVenueSelected && this.form.controls.venueIds.value.length==0) && this.form.invalid){
     //   this.form.markAllAsTouched();
     //   return;

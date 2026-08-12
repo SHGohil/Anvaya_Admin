@@ -57,7 +57,6 @@ export class CoupansService extends HttpResponseService{
     )
    }
    updateCoupnasData(id: number, data: any): Observable<HttpResponse<coupans>> {
-    debugger
     const url = `${this.baseUrl}/Cupons/${id}`;
     return this.http.post<coupans>(url, data)
       .pipe(

@@ -94,7 +94,6 @@ export class SpecialdatesComponent implements OnInit {
   }
 
   post() {
-    debugger;
     let obj = {
       "dates": this.selectedDates, // Assuming this is where you want to post selected dates
       "year": this.currentYear,

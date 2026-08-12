@@ -2,11 +2,15 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// Development environment.
+//
+// This used to point at the production API, so `ng serve` read and wrote live
+// data - creating and approving real bookings against the production database.
+// It now targets a locally running API. Change the port if you start the API on
+// its HTTPS profile (https://localhost:7256/api) instead.
 export const environment = {
   production: false,
-//backendAPIURL: 'https://localhost:7256/api',
- backendAPIURL: 'https://anvayaconventionapi.codefacts.com/api',
-//backendAPIURL:'https://api.devanvyaconvetion.codefactstech.com/api'
+  backendAPIURL: 'http://localhost:5096/api',
 };
 
 /*
