@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,29 +18,22 @@ import { TouchspinComponent } from './form-widgets/touchspin/touchspin.component
 import { FormsRoutingModule } from './forms-routing.module';
 
 
-@NgModule({
-  declarations: [
-    FormValidationComponent,
-    CheckboxRadioComponent,
-    InputGroupsComponent,
-    MegaOptionsComponent,
-    BaseInputsComponent,
-    TouchspinComponent,
-    Select2Component,
-    SwitchComponent,
-    ClipboardComponent,
-    DefaultFormComponent,
-  ],
-
-  imports: [
-    CommonModule,
-    FormsRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgbModule,
-    SharedModule,
-    NgSelectModule,
-  ]
-})
+@NgModule({ declarations: [
+        FormValidationComponent,
+        CheckboxRadioComponent,
+        InputGroupsComponent,
+        MegaOptionsComponent,
+        BaseInputsComponent,
+        TouchspinComponent,
+        Select2Component,
+        SwitchComponent,
+        ClipboardComponent,
+        DefaultFormComponent,
+    ], imports: [CommonModule,
+        FormsRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbModule,
+        SharedModule,
+        NgSelectModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class FormModule { }

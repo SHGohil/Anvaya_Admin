@@ -39,7 +39,6 @@ import { NgbdSortableHeader } from "./directives/NgbdSortableHeader";
 import { DecimalPipe } from "@angular/common";
 import { SvgIconComponent } from "./components/svg-icon/svg-icon.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
-import { SwiperModule } from "swiper/angular";
 import { SwiperComponent } from './components/header/elements/swiper/swiper.component';
 
 @NgModule({
@@ -78,11 +77,10 @@ import { SwiperComponent } from './components/header/elements/swiper/swiper.comp
     NgbModule,
     // DragulaModule.forRoot(),
     TranslateModule.forRoot(),
-    CarouselModule,
-    SwiperModule],
+    CarouselModule],
   providers: [NavService, ChatService, LayoutService, TableService, DecimalPipe],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
-    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, SwiperModule],
+    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent],
 })
 export class SharedModule {}

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,43 +30,36 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,NgxPaginationModule,
-    OverlayModule,
-    SharedModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgbModule,
-    ToastrModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      },
-    }),
-    
-  // for HttpClient use:
-    LoadingBarHttpClientModule,
-  // for Router use:
-    LoadingBarRouterModule,
-  // for Core use:
-    LoadingBarModule
-  ],
-  providers: [
-    AdminGuard,
-    CookieService,
-    // Attaches the bearer token to API calls and signs out on 401.
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoginComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule, NgxPaginationModule,
+        OverlayModule,
+        SharedModule,
+        AppRoutingModule,
+        NgbModule,
+        ToastrModule.forRoot(),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            },
+        }),
+        // for HttpClient use:
+        LoadingBarHttpClientModule,
+        // for Router use:
+        LoadingBarRouterModule,
+        // for Core use:
+        LoadingBarModule], providers: [
+        AdminGuard,
+        CookieService,
+        // Attaches the bearer token to API calls and signs out on 401.
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

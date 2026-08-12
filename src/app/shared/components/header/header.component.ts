@@ -2,9 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 import { NavService } from "../../services/nav.service";
 import { LayoutService } from "../../services/layout.service";
-import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
-SwiperCore.use([Navigation, Pagination, Autoplay]);
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",

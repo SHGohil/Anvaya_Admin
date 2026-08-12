@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
@@ -28,8 +28,7 @@ import 'hammerjs';
 import 'mousetrap';
 
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         OrderHistoryComponent,
         QuickViewComponent,
         CartComponent,
@@ -45,23 +44,17 @@ import 'mousetrap';
         WishListComponent,
         QuickViewComponent,
         PricingComponent
-    ],
-    imports: [
-        CommonModule,
+    ], imports: [CommonModule,
         ECommerceRoutingModule,
         // NgxDatatableModule,
         SharedModule,
         CommonModule,
         CarouselModule,
         NgbModule,
-        HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
         NgxPrintModule,
         // Ng5SliderModule,
         // Ng2SearchPipeModule,
-        GalleryModule
-    ],
-    providers: [NgbActiveModal]
-})
+        GalleryModule], providers: [NgbActiveModal, provideHttpClient(withInterceptorsFromDi())] })
 export class ECommerceModule { }
