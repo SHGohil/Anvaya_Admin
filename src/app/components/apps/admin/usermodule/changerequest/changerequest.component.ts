@@ -11,7 +11,8 @@ import Swal from 'sweetalert2';
     standalone: false
 })
 export class ChangerequestComponent implements OnInit {
-  changerequestdata: Object;
+  /** The pending queue, not the whole { pending, approved, rejected } response. */
+  changerequestdata: any[] = [];
   viewdails: any;
   changedetails: any;
   isapproved: boolean;
@@ -26,8 +27,16 @@ export class ChangerequestComponent implements OnInit {
   }
 
   getspecialdates(){
-    this.service.getchangerequest().subscribe(apidata=>{
-      this.changerequestdata = apidata;
+    this.service.getchangerequest().subscribe((apidata: any)=>{
+      // The API returns { pending, approved, rejected }, not a flat list. This
+      // assigned the whole object and the template did *ngFor over it, so
+      // Angular threw NG02200 ("Cannot find a differ supporting object") and
+      // the screen rendered nothing.
+      //
+      // This screen offers Approve and Decline on every card, so it shows the
+      // pending queue - a request that has already been decided must not be
+      // decided again.
+      this.changerequestdata = apidata?.pending ?? [];
     })
   }
 
@@ -101,10 +110,15 @@ else{
   }
 
   this.service.postChagereq(val.eventChangeRequestId,obj).subscribe(apidata=>{
+    // Both outcomes used to report "Event Updated Successfully". A decline does
+    // not update the event at all - the API leaves it untouched - so saying it
+    // was updated told the reviewer the opposite of what happened.
     Swal.fire({
       icon: 'success',
-      title: 'Success',
-      text: 'Event Updated Successfully',
+      title: this.isapproved ? 'Approved' : 'Declined',
+      text: this.isapproved
+        ? 'The change request was approved and the event has been updated.'
+        : 'The change request was declined. The event is unchanged.',
     });
     this.modalService.dismissAll();
     this.getspecialdates();
