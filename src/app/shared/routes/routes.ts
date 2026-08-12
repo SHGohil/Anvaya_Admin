@@ -126,10 +126,6 @@ export const content: Routes = [
     loadChildren: () => import("../../components/apps/knowledge-base/knowledge-base.module").then((m) => m.KnowledgeBaseModule),
   },
   {
-    path: "map",
-    loadChildren: () => import("../../components/apps/map/map.module").then((m) => m.MapModule),
-  },
-  {
     path: "support-ticket",
     loadChildren: () => import("../../components/apps/support-ticket/support-ticket.module").then((m) => m.SupportTicketModule),
   },

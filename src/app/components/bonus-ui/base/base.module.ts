@@ -22,7 +22,6 @@ import { TimepickerComponent } from "./timepicker/timepicker.component";
 import { TooltipComponent } from "./tooltip/tooltip.component";
 import { TypeaheadComponent } from "./typeahead/typeahead.component";
 // import { DatepickerModule } from "ng2-datepicker";
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from "@danielmoncada/angular-datetime-picker";
 
 @NgModule({
   declarations: [
@@ -46,6 +45,6 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from "@danielmoncada/angul
     TooltipComponent,
     TypeaheadComponent,
   ],
-  imports: [CommonModule, BaseRoutingModule, FormsModule, ReactiveFormsModule, NgbModule, SharedModule, OwlDateTimeModule, OwlNativeDateTimeModule],
+  imports: [CommonModule, BaseRoutingModule, FormsModule, ReactiveFormsModule, NgbModule, SharedModule],
 })
 export class BaseModule {}

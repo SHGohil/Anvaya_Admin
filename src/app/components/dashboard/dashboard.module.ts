@@ -8,7 +8,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule } from "@angular/forms";
 import { SharedModule } from "../../shared/shared.module";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
-import { GoogleMapsModule } from "@angular/google-maps";
 
 import { DefaultComponent } from "./default/default.component";
 import { EcommerceComponent } from "./ecommerce/ecommerce.component";
@@ -148,7 +147,7 @@ import { Ng2GoogleChartsModule } from "ng2-google-charts";
     CoursesComponent,
     SaleStatusComponent,
   ],
-  imports: [CommonModule,Ng2GoogleChartsModule, ChartistModule, CarouselModule, NgChartsModule, NgApexchartsModule, SharedModule, GoogleMapsModule, NgbModule, FormsModule, DashboardRoutingModule],
+  imports: [CommonModule,Ng2GoogleChartsModule, ChartistModule, CarouselModule, NgChartsModule, NgApexchartsModule, SharedModule, NgbModule, FormsModule, DashboardRoutingModule],
   exports: [
     CoinComponent,
     ProductStatusChartBoxComponent,
