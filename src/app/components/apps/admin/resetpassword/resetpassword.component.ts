@@ -16,8 +16,6 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
   showPassword1:any;
   public show: boolean = false;
   resetForm: any;
-  private passwordValueChangesSubscription: Subscription;
-  private confirmPasswordValueChangesSubscription: Subscription;
   private isFormValidating: boolean = false;
   userid: any;
 
@@ -79,9 +77,10 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
     return password.value === confirmPassword.value ? null : { 'passwordMismatch': true };
   };
   ngOnDestroy() {
-    // Unsubscribe from valueChanges to avoid memory leaks
-    this.passwordValueChangesSubscription.unsubscribe();
-    this.confirmPasswordValueChangesSubscription.unsubscribe();
+    // These two fields were declared but never assigned, so this method threw
+    // "Cannot read properties of undefined (reading 'unsubscribe')" every time
+    // the user navigated away from this page. There is nothing to clean up:
+    // the form is built with FormBuilder and nothing subscribes to valueChanges.
   }
 
   showPassword() {

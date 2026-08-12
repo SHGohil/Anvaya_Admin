@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, HostListener } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { Menu, NavService } from '../../services/nav.service';
 import { LayoutService } from '../../services/layout.service';
@@ -24,10 +25,24 @@ export class SidebarComponent {
 
   constructor(private router: Router, public navServices: NavService,
     public layout: LayoutService) {
-    this.navServices.items.subscribe(menuItems => {
-      this.menuItems = menuItems;
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
+    // Both streams are long-lived: navServices.items is a BehaviorSubject and
+    // router.events never completes. takeUntilDestroyed ends them with the
+    // component.
+    //
+    // These used to be nested, so every emission of `items` opened another
+    // router.events subscription and none were ever closed - the leak
+    // compounded with each menu change. They are now independent.
+    this.navServices.items
+      .pipe(takeUntilDestroyed())
+      .subscribe(menuItems => {
+        this.menuItems = menuItems;
+      });
+
+    this.router.events
+      .pipe(takeUntilDestroyed())
+      .subscribe((event) => {
+        const menuItems = this.menuItems;
+        if (menuItems && event instanceof NavigationEnd) {
           menuItems.filter(items => {
             if (items.path === event.url) {
               this.setNavActive(items);
@@ -47,8 +62,6 @@ export class SidebarComponent {
           });
         }
       });
-    });
-
   }
 
   @HostListener('window:resize', ['$event'])

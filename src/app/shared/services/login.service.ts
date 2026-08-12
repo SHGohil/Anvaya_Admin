@@ -1,3 +1,4 @@
+import { skipGlobalErrorDialog } from '../interceptors/http-error.context';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -21,6 +22,6 @@ export class LoginService {
     return this.http.post(url, {
       username: loginDetails.email,
       password: loginDetails.password
-    });
+    }, { context: skipGlobalErrorDialog() });
   }
 }

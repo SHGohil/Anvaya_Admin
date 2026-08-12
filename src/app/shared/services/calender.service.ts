@@ -1,4 +1,5 @@
 import { readAuthToken } from './auth-token';
+import { skipGlobalErrorDialog } from '../interceptors/http-error.context';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -16,7 +17,7 @@ export class CalenderService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     var url = environment.backendAPIURL+`/Events/${payload.eventsId}?roleId=${roleId}`
 
-    return this.http.post(url,payload, { headers, responseType: 'json' });
+    return this.http.post(url, payload, { headers, responseType: 'json', context: skipGlobalErrorDialog() });
   } 
   calenderdates(id) {
     

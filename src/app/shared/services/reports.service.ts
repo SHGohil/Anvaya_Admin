@@ -1,4 +1,5 @@
 import { readAuthToken } from './auth-token';
+import { skipGlobalErrorDialog } from '../interceptors/http-error.context';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -52,7 +53,7 @@ export class ReportsService {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   var url = environment.backendAPIURL+`/resetpassword`
 
-  return this.http.post(url, { userId, currentPassword, newPassword }, { headers, responseType: 'json' });
+  return this.http.post(url, { userId, currentPassword, newPassword }, { headers, responseType: 'json', context: skipGlobalErrorDialog() });
  }
 
  eventstartandendtime(id:any){
