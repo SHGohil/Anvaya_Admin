@@ -3,9 +3,10 @@ import { PerfectScrollbarConfigInterface} from 'ngx-perfect-scrollbar';
 
 
 @Component({
-  selector: 'app-scrollable',
-  templateUrl: './scrollable.component.html',
-  styleUrls: ['./scrollable.component.scss']
+    selector: 'app-scrollable',
+    templateUrl: './scrollable.component.html',
+    styleUrls: ['./scrollable.component.scss'],
+    standalone: false
 })
 export class ScrollableComponent implements OnInit {
   public disabled: boolean = false;

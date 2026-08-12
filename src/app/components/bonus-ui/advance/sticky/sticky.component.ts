@@ -6,9 +6,10 @@ export interface Notes {
   isDeleted: boolean
 }
 @Component({
-  selector: 'app-sticky',
-  templateUrl: './sticky.component.html',
-  styleUrls: ['./sticky.component.scss']
+    selector: 'app-sticky',
+    templateUrl: './sticky.component.html',
+    styleUrls: ['./sticky.component.scss'],
+    standalone: false
 })
 export class StickyComponent implements OnInit {
   public notes: Notes[] = data.sticky;

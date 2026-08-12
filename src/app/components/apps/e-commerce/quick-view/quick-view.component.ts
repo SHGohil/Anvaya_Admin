@@ -3,9 +3,10 @@ import { NavigationEnd, Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: "app-quick-view",
-  templateUrl: "./quick-view.component.html",
-  styleUrls: ["./quick-view.component.scss"],
+    selector: "app-quick-view",
+    templateUrl: "./quick-view.component.html",
+    styleUrls: ["./quick-view.component.scss"],
+    standalone: false
 })
 export class QuickViewComponent implements OnInit {
   public counter: number = 1;

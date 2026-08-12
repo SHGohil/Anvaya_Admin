@@ -36,9 +36,10 @@ import { ORDERHISTORY } from '../../../../shared/data/tables/order-history';
 // ];
 
 @Component({
-  selector: 'app-order-history',
-  templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.scss']
+    selector: 'app-order-history',
+    templateUrl: './order-history.component.html',
+    styleUrls: ['./order-history.component.scss'],
+    standalone: false
 })
 export class OrderHistoryComponent implements OnInit {
 

@@ -6,10 +6,11 @@ import { NavService } from '../../../services/nav.service';
 import { fadeInAnimation } from '../../../data/router-animation/router-animation';
 
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss'],
-  animations: [fadeInAnimation]
+    selector: 'app-content',
+    templateUrl: './content.component.html',
+    styleUrls: ['./content.component.scss'],
+    animations: [fadeInAnimation],
+    standalone: false
 })
 export class ContentComponent implements OnInit, AfterViewInit {
   

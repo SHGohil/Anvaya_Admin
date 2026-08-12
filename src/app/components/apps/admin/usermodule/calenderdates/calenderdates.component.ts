@@ -10,9 +10,10 @@ import { Modal } from 'bootstrap';
 import { ReportsService } from '../../../../../shared/services/reports.service';
 
 @Component({
-  selector: 'app-calenderdates',
-  templateUrl: './calenderdates.component.html',
-  styleUrls: ['./calenderdates.component.scss']
+    selector: 'app-calenderdates',
+    templateUrl: './calenderdates.component.html',
+    styleUrls: ['./calenderdates.component.scss'],
+    standalone: false
 })
 export class CalenderdatesComponent implements OnInit {
   showedit =false;

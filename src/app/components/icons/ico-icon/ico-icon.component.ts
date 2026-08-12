@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-ico-icon',
-  templateUrl: './ico-icon.component.html',
-  styleUrls: ['./ico-icon.component.scss']
+    selector: 'app-ico-icon',
+    templateUrl: './ico-icon.component.html',
+    styleUrls: ['./ico-icon.component.scss'],
+    standalone: false
 })
 export class IcoIconComponent implements OnInit {
   public detail: boolean = false;

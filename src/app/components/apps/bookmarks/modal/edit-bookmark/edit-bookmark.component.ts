@@ -3,9 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-edit-bookmark',
-  templateUrl: './edit-bookmark.component.html',
-  styleUrls: ['./edit-bookmark.component.scss']
+    selector: 'app-edit-bookmark',
+    templateUrl: './edit-bookmark.component.html',
+    styleUrls: ['./edit-bookmark.component.scss'],
+    standalone: false
 })
 export class EditBookmarkComponent implements OnInit, OnDestroy {
 

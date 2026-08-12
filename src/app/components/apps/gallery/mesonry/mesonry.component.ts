@@ -2,9 +2,10 @@ import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, OnInit } from '
 import { NgxMasonryComponent, NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
-  selector: 'app-mesonry',
-  templateUrl: './mesonry.component.html',
-  styleUrls: ['./mesonry.component.scss']
+    selector: 'app-mesonry',
+    templateUrl: './mesonry.component.html',
+    styleUrls: ['./mesonry.component.scss'],
+    standalone: false
 })
 export class MesonryComponent implements OnInit {
 

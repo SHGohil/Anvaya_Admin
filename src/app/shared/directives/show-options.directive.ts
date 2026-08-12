@@ -1,7 +1,8 @@
 import { Directive, Renderer2, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appShowOptions]'
+    selector: '[appShowOptions]',
+    standalone: false
 })
 export class ShowOptionsDirective {
 

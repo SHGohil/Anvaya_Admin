@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-unlock-user',
-  templateUrl: './unlock-user.component.html',
-  styleUrls: ['./unlock-user.component.scss']
+    selector: 'app-unlock-user',
+    templateUrl: './unlock-user.component.html',
+    styleUrls: ['./unlock-user.component.scss'],
+    standalone: false
 })
 export class UnlockUserComponent implements OnInit {
 

@@ -9,9 +9,10 @@ export interface Task {
 }
 
 @Component({
-  selector: "app-todo",
-  templateUrl: "./todo.component.html",
-  styleUrls: ["./todo.component.scss"],
+    selector: "app-todo",
+    templateUrl: "./todo.component.html",
+    styleUrls: ["./todo.component.scss"],
+    standalone: false
 })
 export class TodoComponent implements OnInit {
   public d = new Date();

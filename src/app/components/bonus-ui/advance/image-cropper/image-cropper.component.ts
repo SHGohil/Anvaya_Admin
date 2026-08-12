@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ImageTransform, ImageCroppedEvent, base64ToFile, Dimensions } from 'ngx-image-cropper';
 
 @Component({
-  selector: 'app-image-cropper',
-  templateUrl: './image-cropper.component.html',
-  styleUrls: ['./image-cropper.component.scss']
+    selector: 'app-image-cropper',
+    templateUrl: './image-cropper.component.html',
+    styleUrls: ['./image-cropper.component.scss'],
+    standalone: false
 })
 export class ImageCropperComponent {
   imageChangedEvent: any = '';

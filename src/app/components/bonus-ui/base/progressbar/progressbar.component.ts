@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-progressbar',
-  templateUrl: './progressbar.component.html',
-  styleUrls: ['./progressbar.component.scss']
+    selector: 'app-progressbar',
+    templateUrl: './progressbar.component.html',
+    styleUrls: ['./progressbar.component.scss'],
+    standalone: false
 })
 export class ProgressbarComponent implements OnInit {
 

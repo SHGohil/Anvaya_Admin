@@ -3,9 +3,10 @@ import * as L from 'leaflet';
 import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-leaflet-map',
-  templateUrl: './leaflet-map.component.html',
-  styleUrls: ['./leaflet-map.component.scss']
+    selector: 'app-leaflet-map',
+    templateUrl: './leaflet-map.component.html',
+    styleUrls: ['./leaflet-map.component.scss'],
+    standalone: false
 })
 export class LeafletMapComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-register-simple',
-  templateUrl: './simple.component.html',
-  styleUrls: ['./simple.component.scss']
+    selector: 'app-register-simple',
+    templateUrl: './simple.component.html',
+    styleUrls: ['./simple.component.scss'],
+    standalone: false
 })
 export class RegisterSimpleComponent implements OnInit {
 

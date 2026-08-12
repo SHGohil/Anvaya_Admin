@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JobDB } from '../../../../shared/data/job-search/job-search';
 
 @Component({
-  selector: 'app-job-desc',
-  templateUrl: './job-desc.component.html',
-  styleUrls: ['./job-desc.component.scss']
+    selector: 'app-job-desc',
+    templateUrl: './job-desc.component.html',
+    styleUrls: ['./job-desc.component.scss'],
+    standalone: false
 })
 export class JobDescComponent implements OnInit {
 

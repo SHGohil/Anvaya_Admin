@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-error503',
-  templateUrl: './error503.component.html',
-  styleUrls: ['./error503.component.scss']
+    selector: 'app-error503',
+    templateUrl: './error503.component.html',
+    styleUrls: ['./error503.component.scss'],
+    standalone: false
 })
 export class Error503Component implements OnInit {
 

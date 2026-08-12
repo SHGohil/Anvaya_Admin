@@ -3,9 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-create-task-tag',
-  templateUrl: './create-tag.component.html',
-  styleUrls: ['./create-tag.component.scss']
+    selector: 'app-create-task-tag',
+    templateUrl: './create-tag.component.html',
+    styleUrls: ['./create-tag.component.scss'],
+    standalone: false
 })
 export class CreateTagComponent implements OnInit, OnDestroy {
 

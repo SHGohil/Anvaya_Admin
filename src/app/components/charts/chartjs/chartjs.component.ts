@@ -3,10 +3,11 @@ import { ChartType } from 'chart.js';
 import * as chartData from '../../../shared/data/chart/chartjs';
 
 @Component({
-  selector: 'app-chartjs',
-  templateUrl: './chartjs.component.html',
-  styleUrls: ['./chartjs.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-chartjs',
+    templateUrl: './chartjs.component.html',
+    styleUrls: ['./chartjs.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ChartjsComponent {
 

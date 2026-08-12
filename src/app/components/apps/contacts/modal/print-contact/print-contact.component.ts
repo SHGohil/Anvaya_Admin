@@ -3,9 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-print-contact',
-  templateUrl: './print-contact.component.html',
-  styleUrls: ['./print-contact.component.scss']
+    selector: 'app-print-contact',
+    templateUrl: './print-contact.component.html',
+    styleUrls: ['./print-contact.component.scss'],
+    standalone: false
 })
 export class PrintContactComponent implements OnInit, OnDestroy {
 

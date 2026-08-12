@@ -3,9 +3,10 @@ import { UntypedFormControl } from '@angular/forms';
 import { NgbTimeStruct, NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-timepicker',
-  templateUrl: './timepicker.component.html',
-  styleUrls: ['./timepicker.component.scss']
+    selector: 'app-timepicker',
+    templateUrl: './timepicker.component.html',
+    styleUrls: ['./timepicker.component.scss'],
+    standalone: false
 })
 export class TimepickerComponent implements OnInit  {
   

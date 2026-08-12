@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-tabbed',
-  templateUrl: './tabbed.component.html',
-  styleUrls: ['./tabbed.component.scss']
+    selector: 'app-tabbed',
+    templateUrl: './tabbed.component.html',
+    styleUrls: ['./tabbed.component.scss'],
+    standalone: false
 })
 export class TabbedComponent {
   

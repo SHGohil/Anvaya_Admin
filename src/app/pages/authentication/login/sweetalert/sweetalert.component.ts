@@ -4,9 +4,10 @@ declare var require
 const Swal = require('sweetalert2')
 
 @Component({
-  selector: 'app-login-sweetalert',
-  templateUrl: './sweetalert.component.html',
-  styleUrls: ['./sweetalert.component.scss']
+    selector: 'app-login-sweetalert',
+    templateUrl: './sweetalert.component.html',
+    styleUrls: ['./sweetalert.component.scss'],
+    standalone: false
 })
 export class SweetalertComponent implements OnInit {
 

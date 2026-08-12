@@ -4,9 +4,10 @@ import { AddCategoryComponent } from "./modal/add-category/add-category.componen
 import { PrintContactComponent } from "./modal/print-contact/print-contact.component";
 
 @Component({
-  selector: 'app-contacts',
-  templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.scss']
+    selector: 'app-contacts',
+    templateUrl: './contacts.component.html',
+    styleUrls: ['./contacts.component.scss'],
+    standalone: false
 })
 export class ContactsComponent implements OnInit {
 

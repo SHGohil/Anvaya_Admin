@@ -2,10 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-font-awesome-icon',
-  templateUrl: './font-awesome-icon.component.html',
-  styleUrls: ['./font-awesome-icon.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-font-awesome-icon',
+    templateUrl: './font-awesome-icon.component.html',
+    styleUrls: ['./font-awesome-icon.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class FontAwesomeIconComponent implements OnInit {
   public detail : boolean =false;

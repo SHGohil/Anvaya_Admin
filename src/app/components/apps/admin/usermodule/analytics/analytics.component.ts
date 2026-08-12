@@ -2,9 +2,10 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TodaysqueryService } from 'src/app/shared/services/todaysquery.service';
 
 @Component({
-  selector: 'app-analytics',
-  templateUrl: './analytics.component.html',
-  styleUrls: ['./analytics.component.scss']
+    selector: 'app-analytics',
+    templateUrl: './analytics.component.html',
+    styleUrls: ['./analytics.component.scss'],
+    standalone: false
 })
 export class AnalyticsComponent implements OnInit {
   primary_color = "#F3C37C";

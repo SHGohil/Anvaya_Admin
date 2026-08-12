@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-owl-carousel',
-  templateUrl: './owl-carousel.component.html',
-  styleUrls: ['./owl-carousel.component.scss']
+    selector: 'app-owl-carousel',
+    templateUrl: './owl-carousel.component.html',
+    styleUrls: ['./owl-carousel.component.scss'],
+    standalone: false
 })
 export class OwlCarouselComponent implements OnInit {
 

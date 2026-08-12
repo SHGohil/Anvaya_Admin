@@ -2,8 +2,8 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'ngbd-modal-content',
-  template: `
+    selector: 'ngbd-modal-content',
+    template: `
     <div class="modal-header">
       <h4 class="modal-title">Hi there!</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -16,7 +16,8 @@ import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
     </div>
-  `
+  `,
+    standalone: false
 })
 export class NgbdModalContent {
   @Input() name;
@@ -24,7 +25,7 @@ export class NgbdModalContent {
 }
 
 @Component({
-  template: `
+    template: `
     <div class="modal-header">
       <h4 class="modal-title">Hi there!</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -38,7 +39,8 @@ export class NgbdModalContent {
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
     </div>
-  `
+  `,
+    standalone: false
 })
 export class NgbdModal1Content {
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
@@ -51,7 +53,7 @@ export class NgbdModal1Content {
 }
 
 @Component({
-  template: `
+    template: `
     <div class="modal-header">
       <h4 class="modal-title">Hi there!</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -64,18 +66,20 @@ export class NgbdModal1Content {
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
     </div>
-  `
+  `,
+    standalone: false
 })
 export class NgbdModal2Content {
   constructor(public activeModal: NgbActiveModal) {}
 }
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    providers: [NgbModalConfig, NgbModal],
+    standalone: false
 })
 export class ModalComponent implements OnInit {
 

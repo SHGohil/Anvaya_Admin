@@ -4,9 +4,10 @@ import { JobDB } from '../../../../shared/data/job-search/job-search';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-job-apply',
-  templateUrl: './job-apply.component.html',
-  styleUrls: ['./job-apply.component.scss']
+    selector: 'app-job-apply',
+    templateUrl: './job-apply.component.html',
+    styleUrls: ['./job-apply.component.scss'],
+    standalone: false
 })
 export class JobApplyComponent implements OnInit {
 

@@ -5,9 +5,10 @@ import { FormBuilder } from '@angular/forms';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-changerequest',
-  templateUrl: './changerequest.component.html',
-  styleUrls: ['./changerequest.component.scss']
+    selector: 'app-changerequest',
+    templateUrl: './changerequest.component.html',
+    styleUrls: ['./changerequest.component.scss'],
+    standalone: false
 })
 export class ChangerequestComponent implements OnInit {
   changerequestdata: Object;

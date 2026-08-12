@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-material-tab-color',
-  templateUrl: './material-tab-color.component.html',
-  styleUrls: ['./material-tab-color.component.scss']
+    selector: 'app-material-tab-color',
+    templateUrl: './material-tab-color.component.html',
+    styleUrls: ['./material-tab-color.component.scss'],
+    standalone: false
 })
 export class MaterialTabColorComponent implements OnInit {
 

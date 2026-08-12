@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NavService, Menu } from "../../../../services/nav.service";
 
 @Component({
-  selector: "app-search",
-  templateUrl: "./search.component.html",
-  styleUrls: ["./search.component.scss"],
+    selector: "app-search",
+    templateUrl: "./search.component.html",
+    styleUrls: ["./search.component.scss"],
+    standalone: false
 })
 export class SearchComponent implements OnInit {
   public menuItems: Menu[];

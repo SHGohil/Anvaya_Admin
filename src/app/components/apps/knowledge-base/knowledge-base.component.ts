@@ -3,9 +3,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { KB_DB } from '../../../shared/data/knowledge-base/knowledge-base';
 
 @Component({
-  selector: 'app-knowledge-base',
-  templateUrl: './knowledge-base.component.html',
-  styleUrls: ['./knowledge-base.component.scss']
+    selector: 'app-knowledge-base',
+    templateUrl: './knowledge-base.component.html',
+    styleUrls: ['./knowledge-base.component.scss'],
+    standalone: false
 })
 export class KnowledgeBaseComponent implements OnInit {
 

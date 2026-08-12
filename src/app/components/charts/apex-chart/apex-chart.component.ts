@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import * as chartData from './../../../shared/data/chart/apex';
 
 @Component({
-  selector: 'app-apex-chart',
-  templateUrl: './apex-chart.component.html',
-  styleUrls: ['./apex-chart.component.scss']
+    selector: 'app-apex-chart',
+    templateUrl: './apex-chart.component.html',
+    styleUrls: ['./apex-chart.component.scss'],
+    standalone: false
 })
 export class ApexChartComponent implements OnInit {
   

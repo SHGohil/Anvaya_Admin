@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-clipboard',
-  templateUrl: './clipboard.component.html',
-  styleUrls: ['./clipboard.component.scss']
+    selector: 'app-clipboard',
+    templateUrl: './clipboard.component.html',
+    styleUrls: ['./clipboard.component.scss'],
+    standalone: false
 })
 export class ClipboardComponent implements OnInit {
 

@@ -3,10 +3,11 @@ import {UntypedFormControl, Validators} from '@angular/forms';
 
 
 @Component({
-  selector: 'app-rating',
-  templateUrl: './rating.component.html',
-  styleUrls: ['./rating.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-rating',
+    templateUrl: './rating.component.html',
+    styleUrls: ['./rating.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class RatingComponent implements OnInit {   
   

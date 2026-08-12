@@ -20,10 +20,11 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'app-calender',
-  templateUrl: './calender.component.html',
-  styleUrls: ['./calender.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-calender',
+    templateUrl: './calender.component.html',
+    styleUrls: ['./calender.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class CalenderComponent {
 

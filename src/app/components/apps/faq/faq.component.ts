@@ -3,9 +3,10 @@ import * as accordion from '../../../shared/data/faq/accordion'
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-faq',
-  templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss'],
+    selector: 'app-faq',
+    templateUrl: './faq.component.html',
+    styleUrls: ['./faq.component.scss'],
+    standalone: false
 })
 export class FaqComponent implements OnInit {
 

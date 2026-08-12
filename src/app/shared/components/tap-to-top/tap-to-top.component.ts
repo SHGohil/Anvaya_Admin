@@ -2,9 +2,10 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 
 @Component({
-  selector: 'app-tap-to-top',
-  templateUrl: './tap-to-top.component.html',
-  styleUrls: ['./tap-to-top.component.scss']
+    selector: 'app-tap-to-top',
+    templateUrl: './tap-to-top.component.html',
+    styleUrls: ['./tap-to-top.component.scss'],
+    standalone: false
 })
 export class TapToTopComponent implements OnInit {
   

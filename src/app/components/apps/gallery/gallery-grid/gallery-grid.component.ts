@@ -3,10 +3,11 @@ import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '
 import { Lightbox } from 'ng-gallery/lightbox';
 
 @Component({
-  selector: 'app-gallery-grid',
-  templateUrl: './gallery-grid.component.html',
-  styleUrls: ['./gallery-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-gallery-grid',
+    templateUrl: './gallery-grid.component.html',
+    styleUrls: ['./gallery-grid.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class GalleryGridComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-color-option',
-  templateUrl: './color-option.component.html',
-  styleUrls: ['./color-option.component.scss']
+    selector: 'app-color-option',
+    templateUrl: './color-option.component.html',
+    styleUrls: ['./color-option.component.scss'],
+    standalone: false
 })
 export class ColorOptionComponent implements OnInit {
 

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-tabset',
-  templateUrl: './tabset.component.html',
-  styleUrls: ['./tabset.component.scss']
+    selector: 'app-tabset',
+    templateUrl: './tabset.component.html',
+    styleUrls: ['./tabset.component.scss'],
+    standalone: false
 })
 export class TabsetComponent implements OnInit {
 

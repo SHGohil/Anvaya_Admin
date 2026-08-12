@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { JobDB } from '../../../../shared/data/job-search/job-search';
 
 @Component({
-  selector: 'app-job-list',
-  templateUrl: './job-list.component.html',
-  styleUrls: ['./job-list.component.scss']
+    selector: 'app-job-list',
+    templateUrl: './job-list.component.html',
+    styleUrls: ['./job-list.component.scss'],
+    standalone: false
 })
 export class JobListComponent implements OnInit {
 

@@ -3,9 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {YourServiceName } from '../../../../shared/services/notification.service'
 @Component({
-  selector: 'app-usernotification',
-  templateUrl: './usernotification.component.html',
-  styleUrls: ['./usernotification.component.scss']
+    selector: 'app-usernotification',
+    templateUrl: './usernotification.component.html',
+    styleUrls: ['./usernotification.component.scss'],
+    standalone: false
 })
 export class UsernotificationComponent {
   usernotificationData: any;

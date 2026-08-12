@@ -5,9 +5,10 @@ import { SpecialdatesService } from 'src/app/shared/services/specialdates.servic
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-specialdates',
-  templateUrl: './specialdates.component.html',
-  styleUrls: ['./specialdates.component.scss']
+    selector: 'app-specialdates',
+    templateUrl: './specialdates.component.html',
+    styleUrls: ['./specialdates.component.scss'],
+    standalone: false
 })
 export class SpecialdatesComponent implements OnInit {
   loginid: any;

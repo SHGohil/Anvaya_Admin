@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-login-tool-tip',
-  templateUrl: './tool-tip.component.html',
-  styleUrls: ['./tool-tip.component.scss']
+    selector: 'app-login-tool-tip',
+    templateUrl: './tool-tip.component.html',
+    styleUrls: ['./tool-tip.component.scss'],
+    standalone: false
 })
 export class ToolTipComponent implements OnInit {
 

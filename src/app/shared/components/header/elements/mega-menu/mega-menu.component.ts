@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../../../services/nav.service';
 
 @Component({
-  selector: 'app-mega-menu',
-  templateUrl: './mega-menu.component.html',
-  styleUrls: ['./mega-menu.component.scss']
+    selector: 'app-mega-menu',
+    templateUrl: './mega-menu.component.html',
+    styleUrls: ['./mega-menu.component.scss'],
+    standalone: false
 })
 export class MegaMenuComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-select2',
-  templateUrl: './select2.component.html',
-  styleUrls: ['./select2.component.scss']
+    selector: 'app-select2',
+    templateUrl: './select2.component.html',
+    styleUrls: ['./select2.component.scss'],
+    standalone: false
 })
 export class Select2Component implements OnInit {
   public defaultBindingsList = [

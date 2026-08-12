@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-themify-icon',
-  templateUrl: './themify-icon.component.html',
-  styleUrls: ['./themify-icon.component.scss']
+    selector: 'app-themify-icon',
+    templateUrl: './themify-icon.component.html',
+    styleUrls: ['./themify-icon.component.scss'],
+    standalone: false
 })
 export class ThemifyIconComponent implements OnInit {
   public detail: boolean = false;

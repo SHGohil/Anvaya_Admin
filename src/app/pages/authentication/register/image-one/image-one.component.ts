@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-register-image-one',
-  templateUrl: './image-one.component.html',
-  styleUrls: ['./image-one.component.scss']
+    selector: 'app-register-image-one',
+    templateUrl: './image-one.component.html',
+    styleUrls: ['./image-one.component.scss'],
+    standalone: false
 })
 export class RegisterImageOneComponent implements OnInit {
 

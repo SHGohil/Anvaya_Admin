@@ -3,9 +3,10 @@ import { ChatUsers } from '../../../../shared/model/chat.model';
 import { ChatService } from '../../../../shared/services/chat.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+    selector: 'app-chat',
+    templateUrl: './chat.component.html',
+    styleUrls: ['./chat.component.scss'],
+    standalone: false
 })
 export class ChatComponent implements OnInit {
   

@@ -2,11 +2,12 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { NgbPaginationConfig } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: "app-pagination",
-  templateUrl: "./pagination.component.html",
-  styleUrls: ["./pagination.component.scss"],
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbPaginationConfig], // add NgbPaginationConfig to the component providers
+    selector: "app-pagination",
+    templateUrl: "./pagination.component.html",
+    styleUrls: ["./pagination.component.scss"],
+    encapsulation: ViewEncapsulation.None,
+    providers: [NgbPaginationConfig],
+    standalone: false
 })
 export class PaginationComponent implements OnInit {
   paginationSide = ["start", "center", "end"];

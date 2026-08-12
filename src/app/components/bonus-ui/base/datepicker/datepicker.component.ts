@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: "app-datepicker",
-  templateUrl: "./datepicker.component.html",
-  styleUrls: ["./datepicker.component.scss"],
+    selector: "app-datepicker",
+    templateUrl: "./datepicker.component.html",
+    styleUrls: ["./datepicker.component.scss"],
+    standalone: false
 })
 export class DatepickerComponent implements OnInit {
   model: NgbDateStruct;

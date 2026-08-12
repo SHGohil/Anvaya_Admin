@@ -3,9 +3,10 @@ import { Router } from "@angular/router";
 import { clippingParents } from "@popperjs/core";
 
 @Component({
-  selector: "app-my-account",
-  templateUrl: "./my-account.component.html",
-  styleUrls: ["./my-account.component.scss"],
+    selector: "app-my-account",
+    templateUrl: "./my-account.component.html",
+    styleUrls: ["./my-account.component.scss"],
+    standalone: false
 })
 export class MyAccountComponent implements OnInit {
   public userName: string;

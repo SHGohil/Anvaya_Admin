@@ -2,10 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as chartData from '../../../shared/data/chart/chartist';
 
 @Component({
-  selector: 'app-chartist',
-  templateUrl: './chartist.component.html',
-  styleUrls: ['./chartist.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-chartist',
+    templateUrl: './chartist.component.html',
+    styleUrls: ['./chartist.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ChartistComponent {
 

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 @Component({
-  selector: 'app-social-app',
-  templateUrl: './social-app.component.html',
-  styleUrls: ['./social-app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-social-app',
+    templateUrl: './social-app.component.html',
+    styleUrls: ['./social-app.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SocialAppComponent implements OnInit {
   

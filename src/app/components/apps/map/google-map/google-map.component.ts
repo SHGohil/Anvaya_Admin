@@ -3,9 +3,10 @@ import { MapMarker, GoogleMap, MapInfoWindow } from '@angular/google-maps';
 // import { MouseEvent } from '@agm/core';
 
 @Component({
-  selector: 'app-google-map',
-  templateUrl: './google-map.component.html',
-  styleUrls: ['./google-map.component.scss']
+    selector: 'app-google-map',
+    templateUrl: './google-map.component.html',
+    styleUrls: ['./google-map.component.scss'],
+    standalone: false
 })
 
 export class GoogleMapComponent implements OnInit {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-touchspin',
-  templateUrl: './touchspin.component.html',
-  styleUrls: ['./touchspin.component.scss']
+    selector: 'app-touchspin',
+    templateUrl: './touchspin.component.html',
+    styleUrls: ['./touchspin.component.scss'],
+    standalone: false
 })
 export class TouchspinComponent implements OnInit {
   public counter: number[] = [40, 55, 40, 40, 40, 20, 40, 50.00, 40, 40, 50, 50, 40, 60, 40];

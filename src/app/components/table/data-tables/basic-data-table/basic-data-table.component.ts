@@ -5,9 +5,10 @@ import { TableService } from 'src/app/shared/services/table.service';
 import { COMPANYDB, CompanyDB } from '../../../../shared/data/tables/company';
 
 @Component({
-  selector: 'app-basic-data-table',
-  templateUrl: './basic-data-table.component.html',
-  styleUrls: ['./basic-data-table.component.scss']
+    selector: 'app-basic-data-table',
+    templateUrl: './basic-data-table.component.html',
+    styleUrls: ['./basic-data-table.component.scss'],
+    standalone: false
 })
 
 export class BasicDataTableComponent implements OnInit {

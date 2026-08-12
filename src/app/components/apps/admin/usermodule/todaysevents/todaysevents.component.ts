@@ -3,9 +3,10 @@ import {TodaysqueryService} from './../../../../../shared/services/todaysquery.s
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
-  selector: 'app-todaysevents',
-  templateUrl: './todaysevents.component.html',
-  styleUrls: ['./todaysevents.component.scss']
+    selector: 'app-todaysevents',
+    templateUrl: './todaysevents.component.html',
+    styleUrls: ['./todaysevents.component.scss'],
+    standalone: false
 })
 export class TodayseventsComponent implements OnInit {
   currentDate:string;

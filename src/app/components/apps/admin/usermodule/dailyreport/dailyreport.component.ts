@@ -9,9 +9,10 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 @Component({
-  selector: 'app-dailyreport',
-  templateUrl: './dailyreport.component.html',
-  styleUrls: ['./dailyreport.component.scss']
+    selector: 'app-dailyreport',
+    templateUrl: './dailyreport.component.html',
+    styleUrls: ['./dailyreport.component.scss'],
+    standalone: false
 })
 export class DailyreportComponent  implements OnInit {
   activeTab: string = 'all';

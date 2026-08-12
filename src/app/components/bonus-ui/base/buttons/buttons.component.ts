@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 
 @Component({
-  selector: "app-buttons",
-  templateUrl: "./buttons.component.html",
-  styleUrls: ["./buttons.component.scss"],
+    selector: "app-buttons",
+    templateUrl: "./buttons.component.html",
+    styleUrls: ["./buttons.component.scss"],
+    standalone: false
 })
 export class ButtonsComponent implements OnInit {
   public checkboxGroupForm: UntypedFormGroup;

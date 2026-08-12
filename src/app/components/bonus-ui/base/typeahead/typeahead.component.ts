@@ -92,10 +92,11 @@ export class WikipediaService {
 }
 
 @Component({
-  selector: 'app-typeahead',
-  templateUrl: './typeahead.component.html',
-  styleUrls: ['./typeahead.component.scss'],
-  providers: [WikipediaService],
+    selector: 'app-typeahead',
+    templateUrl: './typeahead.component.html',
+    styleUrls: ['./typeahead.component.scss'],
+    providers: [WikipediaService],
+    standalone: false
 })
 
 export class TypeaheadComponent implements OnInit {

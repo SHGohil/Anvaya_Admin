@@ -4,9 +4,10 @@ import * as feather from "feather-icons";
 import * as data from "../../../../shared/data/ecommerce/products";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 @Component({
-  selector: "app-product",
-  templateUrl: "./product.component.html",
-  styleUrls: ["./product.component.scss"],
+    selector: "app-product",
+    templateUrl: "./product.component.html",
+    styleUrls: ["./product.component.scss"],
+    standalone: false
 })
 export class ProductComponent implements OnInit {
   @Input("icon") public icon;

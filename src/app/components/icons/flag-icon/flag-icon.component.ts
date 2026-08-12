@@ -2,10 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-flag-icon',
-  templateUrl: './flag-icon.component.html',
-  styleUrls: ['./flag-icon.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-flag-icon',
+    templateUrl: './flag-icon.component.html',
+    styleUrls: ['./flag-icon.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class FlagIconComponent implements OnInit {
 

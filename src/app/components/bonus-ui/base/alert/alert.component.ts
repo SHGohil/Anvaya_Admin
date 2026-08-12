@@ -42,10 +42,11 @@ const ALERTS: Alert[] = [{
 ];
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-alert',
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AlertComponent implements OnInit {
 

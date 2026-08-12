@@ -3,9 +3,10 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
-  selector: 'app-accordion',
-  templateUrl: './accordion.component.html',
-  styleUrls: ['./accordion.component.scss']
+    selector: 'app-accordion',
+    templateUrl: './accordion.component.html',
+    styleUrls: ['./accordion.component.scss'],
+    standalone: false
 })
 export class AccordionComponent implements OnInit {
 

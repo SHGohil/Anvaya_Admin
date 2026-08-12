@@ -4,9 +4,10 @@ import { Email } from '../../../shared/model/email.model';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
-	selector: 'app-email',
-	templateUrl: './email.component.html',
-	styleUrls: ['./email.component.scss']
+    selector: 'app-email',
+    templateUrl: './email.component.html',
+    styleUrls: ['./email.component.scss'],
+    standalone: false
 })
 export class EmailComponent implements OnInit {
 

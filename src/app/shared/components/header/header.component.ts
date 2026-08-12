@@ -4,9 +4,10 @@ import { NavService } from "../../services/nav.service";
 import { LayoutService } from "../../services/layout.service";
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"],
+    selector: "app-header",
+    templateUrl: "./header.component.html",
+    styleUrls: ["./header.component.scss"],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   public elem: any;

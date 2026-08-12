@@ -1,7 +1,8 @@
 import { Directive, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[disableKeyPress]'
+    selector: '[disableKeyPress]',
+    standalone: false
 })
 export class DisableKeyPressDirective {
 

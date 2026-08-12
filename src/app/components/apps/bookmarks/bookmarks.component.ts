@@ -4,9 +4,10 @@ import { EditBookmarkComponent } from "./modal/edit-bookmark/edit-bookmark.compo
 import { CreateTagComponent } from "./modal/create-tag/create-tag.component";
 
 @Component({
-  selector: 'app-bookmarks',
-  templateUrl: './bookmarks.component.html',
-  styleUrls: ['./bookmarks.component.scss']
+    selector: 'app-bookmarks',
+    templateUrl: './bookmarks.component.html',
+    styleUrls: ['./bookmarks.component.scss'],
+    standalone: false
 })
 export class BookmarksComponent implements OnInit {
 

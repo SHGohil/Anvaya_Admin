@@ -2,10 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-feather-icon',
-  templateUrl: './feather-icon.component.html',
-  styleUrls: ['./feather-icon.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-feather-icon',
+    templateUrl: './feather-icon.component.html',
+    styleUrls: ['./feather-icon.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class FeatherIconComponent implements OnInit {
 

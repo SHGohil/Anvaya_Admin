@@ -3,9 +3,10 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LayoutService } from "../../services/layout.service";
 
 @Component({
-  selector: "app-customizer",
-  templateUrl: "./customizer.component.html",
-  styleUrls: ["./customizer.component.scss"],
+    selector: "app-customizer",
+    templateUrl: "./customizer.component.html",
+    styleUrls: ["./customizer.component.scss"],
+    standalone: false
 })
 export class CustomizerComponent implements OnInit {
   public screenwidth: any = window.innerWidth;

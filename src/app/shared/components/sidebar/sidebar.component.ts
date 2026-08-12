@@ -4,10 +4,11 @@ import { Menu, NavService } from '../../services/nav.service';
 import { LayoutService } from '../../services/layout.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SidebarComponent {
 

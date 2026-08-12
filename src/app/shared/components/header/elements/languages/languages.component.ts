@@ -3,9 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { NavService } from '../../../../services/nav.service';
 
 @Component({
-  selector: 'app-languages',
-  templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.scss']
+    selector: 'app-languages',
+    templateUrl: './languages.component.html',
+    styleUrls: ['./languages.component.scss'],
+    standalone: false
 })
 export class LanguagesComponent implements OnInit {
 

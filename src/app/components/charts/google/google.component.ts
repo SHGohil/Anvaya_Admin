@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import * as chartData from '../../../shared/data/chart/google-chart';
 
 @Component({
-  selector: 'app-google',
-  templateUrl: './google.component.html',
-  styleUrls: ['./google.component.scss']
+    selector: 'app-google',
+    templateUrl: './google.component.html',
+    styleUrls: ['./google.component.scss'],
+    standalone: false
 })
 export class GoogleComponent {
 

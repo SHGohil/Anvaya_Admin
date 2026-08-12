@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-login-validation',
-  templateUrl: './validation.component.html',
-  styleUrls: ['./validation.component.scss']
+    selector: 'app-login-validation',
+    templateUrl: './validation.component.html',
+    styleUrls: ['./validation.component.scss'],
+    standalone: false
 })
 export class ValidationComponent implements OnInit {
 

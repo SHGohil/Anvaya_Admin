@@ -6,10 +6,11 @@ import { TableService } from 'src/app/shared/services/table.service';
 import { supportDB,SUPPORTDB } from '../../../shared/data/tables/support-ticket';
 
 @Component({
-  selector: 'app-support-ticket',
-  templateUrl: './support-ticket.component.html',
-  styleUrls: ['./support-ticket.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-support-ticket',
+    templateUrl: './support-ticket.component.html',
+    styleUrls: ['./support-ticket.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SupportTicketComponent implements OnInit {
 

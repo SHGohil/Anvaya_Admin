@@ -3,9 +3,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 
 @Component({
-  selector: 'app-base-inputs',
-  templateUrl: './base-inputs.component.html',
-  styleUrls: ['./base-inputs.component.scss']
+    selector: 'app-base-inputs',
+    templateUrl: './base-inputs.component.html',
+    styleUrls: ['./base-inputs.component.scss'],
+    standalone: false
 })
 export class BaseInputsComponent implements OnInit {
   options$: Observable<number[]>;

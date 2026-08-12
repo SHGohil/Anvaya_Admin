@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-raised',
-  templateUrl: './raised.component.html',
-  styleUrls: ['./raised.component.scss']
+    selector: 'app-raised',
+    templateUrl: './raised.component.html',
+    styleUrls: ['./raised.component.scss'],
+    standalone: false
 })
 export class RaisedComponent implements OnInit {
 

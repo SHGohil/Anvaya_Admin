@@ -6,9 +6,10 @@ import { EventDataService } from 'src/app/shared/services/event-data.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-addquery',
-  templateUrl: './addquery.component.html',
-  styleUrls: ['./addquery.component.scss']
+    selector: 'app-addquery',
+    templateUrl: './addquery.component.html',
+    styleUrls: ['./addquery.component.scss'],
+    standalone: false
 })
 export class AddqueryComponent implements OnInit {
   venueData$:any;

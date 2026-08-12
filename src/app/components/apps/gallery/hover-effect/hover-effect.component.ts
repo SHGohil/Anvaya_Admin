@@ -2,10 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {  ButtonEvent, ButtonsConfig, ButtonsStrategy, ButtonType,  Image, KS_DEFAULT_BTN_CLOSE, KS_DEFAULT_BTN_DELETE, KS_DEFAULT_BTN_DOWNLOAD, KS_DEFAULT_BTN_EXTURL, KS_DEFAULT_BTN_FULL_SCREEN, PlainGalleryConfig, PlainGalleryStrategy } from '@ks89/angular-modal-gallery';
 
 @Component({
-  selector: 'app-hover-effect',
-  templateUrl: './hover-effect.component.html',
-  styleUrls: ['./hover-effect.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-hover-effect',
+    templateUrl: './hover-effect.component.html',
+    styleUrls: ['./hover-effect.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class HoverEffectComponent implements OnInit {
 

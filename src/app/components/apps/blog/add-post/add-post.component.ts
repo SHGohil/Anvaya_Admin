@@ -3,9 +3,10 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
-  selector: 'app-add-post',
-  templateUrl: './add-post.component.html',
-  styleUrls: ['./add-post.component.scss']
+    selector: 'app-add-post',
+    templateUrl: './add-post.component.html',
+    styleUrls: ['./add-post.component.scss'],
+    standalone: false
 })
 export class AddPostComponent implements OnInit {
 

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-dropdown',
-  templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss'],
-  providers: [NgbDropdownConfig] // add NgbDropdownConfig to the component providers
-
+    selector: 'app-dropdown',
+    templateUrl: './dropdown.component.html',
+    styleUrls: ['./dropdown.component.scss'],
+    providers: [NgbDropdownConfig] // add NgbDropdownConfig to the component providers
+    ,
+    standalone: false
 })
 export class DropdownComponent implements OnInit {
 

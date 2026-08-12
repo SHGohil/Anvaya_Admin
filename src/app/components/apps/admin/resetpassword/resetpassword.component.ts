@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-resetpassword',
-  templateUrl: './resetpassword.component.html',
-  styleUrls: ['./resetpassword.component.scss']
+    selector: 'app-resetpassword',
+    templateUrl: './resetpassword.component.html',
+    styleUrls: ['./resetpassword.component.scss'],
+    standalone: false
 })
 export class ResetpasswordComponent implements OnInit, OnDestroy {
   showPassword2:any;

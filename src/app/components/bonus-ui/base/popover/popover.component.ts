@@ -2,11 +2,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-popover',
-  templateUrl: './popover.component.html',
-  styleUrls: ['./popover.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbPopoverConfig] // add NgbPopoverConfig to the component providers
+    selector: 'app-popover',
+    templateUrl: './popover.component.html',
+    styleUrls: ['./popover.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    providers: [NgbPopoverConfig] // add NgbPopoverConfig to the component providers
+    ,
+    standalone: false
 })
 export class PopoverComponent implements OnInit {
 

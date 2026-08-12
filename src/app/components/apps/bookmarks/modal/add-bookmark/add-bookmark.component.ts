@@ -3,9 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-add-bookmark',
-  templateUrl: './add-bookmark.component.html',
-  styleUrls: ['./add-bookmark.component.scss']
+    selector: 'app-add-bookmark',
+    templateUrl: './add-bookmark.component.html',
+    styleUrls: ['./add-bookmark.component.scss'],
+    standalone: false
 })
 export class AddBookmarkComponent implements OnInit, OnDestroy {
 
