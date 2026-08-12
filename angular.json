@@ -148,18 +148,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cuba:build"
+            "buildTarget": "cuba:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cuba:build:production"
+              "buildTarget": "cuba:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cuba:build"
+            "buildTarget": "cuba:build"
           }
         },
         "test": {
