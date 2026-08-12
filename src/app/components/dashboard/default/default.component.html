@@ -1,0 +1,239 @@
+<app-breadcrumb [title]="'Dashboard'" [items]="['Dashboard']" [active_item]="'Default'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 mt-3">
+      <div class="card course-box">
+        <div class="card-body">
+          <div class="course-widget">
+            <div class="row">
+              <div class="col-4">
+                <img src="assets/images/banner/Frame 44.png" alt="" class="img-fluid">
+              </div>
+              <div class="col-8">
+                <h4>2</h4>
+                <p class="mb-0"><span>Total Customers</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mt-3">
+      <div class="card course-box">
+        <div class="card-body">
+          <div class="course-widget">
+            <div class="row">
+              <div class="col-4">
+                <img src="assets/images/banner/Frame 45.png" alt="" class="img-fluid">
+              </div>
+              <div class="col-8">
+                <h4>2</h4>
+                <p class="mb-0"><span>Total Drivers</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mt-3">
+      <div class="card course-box">
+        <div class="card-body">
+          <div class="course-widget">
+            <div class="row">
+              <div class="col-4">
+                <img src="assets/images/banner/Frame 46.png" alt="" class="img-fluid">
+              </div>
+              <div class="col-8">
+                <h4>2</h4>
+                <p class="mb-0"><span>Total Rides</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mt-3">
+      <div class="card course-box">
+        <div class="card-body">
+          <div class="course-widget">
+            <div class="row">
+              <div class="col-4">
+                <img src="assets/images/banner/Frame 47.png" alt="" class="img-fluid">
+              </div>
+              <div class="col-8">
+                <h4>2</h4>
+                <p class="mb-0"><span>Total Earning</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-lg-6 d-flex justify-content-start"> <!-- Align content to the start (left) -->
+              <h5>Ride History</h5>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-end"> <!-- Align content to the end (right) -->
+              <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" (click)="toggle()">Today</button>
+                <div class="dropdown-menu dropdown-menu-end" [class.show]="show">
+                  <a class="dropdown-item" href="#">Today</a>
+                  <a class="dropdown-item" href="#">Tomorrow</a>
+                  <a class="dropdown-item" href="#">Yesterday</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid"> <!-- Use container-fluid to make it full-width -->
+            <div class="card-header card-no-border">
+              <div  style="justify-content: center;">
+                  <ul class="nav nav-tabs custom-tab" id="myTab" role="tablist" >
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link " type="button"
+                              [ngClass]="{'active show': openTab == 'oneway'}"
+                              (click)="tabbed('oneway')">One Way</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link" type="button"
+                              [ngClass]="{'active show': openTab == 'roundTrip'}"
+                              (click)="tabbed('roundTrip')">Round Trip</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link" type="button"
+                              [ngClass]="{'active show': openTab == 'outstation'}"
+                              (click)="tabbed('outstation')">Out Station</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link" type="button"
+                              [ngClass]="{'active show': openTab == 'daily'}"
+                              (click)="tabbed('daily')">Daily</button>
+                      </li>
+                      <!-- <li class="nav-item" role="presentation">
+                          <button class="nav-link" type="button"
+                              [ngClass]="{'active show': openTab == 'Custom'}"
+                              (click)="tabbed('Custom')">Custom</button>
+                      </li> -->
+                  </ul>
+              </div>
+          </div>
+            
+            
+          </div>
+          <div class="container-fluid">
+            <div class="col-lg-6">
+              
+            </div>
+          </div>
+          
+        </div>
+        <div class="card-body">
+            <div id="activity-chart">
+               <apx-chart [series]="activityChart.series" [chart]="activityChart.chart" [plotOptions]="activityChart.plotOptions" [dataLabels]="activityChart.dataLabels" [xaxis]="activityChart.xaxis" [yaxis]="activityChart.yaxis" [grid]="activityChart.grid" [colors]="activityChart.colors" [fill]="activityChart.fill" [responsive]="activityChart.responsive"></apx-chart>
+            </div>
+  
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+              <h5>Rides</h5>
+          </div>
+          <div class="card-body chart-block p-0">
+              <div class="chart-overflow" id="pie-chart2">
+                  <google-chart [data]="pieChart2"></google-chart>
+              </div>
+          </div>
+      </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>Basic Table</h5>
+          </div>
+          <div class="card-body custom-datatable noscroll">
+            <div class="custom-datatable table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+                    <th scope="col" sortable="startDate">Date</th>
+                    <th scope="col" sortable="invoice" (sort)="onSort($event)">Invoice No.</th>
+                    <th scope="col" sortable="position" (sort)="onSort($event)">Job Designation</th>
+                    <th scope="col" sortable="credit" (sort)="onSort($event)">Credit/Debit</th>
+                    <th scope="col" sortable="office" (sort)="onSort($event)">Company Name</th>
+                    <th scope="col" sortable="salary">Priority</th>
+                    <th scope="col" sortable="Budget" (sort)="onSort($event)">Budget</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of tableItem$ | async">
+                    <td scope="row">
+                      <img class="img-40 me-2" src="{{ item.img }}" alt="" />
+                      <ngb-highlight [result]="item.name" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.startDate" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.invoice" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.position" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <span class="f-w-700 font-{{ item.iconColor }}">
+                        <i class="icofont {{ item.iconClass }}"></i>
+                        <ngb-highlight [result]="item.credit" [term]="service.searchTerm"></ngb-highlight>
+                      </span>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.office" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <span class="badge {{ item.ActionClass }}">
+                        <ngb-highlight [result]="item.salary" [term]="service.searchTerm"></ngb-highlight>
+                      </span>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.Budget" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <div class="action">
+                        <li class="edit">
+                          <a href="#"><i class="icon-pencil-alt"></i></a>
+                        </li>
+                        <li class="delete" (click)="onSelect(item.name)">
+                          <a href="#"><i class="icon-trash"></i></a>
+                        </li>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-between mt-3">
+                <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+                  <option [ngValue]="2">2 items per page</option>
+                  <option [ngValue]="4">4 items per page</option>
+                  <option [ngValue]="6">6 items per page</option>
+                </select>
+                <ngb-pagination class="ms-3" [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize"> </ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

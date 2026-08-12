@@ -1,0 +1,363 @@
+
+
+<div class="row mt-3"  >
+<div class="col-lg-6">
+    <div class="card" style="height: 82%;">
+        <div class="card-header">
+            <h5>Total Events ({{total}}) </h5>
+        </div>
+    <div class="card-body chart-block " >
+            <div id="circlechart">
+              <apx-chart [chart]="skillStatus.chart" [plotOptions]="skillStatus.plotOptions" [series]="skillStatus.series" [labels]="skillStatus.labels" [legend]="skillStatus.legend" [colors]="skillStatus.colors" [responsive]="skillStatus.responsive"></apx-chart>
+            </div>
+          
+    </div>
+    </div>
+</div>
+    <div class="col-lg-6" style="height: 81%;">
+        <div class="card">
+            <div class="card-header">
+              <div class="header-top">
+                <h5>Event Summary</h5>
+                <div class="card-header-right-icon">
+                  <div class="dropdown">
+                    <select name="" id="" class="form-control form-select" (change)="onchangeyear($event)">
+                        <option  [selected]="currentYear==year" *ngFor="let year of years" [value]="year" >{{ year }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-container progress-chart">
+                <div id="progress4">
+                    <apx-chart [chart]="openpercentage.chart" [plotOptions]="openpercentage.plotOptions" [colors]="openpercentage.colors" [stroke]="openpercentage.stroke" [fill]="openpercentage.fill" [series]="openpercentage.series" [title]="openpercentage.title" [subtitle]="openpercentage.subtitle" [tooltip]="openpercentage.tooltip" [xaxis]="openpercentage.xaxis" [yaxis]="openpercentage.yaxis" [responsive]="openpercentage.responsive"></apx-chart>
+                  </div>
+                <div id="progress1">
+                  <apx-chart [chart]="tentativepercentage.chart" [plotOptions]="tentativepercentage.plotOptions" [colors]="tentativepercentage.colors" [stroke]="tentativepercentage.stroke" [fill]="tentativepercentage.fill" [series]="tentativepercentage.series" [title]="tentativepercentage.title" [subtitle]="tentativepercentage.subtitle" [tooltip]="tentativepercentage.tooltip" [xaxis]="tentativepercentage.xaxis" [yaxis]="tentativepercentage.yaxis" [responsive]="tentativepercentage.responsive"></apx-chart>
+                </div>
+                <div id="progress2">
+                  <apx-chart [chart]="confirmedPercentage.chart" [plotOptions]="confirmedPercentage.plotOptions" [colors]="confirmedPercentage.colors" [stroke]="confirmedPercentage.stroke" [fill]="confirmedPercentage.fill" [series]="confirmedPercentage.series" [title]="confirmedPercentage.title" [subtitle]="confirmedPercentage.subtitle" [tooltip]="confirmedPercentage.tooltip" [xaxis]="confirmedPercentage.xaxis" [yaxis]="confirmedPercentage.yaxis" [responsive]="confirmedPercentage.responsive"></apx-chart>
+                </div>
+                <div id="progress3">
+                  <apx-chart [chart]="lostPercentage.chart" [plotOptions]="lostPercentage.plotOptions" [colors]="lostPercentage.colors" [stroke]="lostPercentage.stroke" [fill]="lostPercentage.fill" [series]="lostPercentage.series" [title]="lostPercentage.title" [subtitle]="lostPercentage.subtitle" [tooltip]="lostPercentage.tooltip" [xaxis]="lostPercentage.xaxis" [yaxis]="lostPercentage.yaxis" [responsive]="lostPercentage.responsive"></apx-chart>
+                </div>
+              
+               
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-3">
+        <label for="eventTypeId">Sales Executive </label>
+        <select class="form-select" #seletedValue [(ngModel)]="seleted_value"
+            (change)="onNameChange($event.target.value)">
+            <option value=""> Select Sales Executive </option>
+            <option *ngFor="let item of uniqueNames" [value]="item">{{ item }}</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="eventTypeId">Start Date</label>
+        <input class="form-control" type="date" id="eventDate" [(ngModel)]="startDate"
+            style="background-color: transparent;">
+    </div>
+    <div class="col-md-2">
+        <label for="eventTypeId">End Date</label>
+        <input class="form-control" type="date" id="eventDate" [(ngModel)]="endDate"
+            style="background-color: transparent;">
+    </div>
+    <div class="col-md-3" style="margin-top: 2rem;">
+        <button class="btn btn-sm btn-primary me-2" (click)="filterData()">Search</button>
+        <button class="btn btn-sm btn-Danger" (click)="clearFilter()"
+            style="background-color: rgb(139, 7, 7);">Clear</button>
+    </div>
+    <div class="col-md-2 text-end" style="margin-top: 2rem;">
+        <button class="btn btn-sm btn-primary" (click)="exportToExcel()">Export to Excel</button>
+    </div>
+</div>
+<nav class="nav nav-pills flex-column flex-sm-row" style="border:1px solid #EEDAC9;background-color: #FCF4EE;border-radius: 7px;">
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')" [style.color]="activeTab === 'all' ? '#ffffff' : '#b66623'">Queries</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')" [style.color]="activeTab === 'confirmed' ? '#ffffff' : '#b66623'">Confirmed</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')" [style.color]="activeTab === 'tentative' ? '#ffffff' : '#b66623'">Tentative</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'lost'" (click)="setActiveTab('lost')" [style.color]="activeTab === 'lost' ? '#ffffff' : '#b66623'">Lost</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'history'" (click)="setActiveTab('history')" [style.color]="activeTab === 'history' ? '#ffffff' : '#b66623'">History</a>
+</nav>
+
+<div class="container-fluid d-flex justify-content-center align-items-center mt-5 "  *ngIf=" reportdata==null||reportdata.length === 0">
+    <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
+  </div>
+<div class="row mt-4" *ngIf="reportdata" >
+    <div class="col-lg-12" *ngFor="let item of reportdata">
+        <div class="card card_hover" style="border: 1px solid #E1E6EF; cursor: pointer;" (click)="onviewdeails(item,content)">
+            <div class="card-header"
+                style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
+                <div class="row" style="line-height: 1;">
+                    <div class="col-3 text-left">
+                        <p class="eventvenuename" ><strong>{{item.createdByName}}</strong> &nbsp;<span *ngIf="activeTab === 'all'||activeTab === 'tentative'" class="badge" style="background-color: #b66623 ; color:#ffffff ;">{{ noofdays(item.createdDate) }} days</span></p>
+                    </div>
+                    <div class="col-3 text-left">
+                        <p class="eventvenuename" *ngIf="item.eventStatusId==2">BumpIn: <strong>{{convertToIST(item.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
+                    </div>
+                    <div class="col-3 text-left">
+                        <p class="eventvenuename" *ngIf="item.eventStatusId==2">BumpOut: <strong>{{convertToIST(item.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
+                    </div>
+                    <div class="col-3 text-end" *ngIf="item.eventTimeIdslist!=null">
+                        <span class="badge" style="background-color: #0162DD;">{{item.eventTimeIdslist[0].eventTimeName}}</span>
+                        <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;" *ngIf="item.eventTimeIdslist.length >1 " >+{{ item?.eventTimeIdslist?.length-1 }}</span>
+                        <span class="badge badge-xs badge-light-success" *ngIf="item.eventStatusId==2 " ><img src="../../../../../../assets/images/verify.svg" alt=""></span>
+                        <span class="badge badge-xs badge-light-warning" *ngIf="item.eventStatusId==1 "  ><img src="../../../../../../assets/images/danger.svg" alt=""></span>
+                        <span class="badge badge-xs badge-light-dark" style="background: #E1E6EF;" *ngIf="item.eventStatusId==3 " ><img src="../../../../../../assets/images/Close_MD.svg" alt=""></span>
+                    </div> 
+                </div>
+               
+            </div>
+            <div class="card-body bg-white"
+                style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;padding:0%;margin: 1%;">
+                <div class="row">
+                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
+                        <h6 style="color: #1D243365;">Sales Exec Name</h6>
+                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.personName && item.personName.length > 10 ? (item.personName| slice:0:10) + '...' : item.personName}}</p>
+                    </div>
+                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
+                        <h6 style="color: #1D243365;">EVENT DATE</h6>
+                        <p style="font-size: 14px ; line-height: 22px;"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
+                    </div>
+                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
+                        <h6 style="color: #1D243365;">ENTRY DATE</h6>
+                        <p style="font-size: 14px ; line-height: 22px;"> {{item.createdDate|date:'dd-MM-yyyy'}}</p>
+                    </div>
+                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
+                        <h6 style="color: #1D243365;">GUEST NAME</h6>
+                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.guestName && item.guestName.length > 10 ? (item.guestName| slice:0:10) + '...' : item.guestName }}</p>
+                    </div>
+                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
+                        <h6 style="color: #1D243365;">EVENT TYPE</h6>
+                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.eventType && item.eventType.eventTypeName && item.eventType.eventTypeName.length > 10 ? (item.eventType.eventTypeName | slice:0:10) + '...' : item.eventType.eventTypeName }}</p>
+                    </div>
+                    
+                    <div class="col-2 ">
+                        <h6 style="color: #1D243365;">VENUES</h6>
+                      
+                        <p>
+                            <span class="badge" *ngFor="let item1 of item.venuelist | slice:0:1" style="background-color: #FCF4EE; color:#B66623;">{{item1.venueName}}</span>
+                           <span *ngIf="item.venuelist &&item.venuelist.length > 1">,</span> <span class="badge" *ngIf="item.venuelist &&item.venuelist.length > 1" style="background-color: #FCF4EE; color:#B66623;"> +{{item.venuelist.length - 1}}</span>
+                          </p>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    <ng-template #content let-modal>
+        <div class="modal-header ">
+            <h4 class="modal-title">Event Details  </h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body"*ngIf="loginroleid!=3" >
+            <form  [formGroup]="eventform" class="row " style="padding:20px;">
+                <div class="col-6 mt-3">
+                    <label for="personName">Attending Sales Executive<span class="text-danger">*</span></label>
+                    <input class="form-control" formControlName="personName" type="text">
+                    <div *ngIf="eventform.controls.personName.invalid && ( eventform.controls.personName.touched)">
+                        <div *ngIf="eventform.controls.personName.errors.required" class="text-danger">Attending Sales Executive is required.</div>
+                    </div>
+                </div>
+            
+                <div class="col-6 mt-3">
+                    <label for="guestName">Guest Name<span class="text-danger">*</span></label>
+                    <input class="form-control" formControlName="guestName" type="text">
+                    <div *ngIf="eventform.controls.guestName.invalid && ( eventform.controls.guestName.touched)">
+                        <div *ngIf="eventform.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
+                    </div>
+                </div>
+            
+                <div class="col-6 mt-3">
+                    <label for="phonenumber">Guest Phone Number<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" formControlName="phonenumber" minlength="6" maxLength="15" (input)="onPhoneNumberInput($event)">
+                    <div *ngIf="eventform.controls.phonenumber.invalid && eventform.controls.phonenumber.touched">
+                        <div *ngIf="eventform.controls.phonenumber.errors.required" class="text-danger">Phone number is required.</div>
+                        <div *ngIf="eventform.controls.phonenumber.errors.minlength" class="text-danger">Invalid Phone number.</div>
+                    </div>  
+                </div>
+            
+                <div class="col-6 mt-3">
+                    <label for="eventDate">Event Date<span class="text-danger">*</span></label>
+                    <input class="form-control" type="date" formControlName="eventDate" >
+                </div>
+                
+                
+            
+                <div class="col-6 mt-3">
+                    <label for="eventTypeId">Event Type<span class="text-danger">*</span></label>
+                    <select class="form-select" formControlName="eventTypeId">
+                        <option *ngFor="let item of eventtypedata" [value]="item.eventTypeId">{{item.eventTypeName}}</option>
+                    </select>
+                </div>
+                <div class="col-6 mt-3">
+                    <label for="eventStatusId">Event Status </label>
+                    <select class="form-select" formControlName="eventStatusId" placeholder="Select Status" (change)="updateEventStatus($event.target.value)">
+                        <option *ngFor="let item of statusdata" [value]="item.eventStatusId">{{item.eventStatusName}}</option>
+                    </select>
+                    <!-- <div class="text-danger" *ngIf="eventform.controls.eventStatusId.value=='0' && eventform.controls.eventStatusId.touched">
+                        Event Status is required
+                    </div> -->
+                </div>
+                
+                
+                <div class="col-12 mt-3">
+                    <label for="venueIds">Venue<span class="text-danger">*</span></label>
+                    <ng-select formControlName="venueIds" [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
+                        bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
+                    </ng-select> 
+                    <div class="text-danger" *ngIf="eventform.controls.venueIds.errors?.required">
+                       Venue is required
+                    </div>
+                </div>
+            
+                <div class="col-12 mt-3">
+                    <label for="eventTimeIds">Event Time<span class="text-danger">*</span></label>
+                    <ng-select formControlName="eventTimeIds"  [items]="eventTimeData"
+                        [(ngModel)]="multipleSelectedEventTime" bindLabel="eventTimeName" bindValue="eventTimeId"
+                        [multiple]="true" placeholder="Select"></ng-select> 
+                        <div class="text-danger" *ngIf="eventform.controls.eventTimeIds.errors?.required">
+                            Event Time is required
+                        </div>
+                </div>
+             
+                <!-- <div class="col-12 mt-3">
+                    <label for="comment"> Comment</label>
+                    <input class="form-control" formControlName="comment" type="text">
+                
+                </div> -->
+            
+                
+  
+                <div *ngIf="status == 2" class="col-12 mt-3">
+                    <label for="eventFoodtypeId">Event Food Type</label>
+                    <select class="form-select" formControlName="eventFoodtypeId" id="eventFoodtypeId">
+                        <option *ngFor="let item of eventFoodtypedata" [value]="item.eventFoodtypeId">
+                            {{item.eventFoodtypeName}}
+                        </option>
+                    </select>
+                    <div *ngIf="eventform.controls.eventFoodtypeId?.invalid && eventform.controls.eventFoodtypeId?.touched"
+                        class="text-danger">
+                        Event food type is required.
+                    </div>
+                </div>
+            
+             
+            
+                <!-- Bump In input field -->
+                <div *ngIf="status == 2" class="col-6 mt-3">
+                    <label for="bumpIN">Bump In</label>
+                    <input type="datetime-local" formControlName="bumpIN" class="form-control">
+                    <div *ngIf="eventform.get('bumpIN')?.invalid && eventform.get('bumpIN')?.touched" class="text-danger">
+                        Bump In time is required.
+                    </div>
+                </div>
+            
+                <!-- Bump Out input field -->
+                <div *ngIf="status == 2" class="col-6 mt-3">
+                    <label for="bumpOUT">Bump Out</label>
+                    <input type="datetime-local" formControlName="bumpOUT" class="form-control">
+                    <div *ngIf="eventform.get('bumpOUT')?.invalid && eventform.get('bumpOUT')?.touched" class="text-danger">
+                        Bump Out time is required.
+                    </div>
+                </div> 
+                <div *ngIf="status != 1 && status != 2 && status != 3" class="col-12 mt-3">
+                    <label for="">Comment</label>
+                    <textarea class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
+                  </div>
+                  
+                <div *ngIf="status == 2 || status == 3 ||status == 1" class="col-12 mt-3">
+                  <label for="">Comment</label>
+                  <textarea class="form-control" formControlName="comment" name="" id="" cols="30" rows="3"></textarea>
+              </div>
+              </form>
+              <button *ngIf="loginroleid != 3"  
+        [disabled]="eventStatusId == 2"  
+        (click)="Save()"  
+        type="button"  
+        class="mt-2 mb-2 btn btn-primary"  
+        style="margin-left:16px">
+        Save
+      </button>
+        </div> 
+
+        <div class="modal-body" *ngIf="loginroleid==3" >
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <p style="color:#1D243380;line-height: 0;">ATTENDING SALES EXECUTIVE</p>
+                    <p style="line-height:0.5">{{viewdails?.personName}}</p>
+                </div>
+                <div class="col-lg-6">
+                    <p style="color:#1D243380;line-height: 0;">ENTRY DATE</p>
+                    <p style="line-height:0.5">{{viewdails.createdDate|date:'dd-MM-yyyy'}}</p>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">EVENT DATE</p>
+                    <p style="line-height:0.5">{{viewdails.eventDate |date:'dd-MM-yyyy'}}</p>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">GUEST NAME</p>
+                    <p style="line-height:0.5">{{viewdails.guestName}}</p>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">TYPE OF EVENT</p>
+                    <p style="line-height:0.5">{{viewdails.eventType.eventTypeName}}</p>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    
+                </div>
+                <div class="col-lg-12 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">VENUE</p>
+                    <div class="row" style="line-height:0.5">
+                        <div class="col-2" *ngFor="let item of viewdails.venuelist">
+                            <p><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.venueName}}</span></p>
+                        </div>
+                     
+                    </div>
+                </div>
+                
+                <div class="col-lg-12 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">TIME OF EVENT</p>
+                    <div class="row" style="line-height:0.5">
+                        <div class="col-2" *ngFor="let item of viewdails.eventTimeIdslist">
+                            <p><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.eventTimeName}}</span></p>
+                        </div>
+                       
+                    </div>
+                </div>
+
+                
+            </div>
+            <hr *ngIf="activeTab!='all' &&viewdails.eventStatusId==2">
+            <div class="row mt-3" *ngIf="activeTab!='all'&&viewdails.eventStatusId==2" >
+                <div class="col-lg-12 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
+                   
+                    <p style="line-height:0.5" >{{viewdails.eventStatusName}}</p>
+                </div>
+               
+                <div class="col-lg-6 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">BUMP IN</p>
+                    <p style="line-height:0.5" >{{convertToIST(viewdails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</p>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">BUMP OUT</p>
+                    <p style="line-height:0.5" >{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
+                </div>
+                <div class="col-lg-12 mt-3">
+                    <p style="color:#1D243380;line-height: 0;">COMMENT</p>
+                    <p style="line-height:0.5" >{{viewdails.comment}}</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+</div>

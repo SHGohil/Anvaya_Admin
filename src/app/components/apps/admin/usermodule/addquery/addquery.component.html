@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-lg-6 text-left">
+        <p><strong>Daily Query Entry</strong></p>
+    </div>
+    <!-- <div class="col-lg-6 text-end">
+        <button class="btn btn-sm " style="background-color: #b66623;" (click)="post(form.value)" >Save Details</button> &nbsp;
+        <button class="btn btn-sm btn-Danger" style="background-color: rgb(139, 7, 7);" (click)="onclickcancel()">Cancel</button>
+    </div> -->
+</div>
+
+<div class="row" [formGroup]="form">
+    <div class="col-lg-4 mt-4">
+        <label for="">Attending Sales Executive</label><span class="text-danger" >*</span>
+        <input class="form-control" formControlName="personName" type="text" style="background-color: transparent;" >
+        <div *ngIf="form.controls.personName.invalid && ( form.controls.personName.touched)">
+            <div *ngIf="form.controls.personName.errors.required" class="text-danger">Person Name is required.</div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 mt-4">
+        <label for="">Guest Name</label><span class="text-danger" >*</span>
+        <input class="form-control" formControlName="guestName" type="text" style="background-color: transparent;" >
+        <div *ngIf="form.get('guestName').invalid&&form.controls.guestName.invalid && ( form.controls.guestName.touched)">
+            <div *ngIf="form.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
+        </div>
+    </div>
+   
+
+    <div class="col-lg-4 mt-4">
+        <label for="phonenumber">Phone Number</label><span class="text-danger">*</span>
+        <input id="phonenumber" class="form-control" formControlName="phonenumber" type="text" style="background-color: transparent;" maxlength="15" minlength="6" (input)="onPhoneNumberInput($event)">
+        <div *ngIf="form.get('phonenumber').invalid && form.controls.phonenumber.invalid && form.controls.phonenumber.touched">
+            <div *ngIf="form.controls.phonenumber.errors.required" class="text-danger">Phone number is required.</div>
+            <div *ngIf="form.controls.phonenumber.errors.minlength" class="text-danger">Invalid Phone number.</div>
+        </div>
+    </div>
+    
+
+
+
+   <div class="col-lg-4 mt-4">
+    <label for="">Event Date</label>
+    <input class="form-control" formControlName="eventDate" type="date" id="eventDate" 
+           style="background-color: transparent;" 
+           (change)="onDateChange($event.target.value)">
+</div>
+
+ 
+    <fieldset class="col-lg-4 mt-4">
+        <label for="">Select Venue</label>
+        
+        <ng-select formControlName="venueIds" [items]="venueData$"
+            bindLabel="venueName" bindValue="venueId" [multiple]="true"
+            placeholder="Select" style="background-color: transparent;"
+            (change)="onSelect($event)">
+        </ng-select>
+    
+        <div class="checkbox-container mt-2">
+            <div>
+                <input type="checkbox" [(ngModel)]="isAllVenueSelected" (click)="getValue($event.target.checked)">
+                <span style="margin-left:10px;margin-top:1px" class="mb-0">Total Venue</span>
+            </div>
+        </div>
+    
+        <!-- <div *ngIf="form.get('venueIds').invalid && form.controls.venueIds.touched">
+            <div *ngIf="form.controls.venueIds.errors?.required && !isAllVenueSelected" class="text-danger">
+                Venues are required.
+            </div>
+        </div> -->
+    </fieldset>
+    
+
+
+    <div class="col-lg-4 mt-4">
+        <label for="">Select Type Of Event</label>
+        <select class="form-control form-select" placeholder="Select Event" formControlName="eventTypeId" name="" id="" style="background-color: transparent;">
+            <option selected value="">Select Type</option>
+        <option *ngFor="let item of typedata" value="{{item.eventTypeId}}">{{item.eventTypeName}}</option>
+    </select>
+    <!-- <div *ngIf="form.get('eventTypeId').invalid&&form.controls.eventTypeId.invalid && ( form.controls.eventTypeId.touched)">
+        <div *ngIf="form.controls.eventTypeId.errors.required" class="text-danger">Event Type is required.</div>
+    </div> -->
+    
+    </div>
+  
+
+    <div class="col-lg-4 mt-4">
+        <label for="">Select Time Of Event</label>
+        <ng-select formControlName="eventTimeIds"  [items]="timedata"
+         bindLabel="eventTimeName" bindValue="eventTimeId"
+        [multiple]="true" placeholder="Select" style="background-color: transparent;"  (change)="onSelectTime($event)"></ng-select>
+        <!-- <div *ngIf="form.get('eventTimeIds').invalid&&form.controls.eventTimeIds.invalid && ( form.controls.eventTimeIds.touched)">
+            <div *ngIf="form.controls.eventTimeIds.errors.required" class="text-danger">Event Times are required.</div>
+        </div> -->
+    </div>
+    <div class="col-lg-4 mt-4">
+        <label for="">Comment</label>
+        <textarea 
+          class="form-control" 
+          formControlName="comment" 
+          style="background-color: transparent;" 
+          rows="3" 
+          placeholder="Enter your comment">
+        </textarea>
+        
+      
+      </div>
+      
+</div>
+<div class="col-lg-6 d-flex text-end justify-content-end" style="float:right">
+    <button class="btn btn-sm " style="background-color: #b66623;" (click)="post(form.value)" >Save Details</button> &nbsp;
+    <button class="btn btn-sm btn-Danger" style="background-color: rgb(139, 7, 7);" (click)="onclickcancel()">Cancel</button>
+</div>

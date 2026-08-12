@@ -1,0 +1,122 @@
+.special-date {
+    color: #ffffff;
+  }
+  
+  th,
+  td {
+    border: 1px solid #dbd5d5;
+    
+  }
+  
+  table{
+    border-top-left-radius: 10px !important;
+  }
+  .special-date-row {
+    color: #eb8f96;
+  }
+  .container {
+    position: relative;
+    /* Add other styles as needed */
+  }
+  
+  .a {
+    display: flex;
+    flex-direction: column;
+    height: 50vh; /* Initial height set to 50% of the viewport height */
+    overflow-y: scroll;
+    overflow-x: hidden; /* Hide overflow content if needed */
+  }
+  .b {
+    display: flex;
+    flex-direction: column;
+    height: 50vh; /* Initial height set to 50% of the viewport height */
+    overflow-y: scroll;
+    overflow-x: hidden; /* Hide overflow content if needed */
+  }
+  
+/* Custom styles for the right slide-in effect */
+.modal-dialog-end {
+  position: fixed; /* Position the modal dialog fixed */
+  top: 0;
+  right: 0; /* Align the modal dialog to the right side */
+  max-width: 50%; /* Set maximum width to 50% of the screen width */
+  height: 80vh; /* Adjust height as needed */
+  z-index: 1050; /* Set z-index */
+ }
+ 
+
+/* Slide-in animation for modal dialog */
+.modal.modal-end .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translateX(100%);
+}
+
+.modal.modal-end.show .modal-dialog {
+  transform: translateX(0);
+}
+
+.form{
+  padding:10px;
+}
+.venue {
+  background-color: #FCF4EE; 
+  color: #B66623; 
+  margin-bottom:2px
+}
+
+
+
+/* styles.css */
+.month-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%; /* Ensure the month-carousel takes up the full width */
+ }
+ 
+ hr {
+  border: none;
+  height: 1px;
+  background-color: #333; /* Adjust color as needed */
+  width: 250px; /* Set width to 250px */
+  margin: 0 auto; /* Center the hr */
+ }
+ .owl-item {
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.item h2 {
+  margin: 0; /* Adjust margin as needed */
+  font-size: 10px; /* Adjust font size as needed */
+}
+
+.card {
+  border: 1px solid #d5d4d4;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.selected {
+  border-color: #E58585;
+  background-color:#E58585;
+  color:white
+}
+.card-wrapper {
+  display: flex;
+  align-items: center; /* Vertical alignment */
+}
+
+.card-content {
+  margin: auto; /* Center text vertically */
+}
+
+
+ 
+button:disabled {
+  background-color: white !important; 
+  color: black !important; /* Change text color for visibility */
+  border: 1px solid #ccc; /* Optional: Add a border */
+  cursor: not-allowed; /* Show "not allowed" cursor */
+}

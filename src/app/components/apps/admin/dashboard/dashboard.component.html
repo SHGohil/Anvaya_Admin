@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="row pt-3">
+        <div class="col-lg-3">
+            <div class="card"  [class.active-card]="activebad === 1"  (click)="setactive(1);">
+                <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
+                    <div class="col-auto">
+
+                        <div class="icon social-circle"><svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512" ><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path fill="#e97b0c"
+                                    d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
+                            </svg></div>
+                    </div>
+                    <div class="col mt-3 pl-0">
+                        <p class="main-cardtext">Daily Query</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card c"  [class.active-card]="activebad === 2"  (click)="setactive(2);">
+                <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
+                    <div class="col-auto">
+
+                        <div class="icon social-circle"><svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 384 512" style="height: 26px;" ><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path fill="#e97b07"
+                                    d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM80 64h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16s7.2-16 16-16zm16 96H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V256c0-17.7 14.3-32 32-32zm0 32v64H288V256H96zM240 416h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H240c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                            </svg></div>
+                    </div>
+                    <div class="col mt-3 pl-0">
+                        <p class="main-cardtext">Daily Report</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card"  [class.active-card]="activebad === 3"  (click)="setactive(3);">
+                <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
+                    <div class="col-auto">
+
+                        <div class="icon social-circle"><svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path fill="#e97b07"
+                                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                            </svg></div>
+                    </div>
+                    <div class="col mt-3 pl-0">
+                        <p class="main-cardtext">Confirmed Events</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" >
+            <div class="card" [class.active-card]="activebad === 4"  (click)="setactive(4);">
+                <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
+                    <div class="col-auto">
+
+                        <div class="icon social-circle"><svg xmlns="http://www.w3.org/2000/svg" style="height: 24px;"
+                                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path fill="#e97b07"
+                                    d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
+                            </svg></div>
+                    </div>
+                    <div class="col mt-3 pl-0">
+                        <p class="main-cardtext">Calender View</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div >
+    <div class="container-fluid" *ngIf="activebad==0" style="cursor:pointer">
+        <app-addquery></app-addquery>
+    </div>
+    <div class="container-fluid" *ngIf="activebad==1" style="cursor:pointer">
+        <!-- <app-analytics ></app-analytics> -->
+    
+    <app-todaysevents></app-todaysevents>
+</div>
+<div class="container-fluid"  *ngIf="activebad==2" style="cursor:pointer">
+
+   
+    <app-dailyreport></app-dailyreport>
+</div>
+<div class="container-fluid" *ngIf="activebad==3" style="max-height:500px;overflow-y: auto;cursor:pointer">
+
+    <app-confirmedevents></app-confirmedevents>
+</div>
+<div  class="container-fluid" *ngIf="activebad==4" style="cursor:pointer" style="box-sizing: border-box;margin-top: -17px;">
+
+    <app-calenderdates></app-calenderdates>
+</div>
+</div>

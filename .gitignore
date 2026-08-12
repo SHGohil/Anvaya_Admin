@@ -1,0 +1,39 @@
+# Dependencies
+/node_modules
+npm-debug.log*
+yarn-error.log*
+
+# Build output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Angular CLI cache
+/.angular/cache
+.angular
+
+# IDE / editor
+/.vs
+/.idea
+/.vscode/*
+!/.vscode/extensions.json
+*.launch
+.project
+.classpath
+.c9/
+*.sublime-workspace
+
+# Testing
+/coverage
+/libpeerconnection.log
+testem.log
+
+# System
+.DS_Store
+Thumbs.db
+
+# Local environment overrides - keep API URLs out of shared config if they
+# ever carry credentials. environment.ts / environment.prod.ts are tracked
+# on purpose: they hold only the backend URL.
+/src/environments/environment.local.ts

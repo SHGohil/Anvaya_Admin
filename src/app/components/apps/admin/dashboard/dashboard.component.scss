@@ -1,0 +1,42 @@
+@import '../../../../../assets/scss/utils/_variables.scss';
+
+.icon {
+    color: #F8E4D3;
+    height: 44px;
+    width: 44px;
+    padding: 10px;
+    background-color: #F8E4D3;
+    
+}
+.card {
+    background: none;
+    border-radius: 20px;
+    border: 1px solid #ea9042;
+    box-shadow: none;
+    transition-duration: 0.9s; /* Apply transition to the base state */
+    background-color: #F8E4D3;
+    // border-left-width: thick;
+    height: 58px;
+}
+
+.card:hover {
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 20px; /* This is redundant since it's the same as the base state */
+}
+
+
+.main-cardtext{
+    font-size: 14px;
+   line-height: 22px;
+   font-weight: 400 !important;
+   text-align: center;
+}
+.active-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #EEDAC9;
+    box-shadow: none;
+    transition-duration: 0.9s;
+    color: black;
+}
