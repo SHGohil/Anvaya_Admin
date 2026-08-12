@@ -46,13 +46,18 @@ export class ReportsService {
     return this.http.get(url, { headers, responseType: 'json' });
  }
 
- reset(id:any,key:any){
+ /**
+  * Changes a password.
+  *
+  * The credentials go in the body, not the query string: a URL is recorded by IIS,
+  * by any proxy, and in browser history. The API requires the current password
+  * unless the caller is an Admin.
+  */
+ reset(userId:any, currentPassword:string, newPassword:string){
   const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-  const date = new Date().toISOString().split('.')[0];
-  var url = environment.backendAPIURL+`/resetpassword?id=${id}&password=${key}`
-  // var url = environment.backendAPIURL+`/Events/0/status`
+  var url = environment.backendAPIURL+`/resetpassword`
 
-  return this.http.post(url, null,{ headers, responseType: 'json' });
+  return this.http.post(url, { userId, currentPassword, newPassword }, { headers, responseType: 'json' });
  }
 
  eventstartandendtime(id:any){

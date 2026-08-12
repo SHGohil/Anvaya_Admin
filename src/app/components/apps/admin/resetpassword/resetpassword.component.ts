@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-resetpassword',
@@ -21,7 +22,7 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder : FormBuilder,public router: Router , public rservice: ReportsService, private fb: FormBuilder) 
   {
-    debugger;
+
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
      user = localStorage.getItem('user');
@@ -35,7 +36,10 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
  
   ngOnInit() { 
  
-    this.resetForm = this.formBuilder.group({ 
+    this.resetForm = this.formBuilder.group({
+      // The API requires the current password when a user changes their own,
+      // so a stolen token alone cannot take an account over permanently.
+      currentPassword: ['', [Validators.required]],
       password: ['', [Validators.required,this.passwordValidator]],
       cnpassword: ['', [Validators.required ]],
    }, { validator: this.passwordMatchValidator });
@@ -103,19 +107,34 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
   // }
 
   resetpassword(val) {
-    debugger;
     this.isFormValidating = true;
+
     if (this.resetForm.valid) {
-      var obj= {
-        password: val.password,
-      }
-      this.rservice.reset(this.userid,obj.password).subscribe(apidata=>{
-        localStorage.clear();
-    localStorage.removeItem('user')
-    this.router.navigateByUrl('auth/login');
-    window.location.reload();
-      })
-    } 
+      this.rservice.reset(this.userid, val.currentPassword, val.password).subscribe({
+        next: () => {
+          // The password changed, so the current token no longer reflects reality.
+          // Sign out and make the user log in again with the new one.
+          localStorage.clear();
+          localStorage.removeItem('user');
+          this.router.navigateByUrl('auth/login');
+          window.location.reload();
+        },
+        error: (err) => {
+          // Previously the failure branch was silent: a wrong current password
+          // looked identical to a successful change.
+          this.isFormValidating = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Could not change password',
+            text: typeof err?.error === 'string'
+              ? err.error
+              : 'Please check your current password and try again.'
+          });
+        }
+      });
+      return;
+    }
+
     this.isFormValidating = false;
   }
 }
