@@ -7,11 +7,20 @@ import { environment } from '../../../environments/environment';
 export class LoginService {
 
   constructor(private http : HttpClient) { }
+
+  /**
+   * Signs in.
+   *
+   * The credentials go in the request body. They used to be path segments
+   * (`/Login/{email}&{password}`), which put the password in the URL - recorded
+   * by IIS, by any proxy in front of the API, and in browser history.
+   */
   adminLogin(loginDetails:any){
-    
-    let url = `${environment.backendAPIURL}/Login/${loginDetails.email}&${loginDetails.password}`;
-    return this.http.post(url, []); // The request body is empty since the data is in the URL
-   
-   
-  } 
+    const url = `${environment.backendAPIURL}/Login`;
+
+    return this.http.post(url, {
+      username: loginDetails.email,
+      password: loginDetails.password
+    });
+  }
 }
