@@ -39,8 +39,13 @@ export class NavService implements OnDestroy {
   public levelMenu: boolean = false;
   public megaMenuColapse: boolean = window.innerWidth < 1199 ? true : false;
 
-  // Collapse Sidebar
-  public collapseSidebar: boolean = window.innerWidth < 991 ? false :true;
+  // Collapse Sidebar - true means collapsed/hidden. The resize handler and
+  // the mobile route-change handler below both set this to true to mean
+  // "closed", so the initial value has to agree: closed on mobile, open on
+  // desktop. (It didn't before - this was backwards, defaulting desktop to
+  // collapsed and mobile to open - until the sidebar collapse toggle was
+  // actually wired up to CSS and the inconsistency became visible.)
+  public collapseSidebar: boolean = window.innerWidth < 991 ? true : false;
 
   // For Horizontal Layout Mobile
   public horizontal: boolean = window.innerWidth < 991 ? false : true;

@@ -20,6 +20,10 @@
   border-bottom: 1px solid $border-color;
   z-index: 1030;
   transition: left 0.25s ease;
+
+  &.close_icon {
+    left: 0;
+  }
 }
 
 .header-wrapper {
@@ -29,9 +33,10 @@
   padding: 0 1.5rem;
 }
 
-// The sidebar (always visible - see .sidebar-wrapper below) already carries
-// the brand wordmark, so only the header's copy of the wordmark is hidden -
-// the toggle-sidebar button living in the same wrapper stays visible.
+// The sidebar carries the brand wordmark while it's open, so the header's
+// copy only needs to show once the sidebar is collapsed and its wordmark
+// isn't visible anywhere else. The toggle-sidebar button living in the same
+// wrapper is always visible regardless.
 .header-logo-wrapper {
   display: flex;
   align-items: center;
@@ -39,6 +44,11 @@
   .logo-wrapper {
     display: none;
   }
+}
+
+.page-header.close_icon .header-logo-wrapper .logo-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .toggle-sidebar {
@@ -215,12 +225,9 @@
 
 // -- Sidebar -----------------------------------------------------------
 
-// `collapseSidebar` (and the `close_icon` class it drives) defaults to
-// *true* on desktop load - inherited from the deleted theme, whose exact
-// close_icon behaviour (icon-only compact mode vs. fully off-canvas) went
-// with it. Rather than guess, the sidebar stays visible unconditionally for
-// now; the toggle button is wired up but has nothing to animate yet. Making
-// it actually collapse is follow-up work, not a re-skin blocker.
+// collapseSidebar (nav.service.ts) drives .close_icon on both this element
+// and .page-header. true = collapsed/hidden - see nav.service.ts for why
+// that had to be corrected before this could be wired up to real CSS.
 .sidebar-wrapper {
   position: fixed;
   top: 0;
@@ -231,6 +238,12 @@
   border-right: 1px solid $border-color;
   z-index: 1031;
   overflow-y: auto;
+  transform: translateX(0);
+  transition: transform 0.25s ease;
+
+  &.close_icon {
+    transform: translateX(-100%);
+  }
 }
 
 .sidebar-wrapper .logo-wrapper {
@@ -244,8 +257,9 @@
     margin-left: 0 !important;
   }
 
-  // Mobile back/close control - no off-canvas overlay implemented yet, so
-  // there's nothing useful for it to do at desktop widths.
+  // A second close/back control the theme's markup includes inside the
+  // sidebar itself - redundant with the header's toggle button, which is
+  // the only control wired up here.
   .back-btn,
   .toggle-sidebar {
     display: none;
@@ -360,13 +374,16 @@
 
 // -- Body / footer -------------------------------------------------------
 
-.page-body-wrapper {
-  margin-left: $sidebar-width;
-}
-
+// .page-body and .footer are true siblings of .sidebar-wrapper (all three
+// are direct children of .page-body-wrapper), which is what lets the
+// sibling combinator below react to .sidebar-wrapper's collapsed state
+// without a template change - .page-body-wrapper itself can't be targeted
+// this way since .sidebar-wrapper is its descendant, not its sibling.
 .page-body {
   padding: calc(#{$header-height} + 1.5rem) 1.5rem 1.5rem;
   min-height: 100vh;
+  margin-left: $sidebar-width;
+  transition: margin-left 0.25s ease;
 }
 
 .footer {
@@ -374,4 +391,11 @@
   border-top: 1px solid $border-color;
   color: $secondary-color;
   font-size: 0.85rem;
+  margin-left: $sidebar-width;
+  transition: margin-left 0.25s ease;
+}
+
+.sidebar-wrapper.close_icon ~ .page-body,
+.sidebar-wrapper.close_icon ~ .footer {
+  margin-left: 0;
 }
