@@ -9,7 +9,6 @@ import { EditeventComponent } from './editevent/editevent.component';
 import { SpecialdatesComponent } from './specialdates/specialdates.component';
 import { TodayseventsComponent } from './todaysevents/todaysevents.component';
 import {UsersComponent} from './users/users.component'
-import { RouterModule, Routes } from '@angular/router';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,12 +17,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-const routes: Routes = [
-  {path:'users', component:UsersComponent},
-  {path:'approvals', component:ChangerequestComponent},
-  {path:'specials', component:SpecialdatesComponent},
-  {path:'Analytics', component:AnalyticsComponent},
-];
 
 @NgModule({
   declarations: [
@@ -40,7 +33,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,ReactiveFormsModule,NgbModule,NgSelectModule,CarouselModule,NgApexchartsModule,Ng2GoogleChartsModule,
-    FormsModule, RouterModule.forChild(routes)
+    FormsModule
   ],
   exports:[
     AddqueryComponent,

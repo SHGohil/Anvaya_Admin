@@ -7,6 +7,6 @@ export const content: Routes = [
   },
   {
     path: "settings",
-    loadChildren: () => import("../../components/apps/admin/usermodule/usermodule.module").then((m) => m.UsermoduleModule),
+    loadChildren: () => import("../../components/apps/admin/usermodule/usermodule-routing.module").then((m) => m.UsermoduleRoutingModule),
   },
 ];
