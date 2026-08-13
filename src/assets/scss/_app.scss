@@ -224,18 +224,33 @@
   margin-bottom: 1.25rem;
 
   label {
+    // .col-form-label (Bootstrap) adds its own vertical padding sized off
+    // $input-padding-y, which pushed the actual label height well past what
+    // .show-hide below assumed - reset it so the label is just its text,
+    // and .show-hide's `top` below can rely on that being true.
+    display: block;
+    padding: 0;
     margin-bottom: 0.35rem;
     font-weight: 500;
     font-size: 0.875rem;
+    line-height: 1.2;
   }
 }
 
 // Password visibility toggle (login, users add/edit modal). No icon font is
 // loaded for this, so it's a small text label rather than an eye glyph.
+// `top` matches the label's own height above (line-height 1.2 * 0.875rem
+// font-size + its 0.35rem margin-bottom); `height` matches Bootstrap's
+// default .form-control height at this project's $font-size-base, so
+// align-items: center lands the text in the middle of the input, not
+// floating above or below it.
 .show-hide {
   position: absolute;
-  top: 2.1rem;
+  top: 1.4rem;
   right: 0.75rem;
+  height: 2.28rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 600;
