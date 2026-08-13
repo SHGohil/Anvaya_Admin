@@ -1,11 +1,13 @@
+@import "../../../../../../assets/scss/tokens";
+
 .special-date {
     color: #ffffff;
   }
-  
+
   th,
   td {
-    border: 1px solid #dbd5d5;
-    
+    border: 1px solid $border-color;
+
   }
   
   table{
@@ -93,7 +95,7 @@
 }
 
 .card {
-  border: 1px solid #d5d4d4;
+  border: 1px solid $border-color;
   padding: 10px;
   cursor: pointer;
 }

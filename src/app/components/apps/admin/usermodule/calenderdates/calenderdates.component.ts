@@ -503,6 +503,13 @@ getonecaledetdata(month){
     });
    }
   convertToIST(val: string): string {
+    // bumpIN/bumpOUT are null until the event is actually bumped in/out, even
+    // for events *ngIf gates as eventStatusId==2 - without this, new Date(null)
+    // produces an Invalid Date and every field below becomes NaN, which the
+    // date pipe then throws on rather than rendering.
+    if (!val) {
+      return null;
+    }
     // Create a Date object from the input string
     const date = new Date(val);
    

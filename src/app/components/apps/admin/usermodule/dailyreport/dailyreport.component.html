@@ -7,7 +7,7 @@
             <h5>Total Events ({{total}}) </h5>
         </div>
     <div class="card-body chart-block " >
-            <div id="circlechart">
+            <div id="circlechart" *ngIf="skillStatus">
               <apx-chart [chart]="skillStatus.chart" [plotOptions]="skillStatus.plotOptions" [series]="skillStatus.series" [labels]="skillStatus.labels" [legend]="skillStatus.legend" [colors]="skillStatus.colors" [responsive]="skillStatus.responsive"></apx-chart>
             </div>
           
@@ -30,16 +30,16 @@
             </div>
             <div class="card-body">
               <div class="chart-container progress-chart">
-                <div id="progress4">
+                <div id="progress4" *ngIf="openpercentage">
                     <apx-chart [chart]="openpercentage.chart" [plotOptions]="openpercentage.plotOptions" [colors]="openpercentage.colors" [stroke]="openpercentage.stroke" [fill]="openpercentage.fill" [series]="openpercentage.series" [title]="openpercentage.title" [subtitle]="openpercentage.subtitle" [tooltip]="openpercentage.tooltip" [xaxis]="openpercentage.xaxis" [yaxis]="openpercentage.yaxis" [responsive]="openpercentage.responsive"></apx-chart>
                   </div>
-                <div id="progress1">
+                <div id="progress1" *ngIf="tentativepercentage">
                   <apx-chart [chart]="tentativepercentage.chart" [plotOptions]="tentativepercentage.plotOptions" [colors]="tentativepercentage.colors" [stroke]="tentativepercentage.stroke" [fill]="tentativepercentage.fill" [series]="tentativepercentage.series" [title]="tentativepercentage.title" [subtitle]="tentativepercentage.subtitle" [tooltip]="tentativepercentage.tooltip" [xaxis]="tentativepercentage.xaxis" [yaxis]="tentativepercentage.yaxis" [responsive]="tentativepercentage.responsive"></apx-chart>
                 </div>
-                <div id="progress2">
+                <div id="progress2" *ngIf="confirmedPercentage">
                   <apx-chart [chart]="confirmedPercentage.chart" [plotOptions]="confirmedPercentage.plotOptions" [colors]="confirmedPercentage.colors" [stroke]="confirmedPercentage.stroke" [fill]="confirmedPercentage.fill" [series]="confirmedPercentage.series" [title]="confirmedPercentage.title" [subtitle]="confirmedPercentage.subtitle" [tooltip]="confirmedPercentage.tooltip" [xaxis]="confirmedPercentage.xaxis" [yaxis]="confirmedPercentage.yaxis" [responsive]="confirmedPercentage.responsive"></apx-chart>
                 </div>
-                <div id="progress3">
+                <div id="progress3" *ngIf="lostPercentage">
                   <apx-chart [chart]="lostPercentage.chart" [plotOptions]="lostPercentage.plotOptions" [colors]="lostPercentage.colors" [stroke]="lostPercentage.stroke" [fill]="lostPercentage.fill" [series]="lostPercentage.series" [title]="lostPercentage.title" [subtitle]="lostPercentage.subtitle" [tooltip]="lostPercentage.tooltip" [xaxis]="lostPercentage.xaxis" [yaxis]="lostPercentage.yaxis" [responsive]="lostPercentage.responsive"></apx-chart>
                 </div>
               

@@ -37,6 +37,14 @@
 .chart-container {
   position: relative;
   width: 100%;
+
+  // analytics / dailyreport: four small gauge charts (open/tentative/
+  // confirmed/lost) meant to sit side by side under one card header.
+  &.progress-chart {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 }
 
 // Card-header row split between a title and a right-aligned control
@@ -104,5 +112,145 @@
 
   &.brand-wordmark-lg {
     font-size: 2.25rem;
+  }
+}
+
+// The templates across usermodule (users, addquery, dailyreport,
+// calenderdates) use a handful of class names that were never real Bootstrap
+// utilities even in the old theme (border-bottom-primary, bg-light-primary,
+// btn-Danger with a capital D, badge-light-*) - they've always been no-ops.
+// Most of the visual weight in those spots already comes from an inline
+// style using the same brand colour, so these are additive polish
+// (hover feedback, accent borders) rather than fixes for something broken.
+
+.btn-Danger {
+  color: #fff;
+  border-color: transparent;
+
+  &:hover,
+  &:focus {
+    filter: brightness(0.92);
+  }
+}
+
+.border-bottom-primary {
+  border-bottom: 2px solid $primary !important;
+}
+
+.border-bottom-secondary {
+  border-bottom-color: $border-color !important;
+}
+
+.bg-light-primary {
+  background-color: rgba($primary, 0.06) !important;
+}
+
+// Status icon badges (todaysevents, confirmedevents): a soft tinted circle
+// behind a small verify/pending/close icon image.
+.badge-light-success {
+  background-color: rgba($success, 0.12);
+}
+
+.badge-light-warning {
+  background-color: rgba($warning, 0.15);
+}
+
+.badge-light-dark {
+  background-color: $light;
+}
+
+// Muted secondary text (changerequest, usernotification).
+.text-grey {
+  color: $secondary-color;
+}
+
+// resetpassword's submit button - applied directly to a <button>, so
+// text-align on a parent wouldn't reach it.
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// -- Auth card (login, resetpassword) ---------------------------------
+// Both screens wrap their form in the same .login-card / .login-main
+// structure; shared here rather than duplicated per component.
+
+.login-card {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  background: $body-bg;
+
+  // Direct child of .login-card in the template is the form wrapper - give
+  // it the actual card look (white surface, border, shadow).
+  > div {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow;
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+
+  .logo {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.login-main {
+  text-align: left;
+
+  h4 {
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+  }
+
+  p {
+    color: $secondary-color;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.theme-form .form-group {
+  position: relative;
+  margin-bottom: 1.25rem;
+
+  label {
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+}
+
+// Password visibility toggle (login, users add/edit modal). No icon font is
+// loaded for this, so it's a small text label rather than an eye glyph.
+.show-hide {
+  position: absolute;
+  top: 2.1rem;
+  right: 0.75rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $secondary-color;
+  user-select: none;
+
+  .show::before {
+    content: "Show";
+  }
+
+  .Hide::before {
+    content: "Hide";
+  }
+
+  &:hover {
+    color: $primary;
   }
 }
