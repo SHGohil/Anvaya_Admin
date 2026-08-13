@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 // // for HttpClient import:
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -19,7 +18,6 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 import { AdminGuard } from './shared/guard/admin.guard';
-import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -42,7 +40,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         SharedModule,
         AppRoutingModule,
         NgbModule,
-        ToastrModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -57,7 +54,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         // for Core use:
         LoadingBarModule], providers: [
         AdminGuard,
-        CookieService,
         // Attaches the bearer token to API calls and signs out on 401.
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         provideHttpClient(withInterceptorsFromDi())

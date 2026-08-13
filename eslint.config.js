@@ -9,18 +9,13 @@ const angular = require("angular-eslint");
  * which kept a decade-old Angular in the tree and with it a set of XSS
  * advisories that had nothing to do with the app's own Angular version.
  *
- * The rule set is deliberately close to the recommended defaults. The theme's
- * demo components are not linted - they are slated for removal and would bury
- * real findings in noise.
+ * The rule set is deliberately close to the recommended defaults.
  */
 module.exports = tseslint.config(
   {
     ignores: [
       "dist/**",
-      "node_modules/**",
-      // Unused theme demo pages. Remove this entry once they are deleted.
-      "src/app/components/**",
-      "src/app/pages/**"
+      "node_modules/**"
     ]
   },
   {

@@ -3,8 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, of } from 'rxjs';
 import {CalenderService} from '../../../../../shared/services/calender.service'
 import {EventDataService} from '../../../../../shared/services/event-data.service'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';  
-import { ContactsModule } from '../../../contacts/contacts.module';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { Modal } from 'bootstrap'; 
 import { ReportsService } from '../../../../../shared/services/reports.service';

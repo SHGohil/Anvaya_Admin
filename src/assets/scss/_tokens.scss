@@ -1,0 +1,58 @@
+// ---------------------------------------------------------------------------
+// Design tokens
+// ---------------------------------------------------------------------------
+// Bootstrap 5 variable overrides. This file is imported BEFORE
+// "bootstrap/scss/bootstrap" in styles.scss, so every value set here
+// propagates into $card-border-radius, $btn-*, $badge-*, the grid, form
+// controls, etc. without touching a single template - that's what makes the
+// re-skin cheap: the markup already speaks Bootstrap's class names.
+//
+// The brand accent (#B66623) is kept as-is: it's already the app's identity
+// colour (see the inline button styles across the old templates), so the
+// re-skin changes how the app looks, not what it looks like it belongs to.
+
+// Brand
+$primary: #b66623;
+$secondary: #52526c;
+$success: #54ba4a;
+$info: #16a2c7;
+$warning: #ffaa05;
+$danger: #e6432f;
+$light: #f7f5f2;
+$dark: #242934;
+
+// Neutrals / body
+$body-bg: #f7f5f1;
+$body-color: #2f2f3b;
+$border-color: #e6e1da;
+$secondary-color: #6c7280;
+
+// Typography
+$font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-size-base: 0.9375rem;
+$headings-font-weight: 600;
+$headings-color: $dark;
+
+// Shape
+$border-radius: 0.6rem;
+$border-radius-sm: 0.4rem;
+$border-radius-lg: 0.85rem;
+$border-radius-pill: 50rem;
+
+// Shadow
+$box-shadow-sm: 0 1px 3px rgba(36, 41, 52, 0.06);
+$box-shadow: 0 6px 20px rgba(36, 41, 52, 0.07);
+$box-shadow-lg: 0 12px 32px rgba(36, 41, 52, 0.1);
+
+// Components
+$card-border-color: $border-color;
+$card-box-shadow: $box-shadow-sm;
+$input-border-color: #d8d3ca;
+$input-focus-border-color: tint-color($primary, 40%);
+$btn-font-weight: 500;
+$link-decoration: none;
+
+// Sidebar / shell (consumed by the shell partials, not Bootstrap itself)
+$sidebar-width: 260px;
+$sidebar-bg: #ffffff;
+$header-height: 64px;

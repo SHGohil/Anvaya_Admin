@@ -14,11 +14,11 @@ abandoned Azure DevOps copy (see below). Ask before any of those.
 
 ## Project
 
-Angular 16 admin front end for the Anvaya Convention API (event and venue booking for a
-convention centre). Built on a purchased admin theme ("cuba"), which is why the repository
-is much larger than the application: **only ~14 of 270 components are real application code**
-(`components/apps/admin/**` plus `auth/login`). Everything else — blog, e-commerce, email,
-chat, job-search, gallery, todo — is unused theme demo material.
+Angular 20 admin front end for the Anvaya Convention API (event and venue booking for a
+convention centre). Originally built on a purchased admin theme ("cuba"); as of the UI
+re-skin (2026-08) the unused ~95% of that theme — blog, e-commerce, email, chat, job-search,
+gallery, the 68-component demo dashboard, and 91k lines of theme SCSS — has been deleted.
+The application is now just `components/apps/admin/**` plus `auth/login` and `shared/**`.
 
 The backend lives in a separate repository, `Anvaya_API`
 (`D:\Sumita\Sumi\Project\Anvaya\Anvaya_API`, GitHub `SHGohil/Anvaya_API`). Its `CLAUDE.md`
@@ -34,7 +34,7 @@ DevOps (`CODE-FACTS/Anvaya Admin App`, branch `master`). It is abandoned. Do not
 npm install
 npm start                        # ng serve, http://localhost:4200
 npx ng build --configuration production
-npm run lint                     # tslint - deprecated, see below
+npm run lint                     # ESLint (angular-eslint); see eslint.config.js
 ```
 
 There are no meaningful tests: `ng test` runs Karma against the theme's scaffolding, and
@@ -58,16 +58,25 @@ call time instead.
 `backendAPIURL`. Point the dev one at a local or staging API — pointing it at production
 means `ng serve` creates and approves real bookings.
 
-### Dead code
+### Styling
 
-`src/app/shared/services/` still contains services from an unrelated fleet/cab project —
-`driver`, `trips`, `vehicletype`, `coupan`, `transmissiontype`, `hours`, `subscription`,
-`aerialservice`, `triptaxservice`, `verificationstatus`. They are referenced by zero
-components. Do not extend them; delete them when convenient.
+`src/assets/scss/_tokens.scss` overrides Bootstrap 5's SCSS variables (brand colour, radius,
+shadow, type) before `src/styles.scss` imports `bootstrap/scss/bootstrap`, so the grid,
+`card`, `btn`, `badge`, `form-control` etc. inherit the app's look without any template
+changes. `_app.scss` defines the ~12 classes the real screens use that aren't stock
+Bootstrap (`eventvenuename`, `chart-block`, `formg`, `errors`, `badge-xs`, …). `_icofont.scss`
+carries only the two glyphs `calenderdates` actually uses, not the theme's full ~8,500-line
+icon set.
 
 ### Known issues, not yet fixed
 
-- Dependency audit reports ~150 advisories (6 critical), mostly through the theme's toolchain.
-  Angular 16 is itself out of support.
-- `tslint`, `protractor` and `codelyzer` are deprecated and should move to ESLint.
-- The build output is ~52 MB, dominated by unused theme assets and a 1.4 MB stylesheet.
+- Dependency audit: 8 advisories (0 critical) as of the last pass — down from 47. The
+  remainder is `xlsx` (prototype pollution / ReDoS, no upstream fix) and `uuid` (pulled in
+  transitively by `webpack-dev-server`, dev-only). Fixing either needs a package swap or an
+  Angular major bump, not attempted here.
+- `src/assets/images`, `src/assets/fonts` and `src/assets/video` still hold theme demo assets
+  (~30 MB) that weren't audited for use — the re-skin only touched SCSS and components.
+- ESLint reports ~486 findings, almost all pre-existing style debt (`no-var`,
+  `@angular-eslint/prefer-inject`) unrelated to the re-skin.
+- `calenderdates` and `dailyreport` still carry their original styling; they're flagged as
+  the most work in the re-skin plan and haven't been restyled yet.

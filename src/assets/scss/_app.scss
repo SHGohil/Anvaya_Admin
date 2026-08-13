@@ -1,0 +1,92 @@
+// ---------------------------------------------------------------------------
+// App-level overrides
+// ---------------------------------------------------------------------------
+// Definitions for the ~12 classes the real screens use that aren't stock
+// Bootstrap. Most of these had no matching rule in the old theme at all (the
+// screens relied on inline styles instead) - these are fresh definitions,
+// not a port of the old theme.
+
+// Small meta text under a card row (creator name, bump-in/out timestamps).
+// usermodule: todaysevents, confirmedevents, changerequest, dailyreport, usernotification
+.eventvenuename {
+  margin-bottom: 0;
+  font-size: 0.8125rem;
+  color: $secondary-color;
+}
+
+// Compact status badge holding a small icon-only image (verify/danger/close).
+.badge-xs {
+  padding: 0.25em 0.4em;
+  img {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+// Wraps an apx-chart (analytics, dailyreport).
+.chart-block {
+  canvas {
+    width: 100% !important;
+  }
+  .chart-overflow {
+    overflow: hidden;
+    text-align: center;
+  }
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+}
+
+// Card-header row split between a title and a right-aligned control
+// (analytics, dailyreport).
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  h5 {
+    margin-bottom: 0;
+  }
+}
+
+.card-header-right-icon {
+  select {
+    background-color: rgba($primary, 0.08);
+    border: none;
+    color: $primary;
+    width: auto;
+    height: 32px;
+    border-radius: $border-radius-sm;
+    padding: 0.25rem 0.5rem;
+    font-weight: 500;
+  }
+}
+
+// resetpassword's own form wrapper.
+.formg {
+  max-width: 480px;
+}
+
+// Field-level validation message, used across login, resetpassword, addquery,
+// dailyreport. Templates also set style="color: red" inline; this class adds
+// the spacing/size half of the job.
+.errors {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+}
+
+// calenderdates' venue x day grid header cells.
+.centered-text {
+  text-align: center;
+}
+
+// Light/dark logo swap in the header and sidebar. The app has no working
+// dark-mode toggle (the control was already disabled in the theme), so this
+// just pins the light logo as the one that's visible.
+.for-dark {
+  display: none;
+}
