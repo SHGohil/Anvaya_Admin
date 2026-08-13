@@ -1,40 +1,41 @@
+@import "../../../../../assets/scss/tokens";
+
 .icon {
-    color: #F8E4D3;
-    height: 44px;
-    width: 44px;
-    padding: 10px;
-    background-color: #F8E4D3;
-    
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($primary, 0.12);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
+
 .card {
-    background: none;
-    border-radius: 20px;
-    border: 1px solid #ea9042;
-    box-shadow: none;
-    transition-duration: 0.9s; /* Apply transition to the base state */
-    background-color: #F8E4D3;
-    // border-left-width: thick;
-    height: 58px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: $box-shadow;
+    transform: translateY(-2px);
+  }
 }
 
-.card:hover {
-    cursor: pointer;
-    background-color: #ffffff;
-    border-radius: 20px; /* This is redundant since it's the same as the base state */
+.main-cardtext {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  color: $body-color;
 }
 
-
-.main-cardtext{
-    font-size: 14px;
-   line-height: 22px;
-   font-weight: 400 !important;
-   text-align: center;
-}
 .active-card {
-    background-color: #ffffff;
-    border-radius: 20px;
-    border: 1px solid #EEDAC9;
-    box-shadow: none;
-    transition-duration: 0.9s;
-    color: black;
+  border-color: $primary;
+  background: rgba($primary, 0.06);
+  box-shadow: $box-shadow;
 }

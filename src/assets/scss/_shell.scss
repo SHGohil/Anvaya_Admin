@@ -1,0 +1,377 @@
+// ---------------------------------------------------------------------------
+// Shell layout
+// ---------------------------------------------------------------------------
+// The old theme's layout/_sidebar.scss, _header.scss etc. (9,643 lines across
+// the theme's 30-odd layout skins) were deleted with the rest of the theme in
+// the re-skin. This is a single, fixed layout - sidebar + header + content -
+// replacing all of that: the app never exposed a way to switch skins (the
+// customizer that would have was itself dead code and removed).
+//
+// Structure (content.component.html): .page-wrapper > app-header +
+// .page-body-wrapper > (.sidebar-wrapper > app-sidebar, .page-body, .footer)
+
+.page-header {
+  position: fixed;
+  top: 0;
+  left: $sidebar-width;
+  right: 0;
+  height: $header-height;
+  background: #fff;
+  border-bottom: 1px solid $border-color;
+  z-index: 1030;
+  transition: left 0.25s ease;
+}
+
+.header-wrapper {
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+// The sidebar (always visible - see .sidebar-wrapper below) already carries
+// the brand wordmark, so only the header's copy of the wordmark is hidden -
+// the toggle-sidebar button living in the same wrapper stays visible.
+.header-logo-wrapper {
+  display: flex;
+  align-items: center;
+
+  .logo-wrapper {
+    display: none;
+  }
+}
+
+.toggle-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: $border-radius-sm;
+  color: $secondary-color;
+  cursor: pointer;
+
+  &:hover {
+    background: $light;
+    color: $primary;
+  }
+
+  svg,
+  i {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-menus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.onhover-dropdown {
+  position: relative;
+
+  > * {
+    cursor: pointer;
+  }
+
+  .onhover-show-div {
+    display: none;
+  }
+
+  &:hover .onhover-show-div {
+    display: block;
+  }
+}
+
+.notification-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: $border-radius-pill;
+  color: $secondary-color;
+
+  &:hover {
+    background: $light;
+    color: $primary;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+  }
+
+  .badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+  }
+}
+
+.badge-secondary {
+  background-color: $secondary-color;
+  color: #fff;
+}
+
+.notification-dropdown,
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 280px;
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 0.75rem;
+  z-index: 1040;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+
+    & + li {
+      border-top: 1px solid $border-color;
+    }
+  }
+}
+
+.notification-dropdown {
+  max-height: 320px;
+  overflow-y: auto;
+
+  .dropdown-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .border-4 {
+    border-left: 3px solid $border-color;
+    padding-left: 0.5rem;
+  }
+
+  .b-l-warning {
+    border-left-color: $warning;
+  }
+  .b-l-success {
+    border-left-color: $success;
+  }
+  .b-l-danger {
+    border-left-color: $danger;
+  }
+}
+
+.profile-dropdown li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary;
+  }
+
+  svg,
+  i {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.profile-media {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .media-body p {
+    margin-bottom: 0;
+    font-weight: 500;
+    color: $body-color;
+  }
+}
+
+// -- Sidebar -----------------------------------------------------------
+
+// `collapseSidebar` (and the `close_icon` class it drives) defaults to
+// *true* on desktop load - inherited from the deleted theme, whose exact
+// close_icon behaviour (icon-only compact mode vs. fully off-canvas) went
+// with it. Rather than guess, the sidebar stays visible unconditionally for
+// now; the toggle button is wired up but has nothing to animate yet. Making
+// it actually collapse is follow-up work, not a re-skin blocker.
+.sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: $sidebar-width;
+  background: $sidebar-bg;
+  border-right: 1px solid $border-color;
+  z-index: 1031;
+  overflow-y: auto;
+}
+
+.sidebar-wrapper .logo-wrapper {
+  display: flex;
+  align-items: center;
+  height: $header-height;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid $border-color;
+
+  .brand-wordmark {
+    margin-left: 0 !important;
+  }
+
+  // Mobile back/close control - no off-canvas overlay implemented yet, so
+  // there's nothing useful for it to do at desktop widths.
+  .back-btn,
+  .toggle-sidebar {
+    display: none;
+  }
+}
+
+.logo-icon-wrapper {
+  display: none;
+}
+
+.sidebar-main {
+  padding: 1rem 0.75rem;
+
+  .left-arrow,
+  .right-arrow {
+    display: none;
+  }
+}
+
+.sidebar-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .back-btn {
+    display: none;
+  }
+}
+
+.sidebar-main-title {
+  padding: 0.75rem 0.75rem 0.25rem;
+
+  h6 {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $secondary-color;
+  }
+}
+
+.sidebar-list {
+  margin-bottom: 0.125rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: $border-radius-sm;
+  color: $body-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  &:hover {
+    background: $light;
+    color: $primary;
+  }
+
+  &.active {
+    background: rgba($primary, 0.1);
+    color: $primary;
+  }
+
+  .according-menu {
+    margin-left: auto;
+
+    i {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.sidebar-submenu {
+  list-style: none;
+  margin: 0 0 0 2.25rem;
+  padding: 0;
+
+  a {
+    display: block;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.85rem;
+    color: $secondary-color;
+    text-decoration: none;
+
+    &:hover,
+    &.active {
+      color: $primary;
+    }
+  }
+}
+
+.stroke-icon,
+.fill-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.stroke-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.fill-icon {
+  fill: currentColor;
+}
+
+// -- Body / footer -------------------------------------------------------
+
+.page-body-wrapper {
+  margin-left: $sidebar-width;
+}
+
+.page-body {
+  padding: calc(#{$header-height} + 1.5rem) 1.5rem 1.5rem;
+  min-height: 100vh;
+}
+
+.footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid $border-color;
+  color: $secondary-color;
+  font-size: 0.85rem;
+}
