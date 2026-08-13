@@ -237,25 +237,48 @@
   }
 }
 
-// Password visibility toggle (login, users add/edit modal). No icon font is
-// loaded for this, so it's a small text label rather than an eye glyph.
-// `top` matches the label's own height above (line-height 1.2 * 0.875rem
-// font-size + its 0.35rem margin-bottom); `height` matches Bootstrap's
-// default .form-control height at this project's $font-size-base, so
-// align-items: center lands the text in the middle of the input, not
-// floating above or below it.
+// Password visibility toggle. No icon font is loaded for this, so it's a
+// small text label rather than an eye glyph. Used in two places with
+// different markup around it - login's .form-group (styled label, position:
+// relative container) and the users add/edit modal's plain .col-lg-12.mt-3
+// (unstyled label, no positioning container at all).
+//
+// This used to be position: absolute with a `top` calculated from the
+// label's height - correct for login, but in the modal .show-hide has no
+// `position: relative` ancestor nearby, so it anchored to the modal body
+// itself and rendered nowhere near the password field (found while checking
+// other spots for the same class of bug after fixing login's version).
+//
+// Fixed by dropping absolute positioning entirely: .show-hide stays in
+// normal flow right after the input (wherever that naturally is, regardless
+// of the label above it), then a negative margin-top exactly one input's
+// height pulls it back up to overlay that input. This only needs to know
+// the input's own height, which is constant across both contexts, not the
+// label's, which isn't.
 .show-hide {
-  position: absolute;
-  top: 1.4rem;
-  right: 0.75rem;
-  height: 2.28rem;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: $secondary-color;
-  user-select: none;
+  justify-content: flex-end;
+  height: 2.28rem;
+  margin-top: -2.28rem;
+  padding-right: 0.75rem;
+  // The box spans the full row width (to right-align its content) but
+  // should only intercept clicks where the visible text actually is, so
+  // clicks elsewhere in that strip still reach the input underneath.
+  pointer-events: none;
+
+  span {
+    pointer-events: auto;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $secondary-color;
+    user-select: none;
+
+    &:hover {
+      color: $primary;
+    }
+  }
 
   .show::before {
     content: "Show";
@@ -263,9 +286,5 @@
 
   .Hide::before {
     content: "Hide";
-  }
-
-  &:hover {
-    color: $primary;
   }
 }
