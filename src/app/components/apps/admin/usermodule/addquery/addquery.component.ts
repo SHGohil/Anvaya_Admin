@@ -58,26 +58,28 @@ export class AddqueryComponent implements OnInit {
   }
 
   getValue(value:any){
-    console.log(value)
      if(this.form.controls.eventDate.value){
       this.isAllVenueSelected= value;
       if(this.isAllVenueSelected){
-        this.onSelect('');
-       }    
-       else{
-        this.form.controls.venueIds.patchValue('')
+        // patchValue only updates the reactive form control (and, through
+        // that, what the ng-select box displays) - it doesn't fire
+        // ng-select's own (change) event, so onSelect() is called
+        // explicitly right after to keep selectedVenueIds/venueIdsString
+        // (used by post()) in sync with what's now actually selected.
+        const allVenues = this.venueData$ || [];
+        this.form.controls.venueIds.patchValue(allVenues.map((v: any) => v.venueId));
+        this.onSelect(allVenues);
        }
-  
+       else{
+        this.form.controls.venueIds.patchValue([]);
+        this.selectedVenueIds = [];
+        this.venueIdsString = '';
+       }
+
      }
      else{
       this.form.controls.eventDate.markAsTouched();
-      console.log(this.isAllVenueSelected,"hjjj");
-    
      }
-      
-     
-     
-    
   }
 
 
@@ -157,28 +159,7 @@ onSelect(event: any) {
     });
   
     this.venueIdsString = this.selectedVenueIds.join(',');
-    console.log('Selected venue IDs as string:', this.venueIdsString);
-   
   }
-  if(this.isAllVenueSelected){
-    
-    let allVenueId=["1","2","3","4","5","6","7","8"]
-    this.venueIdsString = allVenueId.toString();
-  }
-  // if (this.eventDate) {
-  //   debugger
-  //    console.log(this.venueIdsString);
-
-  //   this.geteventtime();
-  // } else {
-  //   Swal.fire({
-  //     icon: 'error',
-  //     title: 'Oops...',
-  //     text: "Please Select Eventdate",
-      
-  //   });
-  //   this.form.venueIds.reset();
-  // }
 }
 onSelectTime(event: any) {
   const selectedIds = event.map((item: any) => item.eventTimeId); 
@@ -261,7 +242,6 @@ onSelectTime(event: any) {
     //   this.form.markAllAsTouched();
     //   return;
     // }
-    let allVenueId=["1","2","3","4","5","6","7","8"]
     if (this.form.valid || ( this.form.controls.venueIds.value.length > 0)) {
     let obj={
       "eventDate":new Date(val.eventDate),
@@ -269,7 +249,7 @@ onSelectTime(event: any) {
       "personName":val.personName,
       "guestName":val.guestName,
       "phonenumber":val.phonenumber,
-      "venueIds":this.isAllVenueSelected ? allVenueId.toString(): this.venueIdsString,
+      "venueIds":this.venueIdsString,
       "eventTypeId": parseInt(val.eventTypeId) ,
       "eventTimeIds":this.timeIdesString,
       "eventFoodtypeId":val.eventFoodtypeId,
