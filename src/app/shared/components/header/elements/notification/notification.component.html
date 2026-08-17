@@ -2,7 +2,7 @@
   <svg>
     <use href="assets/svg/icon-sprite.svg#notification"></use>
   </svg>
-  <span class="badge rounded-pill badge-secondary" >{{notificationCount}}</span>
+  <span class="badge rounded-pill badge-secondary" *ngIf="notificationCount > 0">{{notificationCount}}</span>
 </div>
 <div class="onhover-show-div notification-dropdown" style="overflow-y: scroll !important;" >
   <h6 class="f-18 mb-0 dropdown-title">Notitications</h6>

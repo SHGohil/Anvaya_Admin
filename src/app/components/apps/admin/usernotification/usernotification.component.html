@@ -1,5 +1,8 @@
 <div class="row mt-5" >
     <h4>Notification</h4>
+    <div class="container-fluid d-flex justify-content-center align-items-center mt-5" *ngIf="!usernotificationData?.length">
+        <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
+    </div>
     <div class="col-lg-4" *ngFor="let item of usernotificationData">
         <div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;" (click)="onviewdeails(item,content)" >
             <div class="card-header" style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;">
