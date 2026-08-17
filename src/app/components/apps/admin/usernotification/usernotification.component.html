@@ -51,7 +51,7 @@
         </div>
  
         <div  class="modal-body popup-container"  >
-            <div class="row mt-3">
+            <div class="row mt-3" *ngIf="viewdetails">
                 <div class="col-lg-6">
                     <p style="color:#1D243380;line-height: 0;">PERSON NAME</p>
                     <p style="line-height:0.5">{{viewdetails.personName}}</p>
@@ -97,8 +97,8 @@
 
                 
             </div>
-            <hr *ngIf="activeTab!='all'">
-            <div class="row mt-3" *ngIf="activeTab!='all'" >
+            <hr *ngIf="viewdetails && activeTab!='all'">
+            <div class="row mt-3" *ngIf="viewdetails && activeTab!='all'" >
                 <div class="col-lg-12 mt-3">
                     <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
                    

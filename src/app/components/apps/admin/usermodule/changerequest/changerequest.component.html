@@ -57,7 +57,7 @@
                        
                     </div>
                  
-                  <div class="row mt-3">
+                  <div class="row mt-3" *ngIf="viewdails">
                       <div class="col-lg-6">
                           <p style="color:#1D243380;line-height: 0;">PERSON NAME</p>
                           <p style="line-height:0.5">{{viewdails.personName}}</p>
@@ -79,7 +79,7 @@
                           <p style="line-height:0.5">{{viewdails.eventType?.eventTypeName}}</p>
                       </div>
                       <div class="col-lg-6 mt-3">
-                          
+
                       </div>
                       <div class="col-lg-12 mt-3">
                           <p style="color:#1D243380;line-height: 0;">VENUE</p>
@@ -87,24 +87,24 @@
                               <div class="col-3" *ngFor="let item of viewdails.venuelist">
                                   <p style="word-wrap: break-word;"><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.venueName}}</span></p>
                               </div>
-                           
+
                           </div>
                       </div>
-                      
+
                       <div class="col-lg-12 mt-3">
                           <p style="color:#1D243380;line-height: 0;">TIME OF EVENT</p>
                           <div class="row" style="line-height:0.5">
                               <div class="col-2" *ngFor="let item of viewdails.eventTimeIdslist">
                                   <p><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.eventTimeName}}</span></p>
                               </div>
-                             
+
                           </div>
                       </div>
-      
-                      
+
+
                   </div>
-                  <hr *ngIf="activeTab!='all'">
-                  <div class="row mt-3" *ngIf="activeTab!='all'" >
+                  <hr *ngIf="viewdails && activeTab!='all'">
+                  <div class="row mt-3" *ngIf="viewdails && activeTab!='all'" >
                       <div class="col-lg-12 mt-3  " >
                           <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
                          
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                  <div class="row mt-3">
+                  <div class="row mt-3" *ngIf="changedetails">
                       <div class="col-lg-6">
                           <p style="color:#1D243380;line-height: 0;">PERSON NAME</p>
                           <p style="line-height:0.5">{{changedetails.personName}}</p>
@@ -185,11 +185,11 @@
       
                       
                   </div>
-                  <hr *ngIf="activeTab!='all'">
-                  <div class="row mt-3" *ngIf="activeTab!='all'" >
+                  <hr *ngIf="changedetails && activeTab!='all'">
+                  <div class="row mt-3" *ngIf="changedetails && activeTab!='all'" >
                       <div class="col-lg-12 mt-3  " >
                           <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
-                         
+
                           <p style="line-height:0.5" >{{changedetails.eventStatusName}}</p>
                       </div>
                       <div class="col-lg-6 mt-3">
