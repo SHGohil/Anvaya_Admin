@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { LayoutService } from "../../services/layout.service";
 
 @Component({
     selector: "app-svg-icon",
@@ -9,10 +8,4 @@ import { LayoutService } from "../../services/layout.service";
 })
 export class SvgIconComponent {
   @Input("icon") public icon;
-  public iconValue;
-  constructor(public layOut: LayoutService) {}
-
-  getSvgType() {
-    return document.getElementsByClassName("sidebar-wrapper")[0].getAttribute("icon") == "stroke-svg";
-  }
 }

@@ -1,7 +1,5 @@
 <div class="notification-box"routerLink="admin/notification" (click)="toggleNotificationMobile()">
-  <svg>
-    <use href="assets/svg/icon-sprite.svg#notification"></use>
-  </svg>
+  <app-svg-icon icon="bell"></app-svg-icon>
   <span class="badge rounded-pill badge-secondary" *ngIf="notificationCount > 0">{{notificationCount}}</span>
 </div>
 <div class="onhover-show-div notification-dropdown" style="overflow-y: scroll !important;" >

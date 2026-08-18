@@ -97,18 +97,18 @@ export class NavService implements OnDestroy {
     { path: "/settings/users", title: "Users", icon: "user", type: "link" },
     { path: "/settings/approvals", title: "Change Requests", icon: "file", type: "link" },
     { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
-    { path: "/admin/notification", title: "Notification", icon: "learning", type: "link" },
+    { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
  ];
 
  private salesManagerMenuItems: Menu[] = [
   { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true },
   { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
-  { path: "/admin/notification", title: "Notification", icon: "learning", type: "link" },
+  { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
  ];
 
  private salesExecutiveMenuItems: Menu[] = [
   { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true },
-  { path: "/admin/notification", title: "Notification", icon: "learning", type: "link" },
+  { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
  ];
   private getMenuItemsByRole(): Menu[] {
     let user;
@@ -138,7 +138,7 @@ export class NavService implements OnDestroy {
     },
     { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active:true},
    
-    { path: "/admin/notification", title: "Notification", icon: "learning", type: "link"},
+    { path: "/admin/notification", title: "Notification", icon: "bell", type: "link"},
     { path: "/settings/users", title: "Users", icon: "user", type: "link" },
     { path: "/settings/approvals", title: "Change Requests", icon: "file", type: "link" },
     { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
