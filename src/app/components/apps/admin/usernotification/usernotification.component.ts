@@ -11,6 +11,7 @@ import {YourServiceName } from '../../../../shared/services/notification.service
 export class UsernotificationComponent {
   usernotificationData: any;
   viewdetails: any;
+  notificationLoading = true;
  
  
   constructor( private modalService: NgbModal,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private notification :YourServiceName) {}
@@ -39,9 +40,11 @@ export class UsernotificationComponent {
     this.notification.getnotification().subscribe(
        apiData => {
          this.usernotificationData = apiData;
+         this.notificationLoading = false;
        },
        error => {
          console.error("Error fetching notifications:", error);
+         this.notificationLoading = false;
        }
     );
    }

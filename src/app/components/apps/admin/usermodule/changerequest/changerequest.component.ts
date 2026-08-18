@@ -16,6 +16,11 @@ export class ChangerequestComponent implements OnInit {
   viewdails: any;
   changedetails: any;
   isapproved: boolean;
+  // changerequestdata starts as [] (not null/undefined), so the existing
+  // "no data" empty-state check below was already true before the API
+  // ever responded - the empty-state image showed on every load, not just
+  // genuinely-empty results.
+  changerequestLoading = true;
 
 
   constructor(public rservice : ReportsService,private service:ChangerequestService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef){
@@ -27,7 +32,8 @@ export class ChangerequestComponent implements OnInit {
   }
 
   getspecialdates(){
-    this.service.getchangerequest().subscribe((apidata: any)=>{
+    this.service.getchangerequest().subscribe({
+      next: (apidata: any) => {
       // The API returns { pending, approved, rejected }, not a flat list. This
       // assigned the whole object and the template did *ngFor over it, so
       // Angular threw NG02200 ("Cannot find a differ supporting object") and
@@ -37,6 +43,11 @@ export class ChangerequestComponent implements OnInit {
       // pending queue - a request that has already been decided must not be
       // decided again.
       this.changerequestdata = apidata?.pending ?? [];
+      this.changerequestLoading = false;
+      },
+      error: () => {
+        this.changerequestLoading = false;
+      },
     })
   }
 

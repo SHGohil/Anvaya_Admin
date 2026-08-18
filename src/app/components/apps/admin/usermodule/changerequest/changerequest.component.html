@@ -1,7 +1,14 @@
 <div class="container-fluid pt-3 pb-0">
     <app-page-header title="Change Requests"></app-page-header>
 </div>
-<div class="container-fluid d-flex justify-content-center align-items-center vh-100" *ngIf="!changerequestdata?.length">
+<div class="container-fluid pt-1" *ngIf="changerequestLoading">
+    <div class="row mt-5">
+        <div class="col-lg-4" *ngFor="let i of [1,2,3]">
+            <div class="skeleton" style="height: 210px; border-radius: 20px;"></div>
+        </div>
+    </div>
+  </div>
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100" *ngIf="!changerequestLoading && !changerequestdata?.length">
     <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
   </div>
   <div class="container-fluid pt-1" *ngIf="changerequestdata?.length">

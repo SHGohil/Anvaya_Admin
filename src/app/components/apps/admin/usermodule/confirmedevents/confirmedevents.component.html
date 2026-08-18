@@ -1,9 +1,14 @@
-<div class="container-fluid d-flex justify-content-center align-items-center vh-100" *ngIf="!reportdata">
+<div class="row" style="margin-top: 12px;" *ngIf="reportLoading">
+    <div class="col-lg-12" *ngFor="let i of [1,2,3]">
+        <div class="skeleton" style="height: 150px; border-radius: 20px; margin-bottom: 1rem;"></div>
+    </div>
+</div>
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100" *ngIf="!reportLoading && !reportdata?.length">
     <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
   </div>
 
 
-<div class="row" style="margin-top: 12px;"*ngIf="reportdata">
+<div class="row" style="margin-top: 12px;"*ngIf="!reportLoading && reportdata?.length">
     <div class="col-lg-12" *ngFor="let item of reportdata">
         <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
     </div>

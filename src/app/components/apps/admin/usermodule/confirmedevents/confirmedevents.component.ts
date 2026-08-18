@@ -9,6 +9,7 @@ import { ReportsService } from 'src/app/shared/services/reports.service';
 })
 export class ConfirmedeventsComponent implements OnInit {
   reportdata: any;
+  reportLoading = true;
   constructor(public service : ReportsService,private cdr: ChangeDetectorRef ,private modalService: NgbModal,)
   {
  
@@ -64,13 +65,15 @@ geteventdetails(id: number) {
 
   getreport(id){
    this.service.getDailyquery(id).subscribe(apidata=>{
- 
+
      this.reportdata = apidata;
+     this.reportLoading = false;
  },
- 
+
 error => {
-   
+
   console.error('Error during login:', error);
+  this.reportLoading = false;
 
 })
 }

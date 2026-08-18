@@ -10,10 +10,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TodayseventsComponent implements OnInit {
   currentDate:string;
-  todaysqueriesdata: Object;
+  todaysqueriesdata: any;
   count: number;
   viewdails: any;
   showtab:boolean=true;
+  todaysLoading = true;
   
   constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private modalService: NgbModal,) {
     
@@ -25,16 +26,18 @@ export class TodayseventsComponent implements OnInit {
   }
  
   gettodaysdata(){
-    
+
     this.todaysservice.getTodaysquerys().subscribe((apidata:[])=>{
 
           this.todaysqueriesdata = apidata;
           this.count = apidata?.length;
+          this.todaysLoading = false;
     },
       error => {
-         
+
          console.error('Error during login:', error);
-      
+         this.todaysLoading = false;
+
       })
   }
   adddailyquery(){

@@ -35,10 +35,15 @@
     <p>Today : {{currentDate }}</p>
 
 </div>
-<div class="container-fluid d-flex justify-content-center align-items-center mt-5 " *ngIf="todaysqueriesdata==null&&showtab">
+<div class="row" style="margin-top: -6px;" *ngIf="todaysLoading&&showtab">
+    <div class="col-lg-12" *ngFor="let i of [1,2,3]">
+        <div class="skeleton" style="height: 150px; border-radius: 20px; margin-bottom: 1rem;"></div>
+    </div>
+</div>
+<div class="container-fluid d-flex justify-content-center align-items-center mt-5 " *ngIf="!todaysLoading&&todaysqueriesdata==null&&showtab">
     <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
   </div>
-<div class="row" style="margin-top: -6px;"*ngIf="todaysqueriesdata&&showtab" >
+<div class="row" style="margin-top: -6px;"*ngIf="!todaysLoading&&todaysqueriesdata&&showtab" >
     <div class="col-lg-12" *ngFor="let item of todaysqueriesdata" >
         <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
     </div>

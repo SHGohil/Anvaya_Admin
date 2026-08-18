@@ -1,6 +1,11 @@
 <app-page-header title="Notification"></app-page-header>
+<div class="row mt-3" *ngIf="notificationLoading">
+    <div class="col-lg-4" *ngFor="let i of [1,2,3]">
+        <div class="skeleton" style="height: 210px; border-radius: 20px;"></div>
+    </div>
+</div>
 <div class="row mt-3" >
-    <div class="container-fluid d-flex justify-content-center align-items-center mt-5" *ngIf="!usernotificationData?.length">
+    <div class="container-fluid d-flex justify-content-center align-items-center mt-5" *ngIf="!notificationLoading && !usernotificationData?.length">
         <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
     </div>
     <div class="col-lg-4" *ngFor="let item of usernotificationData">
