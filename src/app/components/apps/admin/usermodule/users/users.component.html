@@ -18,7 +18,17 @@
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="usersLoading">
+                  <tr class="border-bottom-secondary" *ngFor="let i of [1,2,3,4,5]">
+                    <th scope="row" colspan="7"><div class="skeleton" style="height: 18px; width: 100%;"></div></th>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="!usersLoading && !userdata?.length">
+                  <tr>
+                    <td colspan="7" class="text-center text-grey py-4">No users found.</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="!usersLoading && userdata?.length">
                   <tr class="border-bottom-secondary" *ngFor="let item of userdata">
                     <th scope="row">{{item.userName}}</th>
                     <td>{{item.mobileNumber}}</td>

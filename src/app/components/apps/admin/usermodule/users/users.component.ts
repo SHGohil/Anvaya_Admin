@@ -13,7 +13,10 @@ import Swal from 'sweetalert2';
     standalone: false
 })
 export class UsersComponent implements OnInit {
-userdata: Object;
+userdata: any[];
+  // Without this, "still loading" and "no users" were the same blank
+  // table - no rows, no message either way.
+  usersLoading = true;
   rolesdata: Object;
   public show: boolean = false
   userForm: FormGroup;
@@ -67,12 +70,17 @@ mobileNumberValidator(control: FormControl): { [s: string]: boolean } {
   return null;
 }
 getusers(){
-  
-  this.userservice.getUsers().subscribe(apidata=>{
-    this.userdata = apidata;
-    this.tableItem$ = apidata;
-    this.total$ = apidata;
-   
+
+  this.userservice.getUsers().subscribe({
+    next: (apidata: any) => {
+      this.userdata = apidata;
+      this.tableItem$ = apidata;
+      this.total$ = apidata;
+      this.usersLoading = false;
+    },
+    error: () => {
+      this.usersLoading = false;
+    },
   })
 }
 getRoles(){
