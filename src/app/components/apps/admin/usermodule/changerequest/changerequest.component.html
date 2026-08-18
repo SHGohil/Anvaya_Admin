@@ -1,3 +1,6 @@
+<div class="container-fluid pt-3 pb-0">
+    <app-page-header title="Change Requests"></app-page-header>
+</div>
 <div class="container-fluid d-flex justify-content-center align-items-center vh-100" *ngIf="!changerequestdata?.length">
     <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
   </div>
@@ -14,9 +17,7 @@
                         <div class="col-6 text-end" *ngIf="item.eventTimeIdslist!=null">
                             <span class="badge" style="background-color: #0162DD;">{{item.eventTimeIdslist[0].eventTimeName}}</span>
                             <!-- <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;" *ngIf="item.eventTimeIdslist.length >1 " >+{{ item?.eventTimeIdslist?.length-1 }}</span> -->
-                            <span class="badge badge-xs badge-light-success" *ngIf="item.eventStatusId==2 " ><img src="../../../../../../assets/images/verify.svg" alt=""></span>
-                            <span class="badge badge-xs badge-light-warning" *ngIf="item.eventStatusId==1 "  ><img src="../../../../../../assets/images/danger.svg" alt=""></span>
-                            <span class="badge badge-xs badge-light-dark" style="background: #E1E6EF;" *ngIf="item.eventStatusId==3 " ><img src="../../../../../../assets/images/Close_MD.svg" alt=""></span>
+                            <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
                         </div> 
                     </div>
                     <p class="text-grey" style="margin-top: -12px;margin-bottom: 2px;">Venue: {{item.venuelist[0].venueName}}<a *ngIf="item.venuelist.length >1 ">, +{{item.venuelist.length-1}}</a> </p>

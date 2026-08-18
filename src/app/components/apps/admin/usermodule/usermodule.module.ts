@@ -17,6 +17,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
   ],
   imports: [
     CommonModule,ReactiveFormsModule,NgbModule,NgSelectModule,CarouselModule,NgApexchartsModule,Ng2GoogleChartsModule,
-    FormsModule
+    FormsModule,SharedModule
   ],
   exports:[
     AddqueryComponent,

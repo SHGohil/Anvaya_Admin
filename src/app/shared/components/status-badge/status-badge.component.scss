@@ -1,0 +1,16 @@
+@import "../../../../assets/scss/tokens";
+
+.status-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.22em 0.65em;
+  border-radius: $border-radius-pill;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.status-badge-info { background: rgba($info, 0.12); color: $info; }
+.status-badge-warn { background: rgba($warning, 0.15); color: #b45309; }
+.status-badge-good { background: rgba($success, 0.12); color: $success; }
+.status-badge-critical { background: rgba($danger, 0.12); color: $danger; }

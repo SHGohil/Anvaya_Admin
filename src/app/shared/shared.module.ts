@@ -30,6 +30,8 @@ import { NgbdSortableHeader } from "./directives/NgbdSortableHeader";
 import { DecimalPipe } from "@angular/common";
 import { SvgIconComponent } from "./components/svg-icon/svg-icon.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
+import { StatusBadgeComponent } from "./components/status-badge/status-badge.component";
+import { PageHeaderComponent } from "./components/page-header/page-header.component";
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { CarouselModule } from "ngx-owl-carousel-o";
     MyAccountComponent,
     NgbdSortableHeader,
     SvgIconComponent,
+    StatusBadgeComponent,
+    PageHeaderComponent,
   ],
   imports: [
     CommonModule, 
@@ -63,6 +67,6 @@ import { CarouselModule } from "ngx-owl-carousel-o";
   providers: [NavService, LayoutService, DecimalPipe],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
-    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent],
+    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent],
 })
 export class SharedModule {}
