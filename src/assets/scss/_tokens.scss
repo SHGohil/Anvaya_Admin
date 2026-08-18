@@ -53,6 +53,23 @@ $box-shadow: 0 6px 20px rgba(36, 41, 52, 0.07);
 $box-shadow-lg: 0 12px 32px rgba(36, 41, 52, 0.1);
 
 // Components
+// $enable-shadows is Bootstrap's own flag (default false) gating whether
+// components with an optional shadow - cards, buttons' and inputs' focus
+// rings - actually emit one. Left off, $card-box-shadow below silently
+// compiles to nothing: the custom property still gets set, but no rule
+// ever consumes it (confirmed by inspecting the compiled CSS - .card sets
+// --bs-card-box-shadow correctly but never declares box-shadow at all).
+// $card-bg is also Bootstrap-default $body-bg, not white - since this app
+// sets $body-bg to the same tint as everything else, every plain .card
+// had been rendering with no background contrast AND no shadow, visually
+// indistinguishable from the page except for its 1px border.
+$enable-shadows: true;
+$card-bg: #fff;
+// Same $body-bg inheritance as $card-bg above, same fix - confirmed by
+// checking the Users "Options" row-action menu, which rendered with a real
+// shadow once $enable-shadows flipped but a background literally identical
+// to the page behind it.
+$dropdown-bg: #fff;
 $card-border-color: $border-color;
 $card-box-shadow: $box-shadow-sm;
 $input-border-color: #d8d3ca;
