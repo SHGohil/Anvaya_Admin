@@ -134,6 +134,28 @@
   }
 }
 
+// Fifth button variant the spec calls for alongside Bootstrap's own
+// primary/secondary/outline-*/danger: minimal, no border, no fill until
+// interacted with. For icon-only row actions and low-emphasis controls
+// that shouldn't compete with a screen's real primary action.
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    background-color: rgba($primary, 0.06);
+    color: $primary;
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: transparent;
+    color: $muted-color;
+  }
+}
+
 .border-bottom-primary {
   border-bottom: 2px solid $primary !important;
 }

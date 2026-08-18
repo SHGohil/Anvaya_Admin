@@ -33,6 +33,10 @@ $body-bg: #f7f5f1;
 $body-color: #2f2f3b;
 $border-color: #e6e1da;
 $secondary-color: #6c7280;
+// Third text tier below body/secondary - placeholder text, disabled labels,
+// icon-only button default state. Not a Bootstrap variable; a plain token
+// for component scss files to reference directly.
+$muted-color: #98a2b3;
 
 // Typography
 $font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -118,6 +122,19 @@ $link-decoration: none;
 $modal-content-border-radius: $border-radius-xl;
 $modal-content-box-shadow-xs: $box-shadow;
 $modal-content-box-shadow-sm-up: $box-shadow-lg;
+// Same $body-bg-inheritance bug as $card-bg/$dropdown-bg above:
+// $modal-content-bg defaults to var(--bs-body-bg), which is this app's warm
+// page tint, not white - modals would render with no background contrast
+// against their own backdrop.
+$modal-content-bg: #fff;
+// Default modal padding tracks Bootstrap's own $spacer (16px); bump to the
+// new scale's 24px step so modal header/body/footer breathe like the rest
+// of the redesigned surfaces.
+$modal-inner-padding: 1.5rem;
+
+// Table header text: subtle weight bump instead of Bootstrap's inherited
+// body weight, so column headers read as structure rather than more data.
+$table-th-font-weight: 600;
 
 // Sidebar / shell (consumed by the shell partials, not Bootstrap itself)
 $sidebar-width: 260px;
