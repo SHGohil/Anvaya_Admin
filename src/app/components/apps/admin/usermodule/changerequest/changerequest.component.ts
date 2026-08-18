@@ -52,6 +52,17 @@ export class ChangerequestComponent implements OnInit {
     })
   }
 
+  // Pure, template-only helpers for the Original/Requested comparison view -
+  // don't touch viewdails/changedetails or any other state.
+  fieldChanged(a: any, b: any): boolean {
+    return (a ?? null) !== (b ?? null);
+  }
+
+  listChanged(a: any[], b: any[], key: string): boolean {
+    const names = (list: any[]) => (list || []).map(x => x?.[key]).sort().join(',');
+    return names(a) !== names(b);
+  }
+
   onviewdeails(val,content)
 {
   this.modalService.open(content, { size: 'xl'})

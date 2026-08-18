@@ -20,171 +20,99 @@
   </div>
   <div class="card-body">
     <ng-template #content let-modal>
-        <div class="modal-header ">
-            <h4 class="modal-title">Event Details  </h4>
+        <div class="modal-header">
+            <h4 class="modal-title">Event Details</h4>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
-        <div class="modal-body" >
-            <div class="row">
+        <div class="modal-body cr-compare-modal">
 
-                <div class="col-xl-6" style="border-right: 1px solid #000;">
-                    <div class="row">
-                        <div class="col-lg-6">
+            <div class="cr-compare-actions">
+                <button class="btn btn-sm btn-primary" (click)="post(1,changedetails)">Approve Request</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="post(2,changedetails)">Decline Request</button>
+            </div>
 
-                            <p class="text-primary">(Old Event Details)</p>
-                        </div>
-                       
-                    </div>
-                 
-                  <div class="row mt-3" *ngIf="viewdails">
-                      <div class="col-lg-6">
-                          <p style="color:#1D243380;line-height: 0;">PERSON NAME</p>
-                          <p style="line-height:0.5">{{viewdails.personName}}</p>
-                      </div>
-                      <div class="col-lg-6">
-                          <p style="color:#1D243380;line-height: 0;">ENTRY DATE</p>
-                          <p style="line-height:0.5">{{viewdails.createdDate|date:"dd-MM-yyyy"}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">EVENT DATE</p>
-                          <p style="line-height:0.5">{{viewdails.eventDate |date:"dd-MM-yyyy"}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">GUEST NAME</p>
-                          <p style="line-height:0.5">{{viewdails.guestName}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">TYPE OF EVENT</p>
-                          <p style="line-height:0.5">{{viewdails.eventType?.eventTypeName}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-
-                      </div>
-                      <div class="col-lg-12 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">VENUE</p>
-                          <div class="row" style="line-height:0.5">
-                              <div class="col-3" *ngFor="let item of viewdails.venuelist">
-                                  <p style="word-wrap: break-word;"><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.venueName}}</span></p>
-                              </div>
-
-                          </div>
-                      </div>
-
-                      <div class="col-lg-12 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">TIME OF EVENT</p>
-                          <div class="row" style="line-height:0.5">
-                              <div class="col-2" *ngFor="let item of viewdails.eventTimeIdslist">
-                                  <p><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.eventTimeName}}</span></p>
-                              </div>
-
-                          </div>
-                      </div>
-
-
-                  </div>
-                  <hr *ngIf="viewdails && activeTab!='all'">
-                  <div class="row mt-3" *ngIf="viewdails && activeTab!='all'" >
-                      <div class="col-lg-12 mt-3  " >
-                          <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
-                         
-                          <p style="line-height:0.5" >{{viewdails.eventStatusName}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">BUMP IN</p>
-                          <p style="line-height:0.5" >{{convertToIST(viewdails.bumpIN)  |date:'dd-MM-yyyy hh:mm a'}}</p>
-                        </div>
-                        <div class="col-lg-6 mt-3">
-                            <p style="color:#1D243380;line-height: 0;">BUMP OUT</p>
-                            <p style="line-height:0.5" >{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                        </div>
-                        <div class="col-lg-6 mt-3">
-                            <p style="color:#1D243380;line-height: 0;">COMMENT</p>
-                            <p style="line-height:0.5" >{{viewdails.comment}}</p>
-                        </div>
-                  </div>
+            <div class="cr-compare" *ngIf="viewdails && changedetails">
+                <div class="cr-compare-header">
+                    <span class="cr-compare-field"></span>
+                    <span class="cr-compare-col-label">Original</span>
+                    <span class="cr-compare-col-label">Requested</span>
                 </div>
-                <div class="col-xl-6" >
-                    <div class="row">
-                        <div class="col-lg-6">
 
-                            <p class="text-primary">(Event Change Request)</p>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="text-end">
-
-                                <button class="btn btn-xs btn-outline-primary" (click)="post(1,changedetails)" >Approve</button>&nbsp;
-                                <button class="btn btn-xs btn-outline-danger"(click)="post(2,changedetails)">Decline</button>
-                            </div>
-                        </div>
-                    </div>
-                  <div class="row mt-3" *ngIf="changedetails">
-                      <div class="col-lg-6">
-                          <p style="color:#1D243380;line-height: 0;">PERSON NAME</p>
-                          <p style="line-height:0.5">{{changedetails.personName}}</p>
-                      </div>
-                      <div class="col-lg-6">
-                          <p style="color:#1D243380;line-height: 0;">ENTRY DATE</p>
-                          <p style="line-height:0.5">{{changedetails.createdDate|date:"dd-MM-yyyy"}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">EVENT DATE</p>
-                          <p style="line-height:0.5">{{changedetails.eventDate|date:"dd-MM-yyyy"}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">GUEST NAME</p>
-                          <p style="line-height:0.5">{{changedetails.guestName}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">TYPE OF EVENT</p>
-                          <p style="line-height:0.5">{{changedetails.eventType?.eventTypeName}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          
-                      </div>
-                      <div class="col-lg-12 mt-3">
-                        <p style="color:#1D243380;line-height: 0;">VENUE</p>
-                        <div class="row" style="line-height:0.5">
-                          <div class="col-3" *ngFor="let item of changedetails.venuelist">
-                            <p style="word-wrap: break-word;"><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.venueName}}</span></p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      
-                      
-                      <div class="col-lg-12 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">TIME OF EVENT</p>
-                          <div class="row" style="line-height:0.5">
-                              <div class="col-2" *ngFor="let item of changedetails.eventTimeIdslist">
-                                  <p><span class="badge" style="background-color: #FCF4EE; color:#B66623;">{{item.eventTimeName}}</span></p>
-                              </div>
-                             
-                          </div>
-                      </div>
-      
-                      
-                  </div>
-                  <hr *ngIf="changedetails && activeTab!='all'">
-                  <div class="row mt-3" *ngIf="changedetails && activeTab!='all'" >
-                      <div class="col-lg-12 mt-3  " >
-                          <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
-
-                          <p style="line-height:0.5" >{{changedetails.eventStatusName}}</p>
-                      </div>
-                      <div class="col-lg-6 mt-3">
-                          <p style="color:#1D243380;line-height: 0;">BUMP IN</p>
-                          <p style="line-height:0.5" >{{convertToIST(changedetails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                        </div>
-                        <div class="col-lg-6 mt-3">
-                            <p style="color:#1D243380;line-height: 0;">BUMP OUT</p>
-                            <p style="line-height:0.5" >{{convertToIST(changedetails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                        </div>
-                        <div class="col-lg-6 mt-3">
-                            <p style="color:#1D243380;line-height: 0;">COMMENT</p>
-                            <p style="line-height:0.5" >{{changedetails.comment}}</p>
-                        </div>
-                  </div>
+                <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.personName, changedetails.personName)">
+                    <span class="cr-compare-field">Person Name</span>
+                    <span class="cr-compare-val">{{viewdails.personName}}</span>
+                    <span class="cr-compare-val cr-compare-val-new">{{changedetails.personName}}</span>
                 </div>
+
+                <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.createdDate, changedetails.createdDate)">
+                    <span class="cr-compare-field">Entry Date</span>
+                    <span class="cr-compare-val">{{viewdails.createdDate|date:"dd-MM-yyyy"}}</span>
+                    <span class="cr-compare-val cr-compare-val-new">{{changedetails.createdDate|date:"dd-MM-yyyy"}}</span>
+                </div>
+
+                <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventDate, changedetails.eventDate)">
+                    <span class="cr-compare-field">Event Date</span>
+                    <span class="cr-compare-val">{{viewdails.eventDate|date:"dd-MM-yyyy"}}</span>
+                    <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventDate|date:"dd-MM-yyyy"}}</span>
+                </div>
+
+                <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.guestName, changedetails.guestName)">
+                    <span class="cr-compare-field">Guest Name</span>
+                    <span class="cr-compare-val">{{viewdails.guestName}}</span>
+                    <span class="cr-compare-val cr-compare-val-new">{{changedetails.guestName}}</span>
+                </div>
+
+                <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventType?.eventTypeName, changedetails.eventType?.eventTypeName)">
+                    <span class="cr-compare-field">Type of Event</span>
+                    <span class="cr-compare-val">{{viewdails.eventType?.eventTypeName}}</span>
+                    <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventType?.eventTypeName}}</span>
+                </div>
+
+                <div class="cr-compare-row cr-compare-row-chips" [class.cr-changed]="listChanged(viewdails.venuelist, changedetails.venuelist, 'venueName')">
+                    <span class="cr-compare-field">Venue</span>
+                    <span class="cr-compare-val">
+                        <span class="badge cr-chip" *ngFor="let item of viewdails.venuelist">{{item.venueName}}</span>
+                    </span>
+                    <span class="cr-compare-val cr-compare-val-new">
+                        <span class="badge cr-chip" *ngFor="let item of changedetails.venuelist">{{item.venueName}}</span>
+                    </span>
+                </div>
+
+                <div class="cr-compare-row cr-compare-row-chips" [class.cr-changed]="listChanged(viewdails.eventTimeIdslist, changedetails.eventTimeIdslist, 'eventTimeName')">
+                    <span class="cr-compare-field">Time of Event</span>
+                    <span class="cr-compare-val">
+                        <span class="badge cr-chip" *ngFor="let item of viewdails.eventTimeIdslist">{{item.eventTimeName}}</span>
+                    </span>
+                    <span class="cr-compare-val cr-compare-val-new">
+                        <span class="badge cr-chip" *ngFor="let item of changedetails.eventTimeIdslist">{{item.eventTimeName}}</span>
+                    </span>
+                </div>
+
+                <ng-container *ngIf="activeTab!='all'">
+                    <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventStatusName, changedetails.eventStatusName)">
+                        <span class="cr-compare-field">Event Status</span>
+                        <span class="cr-compare-val">{{viewdails.eventStatusName}}</span>
+                        <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventStatusName}}</span>
+                    </div>
+
+                    <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.bumpIN, changedetails.bumpIN)">
+                        <span class="cr-compare-field">Bump In</span>
+                        <span class="cr-compare-val">{{convertToIST(viewdails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</span>
+                        <span class="cr-compare-val cr-compare-val-new">{{convertToIST(changedetails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</span>
+                    </div>
+
+                    <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.bumpOUT, changedetails.bumpOUT)">
+                        <span class="cr-compare-field">Bump Out</span>
+                        <span class="cr-compare-val">{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</span>
+                        <span class="cr-compare-val cr-compare-val-new">{{convertToIST(changedetails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</span>
+                    </div>
+
+                    <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.comment, changedetails.comment)">
+                        <span class="cr-compare-field">Comment</span>
+                        <span class="cr-compare-val">{{viewdails.comment}}</span>
+                        <span class="cr-compare-val cr-compare-val-new">{{changedetails.comment}}</span>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </ng-template>

@@ -1,0 +1,64 @@
+@import "../../../../assets/scss/tokens";
+
+// Shared by Change Requests and Notification. Guest name (not the record's
+// creator) is the prominent header field - the spec asks for guest/date/
+// venue/type/status to be visible without opening the modal, and "who this
+// event is for" is the more useful at-a-glance identifier than "who typed
+// it in"; createdByName moves into the body as "Requested By" rather than
+// being dropped.
+.ec-card {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: $box-shadow-sm;
+  }
+}
+
+.ec-header {
+  padding: 0.75rem 0.85rem 0.5rem;
+}
+
+.ec-title {
+  margin-bottom: 0.15rem;
+  font-size: $fs-card-title;
+  color: $body-color;
+}
+
+.ec-time-badge {
+  background-color: $info;
+  color: #fff;
+}
+
+.ec-meta {
+  color: $secondary-color;
+  font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.ec-body {
+  border-top: 1px solid $border-color;
+  padding: 0.6rem 0.85rem 0.75rem;
+}
+
+.ec-body-col {
+  border-right: 1px solid $border-color;
+}
+
+.ec-label {
+  color: $muted-color;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.ec-value {
+  font-size: 0.85rem;
+  color: $body-color;
+  margin-bottom: 0;
+}
