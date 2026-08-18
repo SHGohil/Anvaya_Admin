@@ -11,12 +11,12 @@
           </div>
           <div class="login-main">
             <form class="theme-form" [formGroup]="loginForm">
-              <h4>Sign in to account</h4>
-              <p>Enter your email & password to login</p>
+              <h4>Sign in to your account</h4>
+              <p>Enter your email &amp; password to login</p>
               <div class="form-group">
-                <label class="col-form-label">Name</label>
-                <input class="form-control" type="email" required="" placeholder="Enter Your Name" formControlName="email" />
-                <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required" class="text text-danger mt-1">Name is required</div>
+                <label class="col-form-label">Email address</label>
+                <input class="form-control" type="email" required="" placeholder="Enter your email address" formControlName="email" />
+                <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required" class="text text-danger mt-1">Email address is required</div>
                 <!-- <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.email" class="text text-danger mt-1">Invalid Email</div> -->
               </div>
               <div class="form-group">
