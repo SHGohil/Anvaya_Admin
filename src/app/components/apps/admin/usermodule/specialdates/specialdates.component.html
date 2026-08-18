@@ -1,5 +1,5 @@
 <div class="container-fluid pt-3">
-    <app-page-header title="Special Dates" subtitle="Year {{currentYear}}">
+    <app-page-header title="Special Dates" subtitle="Year {{currentYear}} &middot; {{selectedDates.length}} date{{selectedDates.length === 1 ? '' : 's'}} selected">
         <button class="btn btn-md btn-primary" *ngIf="loginroleid==1" (click)="post()">Save</button>
     </app-page-header>
     <div class="row">
