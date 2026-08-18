@@ -4,7 +4,6 @@ import { UsermoduleModule } from './usermodule.module';
 import { UsersComponent } from './users/users.component';
 import { ChangerequestComponent } from './changerequest/changerequest.component';
 import { SpecialdatesComponent } from './specialdates/specialdates.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
 
 /**
  * Routing for the /settings/* screens, split out of UsermoduleModule itself.
@@ -15,7 +14,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
  * routes. When UsermoduleModule called RouterModule.forChild(routes) itself,
  * that registration ran twice - once as the lazy chunk for "settings", once
  * as part of the "admin" chunk pulling it in as a plain import - registering
- * users/approvals/specials/Analytics under both parents. That duplicate
+ * users/approvals/specials under both parents. That duplicate
  * registration was the cause of navigating between /settings/* screens not
  * reliably tearing down the previous route's component (confirmed: both
  * would render into the outlet at once).
@@ -27,7 +26,6 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'approvals', component: ChangerequestComponent },
   { path: 'specials', component: SpecialdatesComponent },
-  { path: 'Analytics', component: AnalyticsComponent },
 ];
 
 @NgModule({

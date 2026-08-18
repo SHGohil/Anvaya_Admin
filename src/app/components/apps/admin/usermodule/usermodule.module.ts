@@ -14,9 +14,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { AnalyticsComponent } from './analytics/analytics.component';
 import { NgApexchartsModule } from "ng-apexcharts";
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -29,11 +27,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     EditeventComponent,
     SpecialdatesComponent,
     TodayseventsComponent,
-    UsersComponent,
-    AnalyticsComponent
+    UsersComponent
   ],
   imports: [
-    CommonModule,ReactiveFormsModule,NgbModule,NgSelectModule,CarouselModule,NgApexchartsModule,Ng2GoogleChartsModule,
+    CommonModule,ReactiveFormsModule,NgbModule,NgSelectModule,CarouselModule,NgApexchartsModule,
     FormsModule,SharedModule
   ],
   exports:[
@@ -44,8 +41,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DailyreportComponent,
     EditeventComponent,
     SpecialdatesComponent,
-    TodayseventsComponent,
-    AnalyticsComponent
+    TodayseventsComponent
   ],
   providers:[
     NgbModal,
