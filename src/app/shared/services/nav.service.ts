@@ -92,8 +92,28 @@ export class NavService implements OnDestroy {
 
 
 
+  // Section headers grouping the flat list below - a real, working feature
+  // of this menu template (sidebar-main-title / headTitle1) that had never
+  // actually been used by the live menu arrays until now: Daily Query/
+  // Today's Events/Daily Report/Confirmed Events/Calendar were previously
+  // embedded inside the dashboard's own tab-switcher, not sidebar links,
+  // so there was only ever one flat group. Now that they're real routes,
+  // "Operations" is a genuine second section, not an invented one.
+  //
+  // All three role arrays get the same 5 new Operations links: the
+  // dashboard's old tab-switcher had no role check at all, so every
+  // logged-in user could already reach all five screens that way - this
+  // preserves that same access level now that they're routed instead of
+  // embedded, rather than accidentally narrowing it.
   private adminMenuItems: Menu[] = [
     { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true  },
+    { headTitle1: "Operations" },
+    { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link" },
+    { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link" },
+    { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link" },
+    { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link" },
+    { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link" },
+    { headTitle1: "Management" },
     { path: "/settings/users", title: "Users", icon: "user", type: "link" },
     { path: "/settings/approvals", title: "Change Requests", icon: "file", type: "link" },
     { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
@@ -102,12 +122,26 @@ export class NavService implements OnDestroy {
 
  private salesManagerMenuItems: Menu[] = [
   { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true },
+  { headTitle1: "Operations" },
+  { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link" },
+  { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link" },
+  { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link" },
+  { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link" },
+  { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link" },
+  { headTitle1: "Management" },
   { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
   { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
  ];
 
  private salesExecutiveMenuItems: Menu[] = [
   { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true },
+  { headTitle1: "Operations" },
+  { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link" },
+  { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link" },
+  { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link" },
+  { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link" },
+  { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link" },
+  { headTitle1: "Management" },
   { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
  ];
   private getMenuItemsByRole(): Menu[] {

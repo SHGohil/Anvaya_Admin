@@ -3,21 +3,22 @@
 
     <!-- KPI overview -->
     <div class="row g-3 kpi-row" *ngIf="analyticsLoading">
-        <div class="col-6 col-md-4 col-lg" *ngFor="let i of [1,2,3,4,5]">
-            <div class="skeleton" style="height: 104px; border-radius: 0.75rem;"></div>
+        <div class="col-12 col-lg-4"><div class="skeleton" style="height: 128px; border-radius: 0.75rem;"></div></div>
+        <div class="col-6 col-lg-2" *ngFor="let i of [1,2,3,4]">
+            <div class="skeleton" style="height: 128px; border-radius: 0.75rem;"></div>
         </div>
     </div>
     <div class="row g-3 kpi-row" *ngIf="analytics">
-        <div class="col-6 col-md-4 col-lg">
-            <div class="kpi-tile">
+        <div class="col-12 col-lg-4">
+            <div class="kpi-hero">
                 <div class="kpi-icon kpi-icon-total">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg>
                 </div>
-                <div class="kpi-num">{{ analytics.total }}</div>
-                <div class="kpi-label">Total events</div>
+                <div class="kpi-hero-num">{{ analytics.total }}</div>
+                <div class="kpi-hero-label">Total events</div>
             </div>
         </div>
-        <div class="col-6 col-md-4 col-lg">
+        <div class="col-6 col-lg-2">
             <div class="kpi-tile">
                 <div class="kpi-icon kpi-icon-info">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
@@ -26,7 +27,7 @@
                 <div class="kpi-label">Open queries</div>
             </div>
         </div>
-        <div class="col-6 col-md-4 col-lg">
+        <div class="col-6 col-lg-2">
             <div class="kpi-tile">
                 <div class="kpi-icon kpi-icon-warn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg>
@@ -35,7 +36,7 @@
                 <div class="kpi-label">Tentative</div>
             </div>
         </div>
-        <div class="col-6 col-md-4 col-lg">
+        <div class="col-6 col-lg-2">
             <div class="kpi-tile">
                 <div class="kpi-icon kpi-icon-good">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
@@ -44,7 +45,7 @@
                 <div class="kpi-label">Confirmed</div>
             </div>
         </div>
-        <div class="col-6 col-md-4 col-lg">
+        <div class="col-6 col-lg-2">
             <div class="kpi-tile">
                 <div class="kpi-icon kpi-icon-critical">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -68,7 +69,7 @@
                         <h6 class="overview-title">Query pipeline</h6>
                         <p class="overview-sub">Status split across all {{ analytics.total }} tracked events</p>
                     </div>
-                    <button type="button" class="btn btn-ghost btn-sm overview-action" (click)="setactive(2)">View all queries</button>
+                    <a routerLink="/admin/daily-report" class="btn btn-ghost btn-sm overview-action">View all queries</a>
                 </div>
                 <div class="d-flex justify-content-center" *ngIf="donutChart">
                     <apx-chart
@@ -110,7 +111,7 @@
                     <img src="../../../../../assets/images/no data.gif" alt="No Data" height="96" width="96" class="img-fluid">
                     <p class="activity-empty-title">No bookings today</p>
                     <p class="activity-empty-sub">Bookings scheduled for today will appear here.</p>
-                    <button type="button" class="btn btn-primary btn-sm mt-2" (click)="setactive(0)">Add Booking</button>
+                    <a routerLink="/admin/daily-query" class="btn btn-primary btn-sm mt-2">Add Booking</a>
                 </div>
 
                 <div class="activity-row" *ngFor="let item of todaysActivity">
@@ -139,43 +140,55 @@
     </div>
 
     <!--
-      Segmented tab bar, replacing 4 giant switcher cards. Also fixes a
-      pre-existing mislabeling found while converting this: activebad's
-      default (1) rendered app-todaysevents, but the only card pointing at
-      it was labelled "Daily Query" - meanwhile activebad=0 (app-addquery,
-      the actual Daily Query Entry form) had no card at all and was
-      unreachable through this UI. Relabelled 1 to what it actually shows
-      and added the missing tab for 0, restoring a real embedded screen
-      rather than adding new functionality.
+      Quick Access: Daily Query/Today's Events/Daily Report/Confirmed
+      Events/Calendar used to be embedded here via an activebad-driven
+      *ngIf switcher (four/five giant cards, only one visible at a time).
+      They're now real routes (see admin.module.ts) with their own
+      sidebar links - this row is genuine navigation (routerLink), not a
+      panel switch, and only needs to exist as a dashboard shortcut.
     -->
-    <h6 class="section-title mt-4 mb-2">Screens</h6>
-    <div class="screen-tabs" role="tablist">
-        <button type="button" class="screen-tab" role="tab" [attr.aria-selected]="activebad===0" [class.active]="activebad===0" (click)="setactive(0)">Daily Query</button>
-        <button type="button" class="screen-tab" role="tab" [attr.aria-selected]="activebad===1" [class.active]="activebad===1" (click)="setactive(1)">Today's Events</button>
-        <button type="button" class="screen-tab" role="tab" [attr.aria-selected]="activebad===2" [class.active]="activebad===2" (click)="setactive(2)">Daily Report</button>
-        <button type="button" class="screen-tab" role="tab" [attr.aria-selected]="activebad===3" [class.active]="activebad===3" (click)="setactive(3)">Confirmed Events</button>
-        <button type="button" class="screen-tab" role="tab" [attr.aria-selected]="activebad===4" [class.active]="activebad===4" (click)="setactive(4)">Calendar View</button>
+    <h6 class="section-title mt-4 mb-2">Quick access</h6>
+    <div class="row g-3 quick-access-row">
+        <div class="col-6 col-md-4 col-lg">
+            <a routerLink="/admin/daily-query" class="quick-access-card">
+                <div class="quick-access-icon qa-total">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                </div>
+                <span>Daily Query</span>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <a routerLink="/admin/todays-events" class="quick-access-card">
+                <div class="quick-access-icon qa-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <span>Today's Events</span>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <a routerLink="/admin/daily-report" class="quick-access-card">
+                <div class="quick-access-icon qa-warn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <span>Daily Report</span>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <a routerLink="/admin/confirmed-events" class="quick-access-card">
+                <div class="quick-access-icon qa-good">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>Confirmed Events</span>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg">
+            <a routerLink="/admin/calendar" class="quick-access-card">
+                <div class="quick-access-icon qa-critical">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <span>Calendar View</span>
+            </a>
+        </div>
     </div>
 
-</div>
-<div class="screen-panel">
-    <div class="container-fluid" *ngIf="activebad==0" style="cursor:pointer">
-        <app-addquery></app-addquery>
-    </div>
-    <div class="container-fluid" *ngIf="activebad==1" style="cursor:pointer">
-    <app-todaysevents></app-todaysevents>
-</div>
-<div class="container-fluid"  *ngIf="activebad==2" style="cursor:pointer">
-
-
-    <app-dailyreport></app-dailyreport>
-</div>
-<div class="container-fluid" *ngIf="activebad==3" style="max-height:500px;overflow-y: auto;cursor:pointer">
-
-    <app-confirmedevents></app-confirmedevents>
-</div>
-<div  class="container-fluid" *ngIf="activebad==4" style="cursor:pointer; box-sizing: border-box; margin-top: 12px;">
-
-    <app-calenderdates></app-calenderdates>
-</div>
 </div>

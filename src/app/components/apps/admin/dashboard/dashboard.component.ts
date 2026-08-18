@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavService } from 'src/app/shared/services/nav.service';
 import { TodaysqueryService } from 'src/app/shared/services/todaysquery.service';
 
@@ -8,21 +8,7 @@ import { TodaysqueryService } from 'src/app/shared/services/todaysquery.service'
     styleUrls: ['./dashboard.component.scss'],
     standalone: false
 })
-export class DashboardComponent  implements OnInit {
-  activebad = 1;
-  id: number;
- primary_color = "#F3C37C";
-   secondary_color = "#B9E298";
-   skillStatus: any ;
-  year: number;
-  data: any;
-  openpercentage:any;
-  tentativepercentage:any;
-  confirmedPercentage:any;
-  lostPercentage:any;
-  years: number[] = [];
-  total: any;
-
+export class DashboardComponent implements OnInit {
   // KPI overview - reuses the same /Analytics and /Reports endpoints the
   // Daily Report and Today's Events screens already call, so this adds no
   // new backend surface, just a second place that renders the same data.
@@ -37,30 +23,11 @@ export class DashboardComponent  implements OnInit {
   analyticsLoading = true;
   activityLoading = true;
 
-  constructor(private cdr: ChangeDetectorRef,public navServices: NavService,private todaysservice: TodaysqueryService)
-  {
-
-    this.id=1;
-    let user;
-    if (typeof window !== 'undefined' && window.localStorage) {
-     user = localStorage.getItem('user');
-    }
-    var userdata = JSON.parse(user);
-    var token = userdata.token;
-
-  }
+  constructor(public navServices: NavService, private todaysservice: TodaysqueryService) {}
 
   ngOnInit() {
-     this.activebad = this.id;
-     this.cdr.detectChanges();
-     this.loadAnalytics();
-     this.loadTodaysActivity();
-  }
-
-  setactive(id){
-
-    this.id = id
-    this.activebad=id;
+    this.loadAnalytics();
+    this.loadTodaysActivity();
   }
 
   private loadAnalytics() {
