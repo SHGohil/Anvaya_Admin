@@ -7,35 +7,40 @@
 // controls, etc. without touching a single template - that's what makes the
 // re-skin cheap: the markup already speaks Bootstrap's class names.
 //
-// The brand accent (#B66623) is kept as-is: it's already the app's identity
-// colour (see the inline button styles across the old templates), so the
-// re-skin changes how the app looks, not what it looks like it belongs to.
+// Brand - switched to the exact palette from the 2026-08 modernization brief
+// (was #B66623, the original theme's own brand accent - the user explicitly
+// asked to use the brief's colors instead, so this is a deliberate identity
+// change, not a restyle).
+$primary: #c56a1a;
+$primary-hover: #a95712; // not a Bootstrap variable - button-variant's hover
+// shade is computed from $primary, which gets close but not exact; the app
+// wants this precise value, so _app.scss overrides .btn-primary's hover/
+// active state directly with this token instead of relying on the computed
+// shade.
+$secondary: #667085;
+$light: #f2f4f7;
+$dark: #172033;
 
-// Brand
-$primary: #b66623;
-$secondary: #52526c;
-$light: #f7f5f2;
-$dark: #242934;
-
-// Status colours - realigned to a richer, more saturated palette (2026-08
-// dashboard redesign) and now doing double duty as this app's actual event-
-// status model, not just generic Bootstrap semantics: Open events map to
-// $info, Tentative to $warning, Confirmed to $success, Lost to $danger.
-// $total is new - the aggregate/"all events" KPI has no Bootstrap equivalent.
-$success: #10b981;
-$info: #0ea5e9;
-$warning: #f59e0b;
-$danger: #f43f5e;
+// Status colours - the brief's exact semantic palette, doing double duty as
+// this app's actual event-status model, not just generic Bootstrap
+// semantics: Open events map to $info, Tentative to $warning, Confirmed to
+// $success, Lost to $danger. $total is new - the aggregate/"all events" KPI
+// has no Bootstrap equivalent and isn't part of the brief's palette.
+$success: #12b76a;
+$info: #2e90fa;
+$warning: #f79009;
+$danger: #f04438;
 $total: #6d28d9;
 
 // Neutrals / body
-$body-bg: #f7f5f1;
-$body-color: #2f2f3b;
-$border-color: #e6e1da;
-$secondary-color: #6c7280;
+$body-bg: #f7f8fa;
+$body-color: #172033;
+$border-color: #e4e7ec;
+$secondary-color: #667085;
 // Third text tier below body/secondary - placeholder text, disabled labels,
 // icon-only button default state. Not a Bootstrap variable; a plain token
-// for component scss files to reference directly.
+// for component scss files to reference directly. Already matched the
+// brief's Muted Text value exactly before this pass - untouched.
 $muted-color: #98a2b3;
 
 // Typography

@@ -46,8 +46,8 @@
                 <h6 style="color: #1D243365;">VENUES</h6>
 
                 <p>
-                    <span class="badge" *ngFor="let item1 of item.venuelist | slice:0:1" style="background-color: #FCF4EE; color:#B66623;">{{item1.venueName}}</span>
-                   <span *ngIf="item.venuelist.length > 1">,</span> <span class="badge" *ngIf="item.venuelist.length > 1" style="background-color: #FCF4EE; color:#B66623;"> +{{item.venuelist.length - 1}}</span>
+                    <span class="badge" *ngFor="let item1 of item.venuelist | slice:0:1" style="background-color: #FCF4EE; color:#C56A1A;">{{item1.venueName}}</span>
+                   <span *ngIf="item.venuelist.length > 1">,</span> <span class="badge" *ngIf="item.venuelist.length > 1" style="background-color: #FCF4EE; color:#C56A1A;"> +{{item.venuelist.length - 1}}</span>
                   </p>
 
             </div>

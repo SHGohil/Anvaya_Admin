@@ -339,43 +339,43 @@ getonecaledetdata(month){
     switch (event.eventStatusId) {
       case 0:
       case null: 
-        return {'background-color': '#0ea5e9'}; 
+        return {'background-color': '#2e90fa'}; 
       case 1:
-        return {'background-color': '#f59e0b'};
+        return {'background-color': '#f79009'};
       case 2:
-        return {'background-color': '#10b981'};
+        return {'background-color': '#12b76a'};
       case 3:
-        return {'background-color': '#f43f5e'};
+        return {'background-color': '#f04438'};
       default:  
-        return {'background-color': '#f59e0b'};
+        return {'background-color': '#f79009'};
     }
   }
   else if(hasStatusId2){
-    return {'background-color': '#10b981'};
+    return {'background-color': '#12b76a'};
   }
 
  else if(hasStatusId1){
-    return {'background-color': '#f59e0b'};
+    return {'background-color': '#f79009'};
   }
   else if(hasStatusId3){
-    return {'background-color': '#0ea5e9'}; 
+    return {'background-color': '#2e90fa'}; 
   }
   else if(hasStatusId4){
-    return {'background-color': '#f43f5e'};
+    return {'background-color': '#f04438'};
   }
   else{
     switch (event.eventStatusId) {
       case 0:
       case null: 
-        return {'background-color': '#0ea5e9'}; 
+        return {'background-color': '#2e90fa'}; 
       case 1:
-        return {'background-color': '#f59e0b'};
+        return {'background-color': '#f79009'};
       case 2:
-        return {'background-color': '#10b981'};
+        return {'background-color': '#12b76a'};
       case 3:
-        return {'background-color': '#f43f5e'};
+        return {'background-color': '#f04438'};
       default:  
-        return {'background-color': '#f59e0b'};
+        return {'background-color': '#f79009'};
     }
   }
       } else {
