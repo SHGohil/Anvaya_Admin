@@ -222,6 +222,13 @@ getonecaledetdata(month){
    this.getonecaledetdata(month);
     }
  }
+
+ goToToday() {
+    const now = new Date();
+    this.currentYear = now.getFullYear();
+    this.selectedIndex = now.getMonth();
+    this.currentMonth();
+ }
   getVenues() {
     this.eventsdata.getvenue().subscribe(apidata=>{
       this.venuedata = apidata;
@@ -332,43 +339,43 @@ getonecaledetdata(month){
     switch (event.eventStatusId) {
       case 0:
       case null: 
-        return {'background-color': '#57AEEC'}; 
+        return {'background-color': '#0ea5e9'}; 
       case 1:
-        return {'background-color': '#F3C37C'};
+        return {'background-color': '#f59e0b'};
       case 2:
-        return {'background-color': '#B9E298'};
+        return {'background-color': '#10b981'};
       case 3:
-        return {'background-color': '#807979'};
+        return {'background-color': '#f43f5e'};
       default:  
-        return {'background-color': '#F3C37C'};
+        return {'background-color': '#f59e0b'};
     }
   }
   else if(hasStatusId2){
-    return {'background-color': '#B9E298'};
+    return {'background-color': '#10b981'};
   }
 
  else if(hasStatusId1){
-    return {'background-color': '#F3C37C'};
+    return {'background-color': '#f59e0b'};
   }
   else if(hasStatusId3){
-    return {'background-color': '#57AEEC'}; 
+    return {'background-color': '#0ea5e9'}; 
   }
   else if(hasStatusId4){
-    return {'background-color': '#807979'};
+    return {'background-color': '#f43f5e'};
   }
   else{
     switch (event.eventStatusId) {
       case 0:
       case null: 
-        return {'background-color': '#57AEEC'}; 
+        return {'background-color': '#0ea5e9'}; 
       case 1:
-        return {'background-color': '#F3C37C'};
+        return {'background-color': '#f59e0b'};
       case 2:
-        return {'background-color': '#B9E298'};
+        return {'background-color': '#10b981'};
       case 3:
-        return {'background-color': '#807979'};
+        return {'background-color': '#f43f5e'};
       default:  
-        return {'background-color': '#F3C37C'};
+        return {'background-color': '#f59e0b'};
     }
   }
       } else {

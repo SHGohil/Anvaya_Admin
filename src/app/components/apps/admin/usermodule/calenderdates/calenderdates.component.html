@@ -1,91 +1,70 @@
-  <div class="row" style="max-height:40px;margin:0%">    
-    <div class="col-lg-11 col-md-11 col-11 row d-flex">
-      <div class="col-12">
-        <div class="row" >
-          <div style="padding:5px; display: flex ; align-items: center;"
-            class="col " 
-            *ngFor="let month of months; let i = index"
-           
-          ><div class="card" style="font-size:11px;height:30px; display: flex; justify-content: center; align-items: center;border-radius: 12px;" [class.selected]="selectedIndex === i" (click)="toggleSelection(i)">
-            <small class="text-center">{{ month.slice(0,3) }} {{currentYear}}</small>
-        </div>
-        
-        
-          </div>
-        </div>
-      </div>
-  
-    
-    
-<!--    
-        <div class="card-body">
-   
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <a style="font-size: 24px;" (click)="previousMonth()" class="me-2"><b><i
-                class="icofont icofont-rounded-left"></i></b></a>
-          <div>
-            <h2 class="mt-2" style="font-size: 15px;">{{ months[this.currentMonthIndex] }} {{this.currentYear}}</h2>
-          </div>
-          <a style="font-size: 24px;" (click)="nextMonth()" class="ms-2"><i class="icofont icofont-rounded-right"></i></a>
-        </div>
-        <hr style="width:170px;"> -->
-      </div>
-  
-      <div class="col-lg-1 col-md-1 col-1">
-       
-            <select class="form-control form-select" style="width:140%" (change)="onchangeyear($event)">
-                <option selected disabled>Select year</option>
-                <option  [selected]="currentYear==year" *ngFor="let year of years" [value]="year">{{ year }}</option>
-            </select>
-     
+  <div class="cal-toolbar">
+    <div class="cal-nav">
+      <button type="button" class="cal-nav-btn" (click)="previousMonth()" aria-label="Previous month">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button type="button" class="cal-nav-btn cal-today-btn" (click)="goToToday()">Today</button>
+      <button type="button" class="cal-nav-btn" (click)="nextMonth()" aria-label="Next month">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <span class="cal-month-label">{{ months[currentMonthIndex] }} {{ currentYear }}</span>
     </div>
-    
-    
+    <select class="form-control form-select cal-year-select" (change)="onchangeyear($event)">
+      <option selected disabled>Select year</option>
+      <option [selected]="currentYear==year" *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+  </div>
+  <div class="cal-month-strip">
+    <button type="button" class="cal-month-chip" *ngFor="let month of months; let i = index" [class.active]="selectedIndex === i" (click)="toggleSelection(i)">{{ month.slice(0,3) }}</button>
   </div>
   <div>
     <div style="display: flex; flex-direction: column;">
       <div class="mt-1" *ngIf=" onecalendarData">
 
-        <div class=" d-flex flex-column justify-content-center align-items-center pt-3 "
-          style="overflow-x: auto; background: white;border-radius: 13px;">
+        <div class="cal-grid-wrap">
 
-          <table style="border-radius: 25px;border-collapse: unset; overflow-x: scroll;">
+          <table class="cal-grid">
             <tr>
-              <th style="width:5%;border-radius: 4px;background-color: #F5F5F5;font-size: 10px;" class="text-center">Day &amp; Date</th>
-              <th *ngFor="let day of onecalendarData.days" class="centered-text"
-                style="border-radius: 4px;background-color: #F5F5F5;font-size: 10px;"
-                [ngStyle]="{'background-color': isSpecialDate(day.date) ? '#E58585' : ''}"
-                [class.special-date]="isSpecialDate(day.date)">
-                <div
-                  style="width: 30px;text-align: center; padding: 9px 3px; font-size: 14px; font-weight: normal; line-height: 0;font-size: 10px;">
+              <th class="cal-th cal-th-corner text-center">Day &amp; Date</th>
+              <th *ngFor="let day of onecalendarData.days" class="cal-th centered-text"
+                [class.cal-th-special]="isSpecialDate(day.date)"
+                [title]="isSpecialDate(day.date) ? 'Special date' : null">
+                <div class="cal-date-num">
                   {{ getFormattedDate(day.date) }}
                 </div>
               </th>
 
             </tr>
-            <tr style="font-weight: bold;">
-              <th style="border-radius: 4px;background-color: #F5F5F5;font-size: 10px" class="text-center">Venue</th>
-              <th style="text-align: center;font-weight: normal;border-radius: 4px;font-size: 10px;"
+            <tr>
+              <th class="cal-th cal-th-corner text-center">Venue</th>
+              <th class="cal-th cal-th-weekday text-center"
                 *ngFor="let day of onecalendarData.days">{{ day.weekDay |
                 slice:0:3
                 }}</th>
             </tr>
             <tr *ngFor="let venue of onecalendarData.venuedata">
-              <th style="font-weight: normal;border-radius: 4px;background-color: #F5F5F5;font-size: 10px;cursor: help;" class="text-center" [title]="venue.venueName">{{
+              <th class="cal-th cal-th-venue text-center" [title]="venue.venueName">{{
                 venue.venueName.length > 10 ? (venue.venueName | slice:0:10) + '...' :
                 venue.venueName }}</th>
               <td *ngFor="let day of onecalendarData.days"
-                style="cursor: pointer;border-radius: 4px;background-color: #F5F5F5;"
+                class="cal-cell"
                 (click)="onclickdata(day, onecalendarData.month)"
-                [ngStyle]="day.events.length > 0 ? getCellStyle(day,venue) : null">
-
+                [title]="day.events.length > 0 ? day.events.length + ' event(s)' : null">
+                <span class="cal-cell-dot" *ngIf="day.events.length > 0" [ngStyle]="getCellStyle(day,venue)"></span>
               </td>
 
             </tr>
 
 
           </table>
+        </div>
+
+        <div class="cal-legend">
+          <span class="cal-legend-item"><span class="cal-legend-dot dot-open"></span>Open</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot dot-tentative"></span>Tentative</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot dot-confirmed"></span>Confirmed</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot dot-lost"></span>Lost</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot dot-special"></span>Special Date</span>
         </div>
 
       </div>
@@ -95,171 +74,146 @@
 
 <div class="mt-3" *ngIf="eventdatedata && !showedit">
 
-  <div class="card " *ngIf="eventdatedata.previousDateEvents || eventdatedata.currentDateEvents || eventdatedata.nextDateEvents ">
+  <div class="card day-panel-card" *ngIf="eventdatedata.previousDateEvents || eventdatedata.currentDateEvents || eventdatedata.nextDateEvents ">
     <div class="row">
-      <div  class="col-lg-4 mt-1" >
-        <p 
-          style="text-align: center;background: #F5F5F5;border-radius: 24px;">
-          {{previousdate|date }}</p>
+      <div class="col-lg-4 mt-1">
+        <p class="day-col-label">{{previousdate|date }}</p>
           <div *ngIf="eventdatedata.previousDateEvents[0]!==undefined">
 
             <div *ngFor="let item of eventdatedata.previousDateEvents">
-              <div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;padding: 6px;margin-bottom: 0%;"
-                (click)="onviewdeails(item,content)">
-                <div class="card-header"
-                  style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
+              <div class="card day-event-card" (click)="onviewdeails(item,content)">
+                <div class="day-event-header">
                   <div class="row" style="line-height: 1;">
                     <div class="col-6 text-left">
-                      <p class="eventvenuename mb-2"style="margin-bottom: 6px;"><strong>{{item.guestName}}</strong> &nbsp;<span *ngIf="item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null " class="badge" style="background-color: #b66623 ; color:#ffffff ;">{{ noofdays(item.createdDate) }} days</span></p>
-                      <p style="color: #1D243380;line-height: 0;">Venue:<span
+                      <p class="eventvenuename mb-2"><strong>{{item.guestName}}</strong> &nbsp;<span *ngIf="item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null " class="badge day-event-days-badge">{{ noofdays(item.createdDate) }} days</span></p>
+                      <p class="day-event-venue">Venue:<span
                           *ngFor="let item1 of item.venuelist | slice:0:1">{{item1.venueName}}</span>
                         <span *ngIf="item.venuelist.length > 1">,</span> <span *ngIf="item.venuelist.length > 1">
                           +{{item.venuelist.length - 1}}</span>
                       </p>
                     </div>
                     <div class="col-6 text-end" *ngIf="item.eventTimeIdslist!=null">
-                      <span class="badge"
-                        style="background-color: #0162DD;" *ngIf="item.eventTimeIdslist.length >0 ">{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                      <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;"
+                      <span class="badge day-event-time-badge"
+                        *ngIf="item.eventTimeIdslist.length >0 ">{{item.eventTimeIdslist[0].eventTimeName}}</span>
+                      <span class="badge day-event-time-badge-alt"
                         *ngIf="item.eventTimeIdslist.length >1 ">+{{ item?.eventTimeIdslist?.length-1 }}</span>
                       <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
                     </div>
                   </div>
-    
                 </div>
-                <div class="card-body bg-white"
-                  style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;padding:0%;margin: 1%;">
+                <div class="card-body bg-white day-event-body">
                   <div class="row">
-                    <div class="col-6" style="border-right: 2px solid #E1E6EF ;">
-                      <h6 style="color: #1D243365;">Sales Exec Name </h6>
-                      <p style="font-size: 14px ; line-height: 22px;"> {{ item.personName && item.personName.length > 10 ?
+                    <div class="col-6 day-event-col">
+                      <h6 class="day-event-label">Sales Exec Name</h6>
+                      <p class="day-event-value"> {{ item.personName && item.personName.length > 10 ?
                         (item.personName| slice:0:10) + '...' : item.personName}}</p>
                     </div>
                     <div class="col-6">
-                      <h6 style="color: #1D243365;">EVENT DATE</h6>
-                      <p style="font-size: 14px ; line-height: 22px;"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
+                      <h6 class="day-event-label">Event Date</h6>
+                      <p class="day-event-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
                     </div>
-    
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="container-fluid d-flex justify-content-center align-items-center " *ngIf="eventdatedata.previousDateEvents[0]===undefined">
-            <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="150" width="150" class="img-fluid">
+          <div class="day-event-empty" *ngIf="eventdatedata.previousDateEvents[0]===undefined">
+            <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
           </div>
       </div>
       <div class="col-lg-4 mt-1">
-        
-        <div >
-          <p 
-            style="text-align: center;background: #57AEEC;border-radius: 24px;color: #fff;">
-            {{currentdate|date }}</p>
+        <div>
+          <p class="day-col-label day-col-label-current">{{currentdate|date }}</p>
             <div *ngIf="eventdatedata.currentDateEvents[0]!==undefined">
 
               <div *ngFor="let item of eventdatedata.currentDateEvents">
-                <div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;padding: 6px;margin-bottom: 0%;"
-                  (click)="onviewdeails(item,content)">
-                  <div class="card-header"
-                    style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
+                <div class="card day-event-card" (click)="onviewdeails(item,content)">
+                  <div class="day-event-header">
                     <div class="row" style="line-height: 1;">
                       <div class="col-6 text-left">
-                        <p class="eventvenuename mb-2" style="margin-bottom: 6px;"><strong>{{item.guestName}}</strong> &nbsp;<span *ngIf="item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null " class="badge" style="background-color: #b66623 ; color:#ffffff ;">{{ noofdays(item.createdDate) }} days</span> </p>
-                        <p style="color: #1D243380;line-height: 0;">Venue:<span
+                        <p class="eventvenuename mb-2"><strong>{{item.guestName}}</strong> &nbsp;<span *ngIf="item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null " class="badge day-event-days-badge">{{ noofdays(item.createdDate) }} days</span> </p>
+                        <p class="day-event-venue">Venue:<span
                             *ngFor="let item1 of item.venuelist | slice:0:1">{{item1.venueName}}</span>
                           <span *ngIf="item.venuelist.length > 1">,</span> <span *ngIf="item.venuelist.length > 1">
                             +{{item.venuelist.length - 1}}</span>
                         </p>
                       </div>
                       <div class="col-6 text-end" *ngIf="item.eventTimeIdslist!=null">
-                        <span class="badge"
-                          style="background-color: #0162DD;" *ngIf="item.eventTimeIdslist.length >0">{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                        <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;"
+                        <span class="badge day-event-time-badge"
+                          *ngIf="item.eventTimeIdslist.length >0">{{item.eventTimeIdslist[0].eventTimeName}}</span>
+                        <span class="badge day-event-time-badge-alt"
                           *ngIf="item.eventTimeIdslist.length >1 ">+{{ item?.eventTimeIdslist?.length-1 }}</span>
                         <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
                       </div>
                     </div>
-      
                   </div>
-                  <div class="card-body bg-white"
-                    style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;padding:0%;margin: 1%;">
+                  <div class="card-body bg-white day-event-body">
                     <div class="row">
-                      <div class="col-6" style="border-right: 2px solid #E1E6EF ;">
-                        <h6 style="color: #1D243365;">Sales Exec Name</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.personName && item.personName.length > 10 ?
+                      <div class="col-6 day-event-col">
+                        <h6 class="day-event-label">Sales Exec Name</h6>
+                        <p class="day-event-value"> {{ item.personName && item.personName.length > 10 ?
                           (item.personName| slice:0:10) + '...' : item.personName}}</p>
                       </div>
                       <div class="col-6">
-                        <h6 style="color: #1D243365;">EVENT DATE</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
+                        <h6 class="day-event-label">Event Date</h6>
+                        <p class="day-event-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
                       </div>
-      
                     </div>
                   </div>
                 </div>
               </div>
 
             </div>
-            <div class="container-fluid d-flex justify-content-center align-items-center " *ngIf="eventdatedata.currentDateEvents[0]===undefined">
-              <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="150" width="150" class="img-fluid">
-            </div>
-            <div>
-
+            <div class="day-event-empty" *ngIf="eventdatedata.currentDateEvents[0]===undefined">
+              <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
             </div>
         </div>
       </div>
-      
-      
-      <div class="col-lg-4 mt-2" >
-        <p 
-          style="text-align: center;background: #F5F5F5;border-radius: 24px;">
-          {{nextDate|date }}</p>
-          <div   *ngIf="eventdatedata.nextDateEvents[0]!==undefined">
+
+
+      <div class="col-lg-4 mt-2">
+        <p class="day-col-label">{{nextDate|date }}</p>
+          <div *ngIf="eventdatedata.nextDateEvents[0]!==undefined">
 
             <div *ngFor="let item of eventdatedata.nextDateEvents">
-              <div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;padding: 6px;margin-bottom: 0%;"
-                (click)="onviewdeails(item,content)">
-                <div class="card-header"
-                  style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
+              <div class="card day-event-card" (click)="onviewdeails(item,content)">
+                <div class="day-event-header">
                   <div class="row" style="line-height: 1;">
                     <div class="col-6 text-left">
-                      <p class="eventvenuename mb-2"style="margin-bottom: 6px;"><strong>{{item.guestName}}</strong> &nbsp;<span *ngIf="item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null " class="badge" style="background-color: #b66623 ; color:#ffffff ;">{{ noofdays(item.createdDate) }} days</span></p>
-                      <p style="color: #1D243380;line-height: 0;">Venue:<span
+                      <p class="eventvenuename mb-2"><strong>{{item.guestName}}</strong> &nbsp;<span *ngIf="item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null " class="badge day-event-days-badge">{{ noofdays(item.createdDate) }} days</span></p>
+                      <p class="day-event-venue">Venue:<span
                           *ngFor="let item1 of item.venuelist | slice:0:1">{{item1.venueName}}</span>
                         <span *ngIf="item.venuelist.length > 1">,</span> <span *ngIf="item.venuelist.length > 1">
                           +{{item.venuelist.length - 1}}</span>
                       </p>
                     </div>
                     <div class="col-6 text-end" *ngIf="item.eventTimeIdslist!=null">
-                      <span class="badge"
-                        style="background-color: #0162DD;"  *ngIf="item.eventTimeIdslist.length >0 ">{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                      <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;"
+                      <span class="badge day-event-time-badge"
+                        *ngIf="item.eventTimeIdslist.length >0 ">{{item.eventTimeIdslist[0].eventTimeName}}</span>
+                      <span class="badge day-event-time-badge-alt"
                         *ngIf="item.eventTimeIdslist.length >1 ">+{{ item?.eventTimeIdslist?.length-1 }}</span>
                       <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
                     </div>
                   </div>
-    
                 </div>
-                <div class="card-body bg-white"
-                  style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;padding:0%;margin: 1%;">
+                <div class="card-body bg-white day-event-body">
                   <div class="row">
-                    <div class="col-6" style="border-right: 2px solid #E1E6EF ;">
-                      <h6 style="color: #1D243365;">Sales Exec Name</h6>
-                      <p style="font-size: 14px ; line-height: 22px;"> {{ item.personName && item.personName.length > 10 ?
+                    <div class="col-6 day-event-col">
+                      <h6 class="day-event-label">Sales Exec Name</h6>
+                      <p class="day-event-value"> {{ item.personName && item.personName.length > 10 ?
                         (item.personName| slice:0:10) + '...' : item.personName}}</p>
                     </div>
                     <div class="col-6">
-                      <h6 style="color: #1D243365;">EVENT DATE</h6>
-                      <p style="font-size: 14px ; line-height: 22px;"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
+                      <h6 class="day-event-label">Event Date</h6>
+                      <p class="day-event-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
                     </div>
-    
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="container-fluid d-flex justify-content-center align-items-center " *ngIf="eventdatedata.nextDateEvents[0]===undefined">
-            <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="150" width="150" class="img-fluid">
+          <div class="day-event-empty" *ngIf="eventdatedata.nextDateEvents[0]===undefined">
+            <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
           </div>
       </div>
 
@@ -271,13 +225,13 @@
 <div class="card-body">
   <ng-template #content let-modal>
     <div class="modal-header ">
-      <h4 class="modal-title">Event Details <spam class="text-danger">*</spam></h4>
+      <h4 class="modal-title">Event Details <span class="text-danger">*</span></h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body" *ngIf="loginroleid!=3">
       <form [formGroup]="eventform" class="row " style="padding:20px;">
         <div class="col-6 mt-3">
-          <label for="personName">Attending Sales Executive  <spam class="text-danger">*</spam></label>
+          <label for="personName">Attending Sales Executive  <span class="text-danger">*</span></label>
           <input class="form-control" formControlName="personName" type="text">
           <div *ngIf="eventform.get('personName')?.invalid && eventform.get('personName')?.touched" class="text-danger">
             Attending Sales Executive  is required.
@@ -285,7 +239,7 @@
         </div>
 
         <div class="col-6 mt-3">
-          <label for="guestName">Guest Name <spam class="text-danger">*</spam></label>
+          <label for="guestName">Guest Name <span class="text-danger">*</span></label>
           <input class="form-control" formControlName="guestName" type="text">
           <div *ngIf="eventform.get('guestName')?.invalid && eventform.get('guestName')?.touched" class="text-danger">
             Guest Name  is required.
@@ -293,7 +247,7 @@
         </div>
 
         <div class="col-6 mt-3">
-          <label for="phonenumber">Guest Phone Number <spam class="text-danger">*</spam></label>
+          <label for="phonenumber">Guest Phone Number <span class="text-danger">*</span></label>
           <input class="form-control" type="text" formControlName="phonenumber">
           <div *ngIf="eventform.get('phonenumber')?.invalid && eventform.get('phonenumber')?.touched" class="text-danger">
             Phone number  is required.
@@ -301,12 +255,12 @@
         </div>
 
         <div class="col-6 mt-3">
-          <label for="eventDate">Event Date <spam class="text-danger">*</spam></label>
+          <label for="eventDate">Event Date <span class="text-danger">*</span></label>
           <input class="form-control" type="date" formControlName="eventDate">
         </div>
 
         <div class="col-6 mt-3">
-          <label for="eventTypeId">Event Type <spam class="text-danger">*</spam></label>
+          <label for="eventTypeId">Event Type <span class="text-danger">*</span></label>
           <select class="form-select" formControlName="eventTypeId">
             <option *ngFor="let item of eventtypedata" [value]="item.eventTypeId">{{item.eventTypeName}}</option>
           </select>
@@ -323,7 +277,7 @@
           </select>
         </div>
         <div class="col-12 mt-3">
-          <label for="venueIds">Venue <spam class="text-danger">*</spam></label>
+          <label for="venueIds">Venue <span class="text-danger">*</span></label>
           <ng-select formControlName="venueIds"  [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
             bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
           </ng-select>
@@ -333,7 +287,7 @@
         </div>
 
         <div class="col-12 mt-3">
-          <label for="eventTimeIds">Event Time <spam class="text-danger">*</spam> </label>
+          <label for="eventTimeIds">Event Time <span class="text-danger">*</span> </label>
           <ng-select formControlName="eventTimeIds"  [items]="eventTimeData" [(ngModel)]="multipleSelectedEventTime"
             bindLabel="eventTimeName" bindValue="eventTimeId" [multiple]="true" placeholder="Select"></ng-select>
             <div *ngIf="eventform.get('eventTimeIds')?.invalid && eventform.get('eventTimeIds')?.touched" class="text-danger">
@@ -344,7 +298,7 @@
 
 
         <div *ngIf="status == 2" class="col-12 mt-3">
-          <label for="eventFoodtypeId">Event Food Type <spam class="text-danger">*</spam></label>
+          <label for="eventFoodtypeId">Event Food Type <span class="text-danger">*</span></label>
           <select class="form-select" formControlName="eventFoodtypeId" id="eventFoodtypeId">
             <option *ngFor="let item of eventFoodtypedata" [value]="item.eventFoodtypeId">
               {{item.eventFoodtypeName}}
@@ -360,7 +314,7 @@
 
         <!-- Bump In input field -->
         <div *ngIf="status == 2" class="col-6 mt-3">
-          <label for="bumpIN">Bump In <spam class="text-danger">*</spam></label>
+          <label for="bumpIN">Bump In <span class="text-danger">*</span></label>
           <input type="datetime-local" formControlName="bumpIN" class="form-control">
           <div *ngIf="eventform.get('bumpIN')?.invalid && eventform.get('bumpIN')?.touched" class="text-danger">
             Bump In time is required.
@@ -369,7 +323,7 @@
 
         <!-- Bump Out input field -->
         <div *ngIf="status == 2" class="col-6 mt-3">
-          <label for="bumpOUT">Bump Out <spam class="text-danger">*</spam></label>
+          <label for="bumpOUT">Bump Out <span class="text-danger">*</span></label>
           <input type="datetime-local" formControlName="bumpOUT" class="form-control">
           <div *ngIf="eventform.get('bumpOUT')?.invalid && eventform.get('bumpOUT')?.touched" class="text-danger">
             Bump Out time is required.

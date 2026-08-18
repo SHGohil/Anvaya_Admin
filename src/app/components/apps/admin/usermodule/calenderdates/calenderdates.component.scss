@@ -1,41 +1,33 @@
 @import "../../../../../../assets/scss/tokens";
 
-.special-date {
-    color: #ffffff;
-  }
+th,
+td {
+  border: 1px solid $border-color;
+}
 
-  th,
-  td {
-    border: 1px solid $border-color;
+table {
+  border-top-left-radius: 10px !important;
+}
+.container {
+  position: relative;
+  /* Add other styles as needed */
+}
 
-  }
-  
-  table{
-    border-top-left-radius: 10px !important;
-  }
-  .special-date-row {
-    color: #eb8f96;
-  }
-  .container {
-    position: relative;
-    /* Add other styles as needed */
-  }
-  
-  .a {
-    display: flex;
-    flex-direction: column;
-    height: 50vh; /* Initial height set to 50% of the viewport height */
-    overflow-y: scroll;
-    overflow-x: hidden; /* Hide overflow content if needed */
-  }
-  .b {
-    display: flex;
-    flex-direction: column;
-    height: 50vh; /* Initial height set to 50% of the viewport height */
-    overflow-y: scroll;
-    overflow-x: hidden; /* Hide overflow content if needed */
-  }
-  
+.a {
+  display: flex;
+  flex-direction: column;
+  height: 50vh; /* Initial height set to 50% of the viewport height */
+  overflow-y: scroll;
+  overflow-x: hidden; /* Hide overflow content if needed */
+}
+.b {
+  display: flex;
+  flex-direction: column;
+  height: 50vh; /* Initial height set to 50% of the viewport height */
+  overflow-y: scroll;
+  overflow-x: hidden; /* Hide overflow content if needed */
+}
+
 /* Custom styles for the right slide-in effect */
 .modal-dialog-end {
   position: fixed; /* Position the modal dialog fixed */
@@ -44,8 +36,8 @@
   max-width: 50%; /* Set maximum width to 50% of the screen width */
   height: 80vh; /* Adjust height as needed */
   z-index: 1050; /* Set z-index */
- }
- 
+}
+
 
 /* Slide-in animation for modal dialog */
 .modal.modal-end .modal-dialog {
@@ -57,54 +49,15 @@
   transform: translateX(0);
 }
 
-.form{
-  padding:10px;
+.form {
+  padding: 10px;
 }
 .venue {
-  background-color: #FCF4EE; 
-  color: #B66623; 
-  margin-bottom:2px
+  background-color: #fcf4ee;
+  color: #b66623;
+  margin-bottom: 2px;
 }
 
-
-
-/* styles.css */
-.month-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%; /* Ensure the month-carousel takes up the full width */
- }
- 
- hr {
-  border: none;
-  height: 1px;
-  background-color: #333; /* Adjust color as needed */
-  width: 250px; /* Set width to 250px */
-  margin: 0 auto; /* Center the hr */
- }
- .owl-item {
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
-}
-
-.item h2 {
-  margin: 0; /* Adjust margin as needed */
-  font-size: 10px; /* Adjust font size as needed */
-}
-
-.card {
-  border: 1px solid $border-color;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.selected {
-  border-color: #E58585;
-  background-color:#E58585;
-  color:white
-}
 .card-wrapper {
   display: flex;
   align-items: center; /* Vertical alignment */
@@ -114,11 +67,306 @@
   margin: auto; /* Center text vertically */
 }
 
-
- 
 button:disabled {
-  background-color: white !important; 
+  background-color: white !important;
   color: black !important; /* Change text color for visibility */
   border: 1px solid #ccc; /* Optional: Add a border */
   cursor: not-allowed; /* Show "not allowed" cursor */
+}
+
+// -- Month navigation -------------------------------------------------------
+// Replaces an always-visible row of 12 month chips as the *only* navigation
+// with a standard prev/Today/next control (previousMonth()/nextMonth() already
+// existed in the component, just never wired into the template - this was
+// commented-out markup, not new logic). The chip row stays as a secondary,
+// compact jump-to-month control below it rather than being removed outright.
+.cal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.cal-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cal-nav-btn {
+  appearance: none;
+  border: 1px solid $border-color;
+  background: #fff;
+  color: $secondary-color;
+  width: 32px;
+  height: 32px;
+  border-radius: $border-radius-sm;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+
+.cal-today-btn {
+  width: auto;
+  padding: 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.cal-month-label {
+  margin-left: 0.5rem;
+  font-size: $fs-section-title;
+  font-weight: $fw-section-title;
+  color: $body-color;
+}
+
+.cal-year-select {
+  width: auto;
+  max-width: 140px;
+}
+
+.cal-month-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cal-month-chip {
+  appearance: none;
+  flex: none;
+  border: 1px solid $border-color;
+  background: #fff;
+  color: $secondary-color;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.35rem 0.7rem;
+  border-radius: $border-radius-pill;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+
+  &.active {
+    background: $primary;
+    border-color: $primary;
+    color: #fff;
+    font-weight: 600;
+  }
+}
+
+// -- Venue x day grid ---------------------------------------------------
+.cal-grid-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+}
+
+.cal-grid {
+  border-collapse: separate;
+  border-spacing: 3px;
+}
+
+.cal-th {
+  background-color: $light;
+  border-radius: $border-radius-sm;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: $secondary-color;
+  padding: 0.4rem 0.5rem;
+}
+
+.cal-th-corner {
+  width: 110px;
+}
+
+.cal-th-special {
+  background-color: rgba(#e58585, 0.18);
+  color: #b23a3a;
+}
+
+.cal-date-num {
+  width: 26px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: $body-color;
+  line-height: 1.1;
+}
+
+.cal-th-weekday {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cal-th-venue {
+  font-weight: 600;
+  cursor: help;
+  text-align: left !important;
+  padding-left: 0.6rem !important;
+}
+
+.cal-cell {
+  cursor: pointer;
+  background-color: $light;
+  border-radius: $border-radius-sm;
+  width: 34px;
+  height: 34px;
+  text-align: center;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: rgba($primary, 0.08);
+  }
+}
+
+.cal-cell-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+// -- Legend ---------------------------------------------------------------
+.cal-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding: 0 0.25rem;
+}
+
+.cal-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: $secondary-color;
+}
+
+.cal-legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  flex: none;
+}
+
+.dot-open { background: $info; }
+.dot-tentative { background: $warning; }
+.dot-confirmed { background: $success; }
+.dot-lost { background: $danger; }
+.dot-special { background: #e58585; }
+
+// -- Previous / current / next day panel -----------------------------------
+.day-panel-card {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+}
+
+.day-col-label {
+  text-align: center;
+  background: $light;
+  color: $secondary-color;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: $border-radius-pill;
+  padding: 0.4rem 0.75rem;
+}
+
+.day-col-label-current {
+  background: $primary;
+  color: #fff;
+}
+
+.day-event-card {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  cursor: pointer;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.6rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: $box-shadow-sm;
+  }
+}
+
+.day-event-header {
+  margin-bottom: 0.4rem;
+}
+
+.day-event-days-badge {
+  background-color: $primary;
+  color: #fff;
+}
+
+.day-event-time-badge {
+  background-color: $info;
+  color: #fff;
+}
+
+.day-event-time-badge-alt {
+  background-color: rgba($info, 0.15);
+  color: $info;
+}
+
+.day-event-venue {
+  color: $secondary-color;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.day-event-body {
+  padding-top: 0.4rem;
+  border-top: 1px solid $border-color;
+}
+
+.day-event-col {
+  border-right: 1px solid $border-color;
+}
+
+.day-event-label {
+  color: $muted-color;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.day-event-value {
+  font-size: 0.85rem;
+  color: $body-color;
+  margin-bottom: 0;
+}
+
+.day-event-empty {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
 }
