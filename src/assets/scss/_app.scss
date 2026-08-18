@@ -289,3 +289,22 @@
     content: "Hide";
   }
 }
+
+// -- Loading skeletons ---------------------------------------------------
+// One shimmer pattern reused everywhere a screen has a real network
+// round-trip before data appears (Dashboard KPIs, Users table, the
+// event-card grids). Previously those screens either rendered blank or
+// showed the same "no data" empty state whether they were still loading
+// or genuinely had nothing - both read as a bug.
+@keyframes skeleton-shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.skeleton {
+  display: block;
+  border-radius: $border-radius-sm;
+  background: linear-gradient(90deg, #eeeae2 25%, #f5f2ec 37%, #eeeae2 63%);
+  background-size: 400px 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
