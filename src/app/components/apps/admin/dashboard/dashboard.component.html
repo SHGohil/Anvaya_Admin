@@ -2,7 +2,7 @@
 
     <!-- KPI overview -->
     <div class="row g-3 kpi-row" *ngIf="analytics">
-        <div class="col-6 col-lg">
+        <div class="col-6 col-md-4 col-lg">
             <div class="kpi-tile kpi-total">
                 <div class="kpi-top">
                     <div class="kpi-icon">
@@ -13,7 +13,7 @@
                 <div class="kpi-label">Total events</div>
             </div>
         </div>
-        <div class="col-6 col-lg">
+        <div class="col-6 col-md-4 col-lg">
             <div class="kpi-tile kpi-info">
                 <div class="kpi-top">
                     <div class="kpi-icon">
@@ -24,7 +24,7 @@
                 <div class="kpi-label">Open queries</div>
             </div>
         </div>
-        <div class="col-6 col-lg">
+        <div class="col-6 col-md-4 col-lg">
             <div class="kpi-tile kpi-warn">
                 <div class="kpi-top">
                     <div class="kpi-icon">
@@ -35,7 +35,7 @@
                 <div class="kpi-label">Tentative</div>
             </div>
         </div>
-        <div class="col-6 col-lg">
+        <div class="col-6 col-md-4 col-lg">
             <div class="kpi-tile kpi-good">
                 <div class="kpi-top">
                     <div class="kpi-icon">
@@ -46,7 +46,7 @@
                 <div class="kpi-label">Confirmed</div>
             </div>
         </div>
-        <div class="col-6 col-lg">
+        <div class="col-6 col-md-4 col-lg">
             <div class="kpi-tile kpi-critical">
                 <div class="kpi-top">
                     <div class="kpi-icon">
@@ -123,7 +123,7 @@
 
     <h6 class="screens-title mt-4">Screens</h6>
     <div class="row pt-1">
-        <div class="col-lg-3">
+        <div class="col-md-6 col-lg-3">
             <div class="card sw-total"  [class.active-card]="activebad === 1"  (click)="setactive(1);">
                 <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
                     <div class="col-auto">
@@ -140,7 +140,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-md-6 col-lg-3">
             <div class="card sw-warn"  [class.active-card]="activebad === 2"  (click)="setactive(2);">
                 <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
                     <div class="col-auto">
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-md-6 col-lg-3">
             <div class="card sw-good"  [class.active-card]="activebad === 3"  (click)="setactive(3);">
                 <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
                     <div class="col-auto">
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3" >
+        <div class="col-md-6 col-lg-3" >
             <div class="card sw-info" [class.active-card]="activebad === 4"  (click)="setactive(4);">
                 <div class="row p-3 d-flex justify-content-center align-items-center" style="margin-top: -17px;">
                     <div class="col-auto">
@@ -212,7 +212,7 @@
 
     <app-confirmedevents></app-confirmedevents>
 </div>
-<div  class="container-fluid" *ngIf="activebad==4" style="cursor:pointer" style="box-sizing: border-box;margin-top: -17px;">
+<div  class="container-fluid" *ngIf="activebad==4" style="cursor:pointer; box-sizing: border-box; margin-top: 12px;">
 
     <app-calenderdates></app-calenderdates>
 </div>
