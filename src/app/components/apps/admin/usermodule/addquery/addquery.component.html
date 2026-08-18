@@ -55,8 +55,8 @@
                         <!-- standalone: this checkbox is a plain component property, not a
                              control on `form`. Without it Angular throws NG01350 and the
                              whole Daily Query Entry screen fails to render. -->
-                        <input type="checkbox" [(ngModel)]="isAllVenueSelected" [ngModelOptions]="{standalone: true}" (click)="getValue($event.target.checked)">
-                        <span style="margin-left:10px;margin-top:1px" class="mb-0">Total Venue</span>
+                        <input type="checkbox" id="totalVenue" [(ngModel)]="isAllVenueSelected" [ngModelOptions]="{standalone: true}" (click)="getValue($event.target.checked)">
+                        <label for="totalVenue" style="margin-left:10px;margin-top:1px" class="mb-0">Total Venue</label>
                     </div>
                 </div>
 
