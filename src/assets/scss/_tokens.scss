@@ -41,11 +41,49 @@ $font-size-base: 0.9375rem;
 $headings-font-weight: 600;
 $headings-color: $dark;
 
+// Explicit type scale (2026-08 modernization pass) - use these instead of
+// picking a font-size by eye. Body/small already existed implicitly via
+// $font-size-base/.errors' 0.8125rem; named here so every screen references
+// the same steps instead of each template inventing its own.
+$fs-page-title: 1.5rem; // 24px / 700 - PageHeader title
+$fw-page-title: 700;
+$fs-section-title: 1.125rem; // 18px / 600 - card-header h5/h6, section labels
+$fw-section-title: 600;
+$fs-card-title: 0.9375rem; // 15px / 600 - list/card item titles
+$fw-card-title: 600;
+$fs-small: 0.8125rem; // 13px - meta text, table captions
+$fs-kpi: 1.875rem; // 30px / 700 - dashboard stat numbers, $font-family-display
+
 // Shape
-$border-radius: 0.6rem;
-$border-radius-sm: 0.4rem;
-$border-radius-lg: 0.85rem;
+// sm/base/lg/xl form one scale (6/8/12/16px); xl is new, for modal corners
+// specifically (ng-bootstrap's .modal-content) - everything else stays on
+// sm/base/lg.
+$border-radius-sm: 0.375rem; // 6px
+$border-radius: 0.5rem; // 8px
+$border-radius-lg: 0.75rem; // 12px
+$border-radius-xl: 1rem; // 16px - modals only
 $border-radius-pill: 50rem;
+
+// Spacing scale (2026-08 modernization pass): 4/8/12/16/20/24/32/40/48px as
+// p-*/m-*/g-* utility keys 1-9. This file loads before Bootstrap's own
+// $spacers (which is `!default`), so a partial map here would silently
+// replace Bootstrap's whole default instead of extending it, undefining
+// every existing p-0..p-5/m-0..m-5/g-0..g-3 class across the app. Writing
+// the full map keeps 0/1/2/3/4/5 numerically identical to Bootstrap's own
+// defaults (0/4/8/16/24/48px, unchanged from what every already-styled
+// screen uses today) and adds 6-9 for the gaps (12/20/32/40px).
+$spacers: (
+  0: 0,
+  1: 0.25rem, // 4px
+  2: 0.5rem, // 8px
+  3: 1rem, // 16px
+  4: 1.5rem, // 24px
+  5: 3rem, // 48px
+  6: 0.75rem, // 12px
+  7: 1.25rem, // 20px
+  8: 2rem, // 32px
+  9: 2.5rem, // 40px
+);
 
 // Shadow
 $box-shadow-sm: 0 1px 3px rgba(36, 41, 52, 0.06);
@@ -76,6 +114,10 @@ $input-border-color: #d8d3ca;
 $input-focus-border-color: tint-color($primary, 40%);
 $btn-font-weight: 500;
 $link-decoration: none;
+// Modals get the dedicated xl (16px) radius rather than sharing $border-radius-lg.
+$modal-content-border-radius: $border-radius-xl;
+$modal-content-box-shadow-xs: $box-shadow;
+$modal-content-box-shadow-sm-up: $box-shadow-lg;
 
 // Sidebar / shell (consumed by the shell partials, not Bootstrap itself)
 $sidebar-width: 260px;
