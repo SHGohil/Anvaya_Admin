@@ -7,30 +7,33 @@
 // controls, etc. without touching a single template - that's what makes the
 // re-skin cheap: the markup already speaks Bootstrap's class names.
 //
-// Brand - switched to the exact palette from the 2026-08 modernization brief
-// (was #B66623, the original theme's own brand accent - the user explicitly
-// asked to use the brief's colors instead, so this is a deliberate identity
-// change, not a restyle).
-$primary: #c56a1a;
-$primary-hover: #a95712; // not a Bootstrap variable - button-variant's hover
-// shade is computed from $primary, which gets close but not exact; the app
-// wants this precise value, so _app.scss overrides .btn-primary's hover/
-// active state directly with this token instead of relying on the computed
-// shade.
+// Brand - indigo/violet theme (2026-08), replacing the brief's orange
+// (#C56A1A) at the user's request for "a totally different color
+// combination." Indigo 600/700 from the Tailwind-style scale most modern
+// SaaS products converge on (Linear, Stripe-adjacent) - distinct from every
+// status color below, including $info, which stays a cooler cyan-blue.
+$primary: #4f46e5;
+$primary-hover: #4338ca; // Bootstrap's auto-computed hover shade is close
+// but not pixel-exact; _app.scss pins .btn-primary's hover/active state to
+// this token directly rather than trusting the computed shade.
 $secondary: #667085;
 $light: #f2f4f7;
 $dark: #172033;
 
-// Status colours - the brief's exact semantic palette, doing double duty as
-// this app's actual event-status model, not just generic Bootstrap
-// semantics: Open events map to $info, Tentative to $warning, Confirmed to
-// $success, Lost to $danger. $total is new - the aggregate/"all events" KPI
-// has no Bootstrap equivalent and isn't part of the brief's palette.
+// Status colours unchanged from the brief - still this app's actual
+// event-status model (Open=$info, Tentative=$warning, Confirmed=$success,
+// Lost=$danger), not just generic Bootstrap semantics, and already distinct
+// from the new indigo primary.
 $success: #12b76a;
 $info: #2e90fa;
 $warning: #f79009;
 $danger: #f04438;
-$total: #6d28d9;
+// $total (the aggregate "all events" KPI, no Bootstrap equivalent) was
+// violet before - now that $primary itself is indigo/violet, keeping $total
+// violet too would make the two indistinguishable. Moved to a neutral dark
+// slate instead: "Total" is an aggregate, not a status, so a neutral reads
+// more correct anyway.
+$total: #475467;
 
 // Neutrals / body
 $body-bg: #f7f8fa;

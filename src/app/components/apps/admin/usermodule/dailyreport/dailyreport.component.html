@@ -74,12 +74,12 @@
         <button class="btn btn-sm btn-primary" (click)="exportToExcel()">Export to Excel</button>
     </div>
 </div>
-<nav class="nav nav-pills flex-column flex-sm-row" style="border:1px solid #EEDAC9;background-color: #FCF4EE;border-radius: 7px;">
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')" [style.color]="activeTab === 'all' ? '#ffffff' : '#c56a1a'">Queries</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')" [style.color]="activeTab === 'confirmed' ? '#ffffff' : '#c56a1a'">Confirmed</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')" [style.color]="activeTab === 'tentative' ? '#ffffff' : '#c56a1a'">Tentative</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'lost'" (click)="setActiveTab('lost')" [style.color]="activeTab === 'lost' ? '#ffffff' : '#c56a1a'">Lost</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'history'" (click)="setActiveTab('history')" [style.color]="activeTab === 'history' ? '#ffffff' : '#c56a1a'">History</a>
+<nav class="nav nav-pills flex-column flex-sm-row" style="border:1px solid #EEDAC9;background-color: #EEF2FF;border-radius: 7px;">
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')" [style.color]="activeTab === 'all' ? '#ffffff' : '#4f46e5'">Queries</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')" [style.color]="activeTab === 'confirmed' ? '#ffffff' : '#4f46e5'">Confirmed</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')" [style.color]="activeTab === 'tentative' ? '#ffffff' : '#4f46e5'">Tentative</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'lost'" (click)="setActiveTab('lost')" [style.color]="activeTab === 'lost' ? '#ffffff' : '#4f46e5'">Lost</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'history'" (click)="setActiveTab('history')" [style.color]="activeTab === 'history' ? '#ffffff' : '#4f46e5'">History</a>
 </nav>
 
 <div class="container-fluid d-flex justify-content-center align-items-center mt-5 "  *ngIf=" reportdata==null||reportdata.length === 0">
@@ -92,7 +92,7 @@
                 style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
                 <div class="row" style="line-height: 1;">
                     <div class="col-3 text-left">
-                        <p class="eventvenuename" ><strong>{{item.createdByName}}</strong> &nbsp;<span *ngIf="activeTab === 'all'||activeTab === 'tentative'" class="badge" style="background-color: #c56a1a ; color:#ffffff ;">{{ noofdays(item.createdDate) }} days</span></p>
+                        <p class="eventvenuename" ><strong>{{item.createdByName}}</strong> &nbsp;<span *ngIf="activeTab === 'all'||activeTab === 'tentative'" class="badge" style="background-color: #4f46e5 ; color:#ffffff ;">{{ noofdays(item.createdDate) }} days</span></p>
                     </div>
                     <div class="col-3 text-left">
                         <p class="eventvenuename" *ngIf="item.eventStatusId==2">BumpIn: <strong>{{convertToIST(item.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
@@ -138,8 +138,8 @@
                         <h6 style="color: #1D243365;">VENUES</h6>
                       
                         <p>
-                            <span class="badge" *ngFor="let item1 of item.venuelist | slice:0:1" style="background-color: #FCF4EE; color:#C56A1A;">{{item1.venueName}}</span>
-                           <span *ngIf="item.venuelist &&item.venuelist.length > 1">,</span> <span class="badge" *ngIf="item.venuelist &&item.venuelist.length > 1" style="background-color: #FCF4EE; color:#C56A1A;"> +{{item.venuelist.length - 1}}</span>
+                            <span class="badge" *ngFor="let item1 of item.venuelist | slice:0:1" style="background-color: #EEF2FF; color:#4F46E5;">{{item1.venueName}}</span>
+                           <span *ngIf="item.venuelist &&item.venuelist.length > 1">,</span> <span class="badge" *ngIf="item.venuelist &&item.venuelist.length > 1" style="background-color: #EEF2FF; color:#4F46E5;"> +{{item.venuelist.length - 1}}</span>
                           </p>
                           
                     </div>
@@ -315,7 +315,7 @@
                     <p style="color:#1D243380;line-height: 0;">VENUE</p>
                     <div class="row" style="line-height:0.5">
                         <div class="col-2" *ngFor="let item of viewdails.venuelist">
-                            <p><span class="badge" style="background-color: #FCF4EE; color:#C56A1A;">{{item.venueName}}</span></p>
+                            <p><span class="badge" style="background-color: #EEF2FF; color:#4F46E5;">{{item.venueName}}</span></p>
                         </div>
                      
                     </div>
@@ -325,7 +325,7 @@
                     <p style="color:#1D243380;line-height: 0;">TIME OF EVENT</p>
                     <div class="row" style="line-height:0.5">
                         <div class="col-2" *ngFor="let item of viewdails.eventTimeIdslist">
-                            <p><span class="badge" style="background-color: #FCF4EE; color:#C56A1A;">{{item.eventTimeName}}</span></p>
+                            <p><span class="badge" style="background-color: #EEF2FF; color:#4F46E5;">{{item.eventTimeName}}</span></p>
                         </div>
                        
                     </div>
