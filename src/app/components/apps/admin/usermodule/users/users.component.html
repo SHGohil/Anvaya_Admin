@@ -1,16 +1,19 @@
 <div class="container-fluid pt-3">
     <app-page-header title="Users">
-        <button class="btn btn-sm btn-primary" (click)="add(content)">Add Users</button>
+        <button class="btn btn-sm btn-primary" (click)="add(content)">Add User</button>
     </app-page-header>
     <div class="card">
         <div class="card-body">
+            <div class="users-toolbar" *ngIf="!usersLoading && userdata?.length">
+                <input type="search" class="form-control users-search" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
+            </div>
             <div class="table-responsive">
             <table class="table">
-               
+
                 <thead>
                   <tr class="border-bottom-primary">
                     <th scope="col">User Name</th>
-                    <th scope="col">Mobile Name</th>
+                    <th scope="col">Mobile Number</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
                     <th scope="col">Created By</th>
@@ -28,8 +31,13 @@
                     <td colspan="7" class="text-center text-grey py-4">No users found.</td>
                   </tr>
                 </tbody>
-                <tbody *ngIf="!usersLoading && userdata?.length">
-                  <tr class="border-bottom-secondary" *ngFor="let item of userdata">
+                <tbody *ngIf="!usersLoading && userdata?.length && !filteredUsers.length">
+                  <tr>
+                    <td colspan="7" class="text-center text-grey py-4">No users match "{{searchTerm}}".</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="!usersLoading && filteredUsers?.length">
+                  <tr class="border-bottom-secondary" *ngFor="let item of filteredUsers">
                     <th scope="row">{{item.userName}}</th>
                     <td>{{item.mobileNumber}}</td>
                     <td>{{item.email}}</td>
@@ -63,11 +71,11 @@
 <ng-template #content let-modal>
 
         <div class="modal-header bg-primary" *ngIf="flag==1">
-          <h6 class="modal-title">Add Users</h6>
+          <h6 class="modal-title">Add User</h6>
           <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-header bg-primary" *ngIf="flag==2">
-          <h6 class="modal-title" >update Users</h6>
+          <h6 class="modal-title" >Update User</h6>
           <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <form [formGroup]="userForm" class="modal-body">
@@ -79,7 +87,7 @@
               </div>
           
               <div class="col-lg-6">
-                <label for="mobileNumber">Mobile<span class="mandatory">*</span></label>
+                <label for="mobileNumber">Mobile Number<span class="mandatory">*</span></label>
                 <input class="form-control" formControlName="mobileNumber" type="text" (input)="onPhoneNumberInput($event)">
                 <div *ngIf="userForm.get('mobileNumber').touched && userForm.get('mobileNumber').hasError('required')" class="text text-danger mt-1">Mobile number is required</div>
               </div>

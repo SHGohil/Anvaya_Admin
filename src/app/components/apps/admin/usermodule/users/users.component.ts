@@ -18,6 +18,24 @@ userdata: any[];
   // Without this, "still loading" and "no users" were the same blank
   // table - no rows, no message either way.
   usersLoading = true;
+  // Client-side only - userdata is already the full, non-paginated list, so
+  // there's no API/pagination change needed to support this.
+  searchTerm = '';
+
+  get filteredUsers(): any[] {
+    if (!this.userdata) {
+      return this.userdata;
+    }
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      return this.userdata;
+    }
+    return this.userdata.filter(u =>
+      (u.userName || '').toLowerCase().includes(term) ||
+      (u.email || '').toLowerCase().includes(term) ||
+      (u.mobileNumber || '').toString().toLowerCase().includes(term)
+    );
+  }
   rolesdata: Object;
   public show: boolean = false
   userForm: FormGroup;
