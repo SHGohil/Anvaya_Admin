@@ -32,6 +32,8 @@ import { SvgIconComponent } from "./components/svg-icon/svg-icon.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
 import { StatusBadgeComponent } from "./components/status-badge/status-badge.component";
 import { PageHeaderComponent } from "./components/page-header/page-header.component";
+import { EventCardCompactComponent } from "./components/event-card-compact/event-card-compact.component";
+import { EventCardDetailedComponent } from "./components/event-card-detailed/event-card-detailed.component";
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { PageHeaderComponent } from "./components/page-header/page-header.compon
     SvgIconComponent,
     StatusBadgeComponent,
     PageHeaderComponent,
+    EventCardCompactComponent,
+    EventCardDetailedComponent,
   ],
   imports: [
     CommonModule, 
@@ -67,6 +71,6 @@ import { PageHeaderComponent } from "./components/page-header/page-header.compon
   providers: [NavService, LayoutService, DecimalPipe],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
-    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent],
+    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent],
 })
 export class SharedModule {}

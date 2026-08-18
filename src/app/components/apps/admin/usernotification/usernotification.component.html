@@ -4,42 +4,7 @@
         <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
     </div>
     <div class="col-lg-4" *ngFor="let item of usernotificationData">
-        <div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;" (click)="onviewdeails(item,content)" >
-            <div class="card-header" style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;">
-                <div class="row" >
-                    <div class="col-6 text-left">
-                        <p class="eventvenuename"><strong>{{ item.eventdetails.createdByName }}</strong></p>
-                    </div>
-                    <div class="col-6 text-end" *ngIf="item.eventdetails.eventTimeIdslist!=null">
-                        <span class="badge" style="background-color: #0162DD;">{{item.eventdetails.eventTimeIdslist[0]?.eventTimeName}}</span>
-                        <app-status-badge [eventStatusId]="item.eventdetails.eventStatusId"></app-status-badge>
-                    </div> 
-                </div>
-                <p class="text-grey" style="margin-top: -12px;margin-bottom: 2px;" >
-                    Venue: {{item?.eventdetails?.venuelist?.[0]?.venueName}}
-                    <a *ngIf="item?.eventdetails?.venuelist?.length > 1">, +{{item?.eventdetails?.venuelist?.length - 1}}</a>
-                   </p>
-                   
-                <!-- <p class="text-grey" style="margin-top: -12px;margin-bottom: 2px;" >Venue: {{item?.eventdetails?.venuelist[0]?.venueName}}<a *ngIf="item.eventdetails.venuelist.length >1">, +{{item.eventdetails.venuelist.length-1}}</a></p> -->
-                <p class="text-grey mt-1" style="margin-top: -12px;margin-bottom: 2px;">Event Date: <a>{{item.eventdetails.eventDate | date:'dd-MM-yyyy'}}</a></p>
-            </div>
-            <div class="card-body bg-white" style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;">
-                <div class="row">
-                    <div class="col-6" style="border-right: 2px solid #E1E6EF;">
-                        <h6 style="color: #1D243365;">EVENT TYPE</h6>
-                        <p style="font-size: 14px; line-height: 22px;">
-                            {{item?.eventdetails?.eventType?.eventTypeName?.length > 10 ? (item?.eventdetails?.eventType?.eventTypeName | slice:0:10) + '...' : item?.eventdetails?.eventType?.eventTypeName}}
-                           </p>
-                           
-                        <!-- <p style="font-size: 14px; line-height: 22px;">{{item.eventdetails.eventType.eventTypeName.length > 10 ? (item.eventdetails.eventType.eventTypeName | slice:0:10) + '...' : item.eventdetails.eventType.eventTypeName}}</p> -->
-                    </div>
-                    <div class="col-6">
-                        <h6 style="color: #1D243365;">GUEST NAME</h6>
-                        <p style="font-size: 14px; line-height: 22px;">{{item.eventdetails.guestName?.length > 10 ? (item.eventdetails?.guestName | slice:0:10) + '...' : item.eventdetails.guestName}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-event-card-compact [item]="item.eventdetails" (cardClick)="onviewdeails(item, content)"></app-event-card-compact>
     </div>
 </div>
 

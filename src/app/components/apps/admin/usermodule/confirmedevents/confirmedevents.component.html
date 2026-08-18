@@ -5,63 +5,7 @@
 
 <div class="row" style="margin-top: 12px;"*ngIf="reportdata">
     <div class="col-lg-12" *ngFor="let item of reportdata">
-        <div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;" (click)="onviewdeails(item,content)">
-            <div class="card-header"
-                style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
-                <div class="row" style="line-height: 1;">
-                    <div class="col-3 text-left">
-                        <p class="eventvenuename" ><strong>{{item.createdByName}}</strong> </p>
-                    </div>
-                    <div class="col-3 text-left">
-                        <p class="eventvenuename" *ngIf="item.eventStatusId==2">BumpIn: <strong>{{convertToIST(item.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
-                    </div>
-                    <div class="col-3 text-left">
-                        <p class="eventvenuename" *ngIf="item.eventStatusId==2">BumpOut: <strong>{{convertToIST(item.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
-                    </div>
-                    <div class="col-3 text-end" *ngIf="item.eventTimeIdslist!=null">
-                        <span class="badge" style="background-color: #0162DD;">{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                        <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;" *ngIf="item.eventTimeIdslist.length >1 " >+{{ item?.eventTimeIdslist?.length-1 }}</span>
-                        <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
-                    </div> 
-                </div>
-               
-            </div>
-            <div class="card-body bg-white"
-                style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;padding:0%;margin: 1%;">
-                <div class="row">
-                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-                        <h6 style="color: #1D243365;">Sales Exec Name</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.personName && item.personName.length > 10 ? (item.personName| slice:0:10) + '...' : item.personName}}</p>
-                    </div>
-                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-                        <h6 style="color: #1D243365;">EVENT DATE</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
-                    </div>
-                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-                        <h6 style="color: #1D243365;">ENTRY DATE</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{item.createdDate|date:'dd-MM-yyyy'}}</p>
-                    </div>
-                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-                        <h6 style="color: #1D243365;">GUEST NAME</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.guestName && item.guestName.length > 10 ? (item.guestName| slice:0:10) + '...' : item.guestName }}</p>
-                    </div>
-                    <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-                        <h6 style="color: #1D243365;">EVENT TYPE</h6>
-                        <p style="font-size: 14px ; line-height: 22px;"> {{ item.eventType && item.eventType.eventTypeName && item.eventType.eventTypeName.length > 10 ? (item.eventType.eventTypeName | slice:0:10) + '...' : item.eventType.eventTypeName }}</p>
-                    </div>
-                    
-                    <div class="col-2 ">
-                        <h6 style="color: #1D243365;">VENUES</h6>
-                      
-                        <p>
-                            <span class="badge" *ngFor="let item1 of item.venuelist | slice:0:1" style="background-color: #FCF4EE; color:#B66623;">{{item1.venueName}}</span>
-                           <span *ngIf="item.venuelist.length > 1">,</span> <span class="badge" *ngIf="item.venuelist.length > 1" style="background-color: #FCF4EE; color:#B66623;"> +{{item.venuelist.length - 1}}</span>
-                          </p>
-                          
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
     </div>
    
 </div>
