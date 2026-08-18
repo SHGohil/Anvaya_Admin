@@ -128,8 +128,28 @@ $card-bg: #fff;
 $dropdown-bg: #fff;
 $card-border-color: $border-color;
 $card-box-shadow: $box-shadow-sm;
-$input-border-color: #d8d3ca;
-$input-focus-border-color: tint-color($primary, 40%);
+// Real bug found and fixed here (2026-08): $input-border-color was still
+// #D8D3CA, a warm beige-tan hand-picked to pair with the *original* orange
+// brand color - untouched through two full palette swaps since, so every
+// text input/select/textarea in the app had a mismatched warm border while
+// everything else had gone cool indigo/gray. And $input-focus-border-color
+// called tint-color($primary, 40%) - a Bootstrap Sass *function*, not
+// available yet at this point in the import chain (_tokens.scss loads
+// before "bootstrap/scss/bootstrap", which is what defines tint-color).
+// Sass doesn't error on an unrecognized function, it emits the call
+// literally as invalid CSS - confirmed in the actual compiled output
+// (a stray literal "tint-color(#4f46e5, 40%)" string, never evaluated) -
+// so the focus border had been silently falling back this whole time. Both
+// replaced with literal hex tied to the current palette instead of a
+// function call, so this can't silently break again on the next re-theme.
+// Same $body-bg-inheritance bug as $card-bg/$dropdown-bg/$modal-content-bg
+// above, found here too while fixing the border colors: $input-bg defaults
+// to var(--bs-body-bg), the page's own tinted background - so every input/
+// select/textarea sitting inside a white .card had a subtly different
+// (page-colored) fill than the card around it.
+$input-bg: #fff;
+$input-border-color: #d0d5dd;
+$input-focus-border-color: $primary;
 $btn-font-weight: 500;
 $link-decoration: none;
 // Modals get the dedicated xl (16px) radius rather than sharing $border-radius-lg.

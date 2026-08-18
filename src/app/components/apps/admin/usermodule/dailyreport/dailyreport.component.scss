@@ -1,5 +1,43 @@
+@import "../../../../../../assets/scss/tokens";
+
+// Real color bug found here too: this hover border was a leftover warm
+// orange (#ea9042) from the original theme, unrelated to the current
+// primary through two full palette swaps since.
 .card_hover:hover{
- border: 1px solid #ea9042 !important;
-    box-shadow: 0 8px 16px rgba(172, 172, 172, 0.3); /* red shadow on hover */
+ border: 1px solid $primary !important;
+    box-shadow: $box-shadow-sm;
     transform: translateY(-2px); /* subtle lift on hover */
+}
+
+.dr-filter-card {
+  margin-bottom: 1rem;
+}
+
+.dr-filter-actions {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 0.1rem;
+}
+
+// Status tab bar - previously a bare <nav> with inline
+// border/background/per-link [style.color] toggling; same idea, now
+// token-driven so it stays correct across future re-themes instead of
+// needing another manual hex sweep.
+.dr-status-tabs {
+  border: 1px solid $border-color;
+  background-color: $light;
+  border-radius: $border-radius;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+
+  .nav-link {
+    color: $primary;
+    border-radius: $border-radius-sm;
+    font-weight: 500;
+
+    &.active {
+      background-color: $primary;
+      color: #fff;
+    }
+  }
 }

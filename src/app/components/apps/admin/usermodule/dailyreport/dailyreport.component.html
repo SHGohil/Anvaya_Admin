@@ -49,37 +49,41 @@
           </div>
     </div>
 </div>
-<div class="row mb-3">
-    <div class="col-md-3">
-        <label for="eventTypeId">Sales Executive </label>
-        <select class="form-select" #seletedValue [(ngModel)]="seleted_value"
-            (change)="onNameChange($event.target.value)">
-            <option value=""> Select Sales Executive </option>
-            <option *ngFor="let item of uniqueNames" [value]="item">{{ item }}</option>
-        </select>
+<div class="card dr-filter-card">
+  <div class="card-body">
+    <div class="row">
+        <div class="col-md-3">
+            <label for="eventTypeId">Sales Executive </label>
+            <select class="form-select" #seletedValue [(ngModel)]="seleted_value"
+                (change)="onNameChange($event.target.value)">
+                <option value=""> Select Sales Executive </option>
+                <option *ngFor="let item of uniqueNames" [value]="item">{{ item }}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="eventTypeId">Start Date</label>
+            <input class="form-control" type="date" id="eventDate" [(ngModel)]="startDate">
+        </div>
+        <div class="col-md-2">
+            <label for="eventTypeId">End Date</label>
+            <input class="form-control" type="date" id="eventDate" [(ngModel)]="endDate">
+        </div>
+        <div class="col-md-3 dr-filter-actions">
+            <button class="btn btn-sm btn-primary me-2" (click)="filterData()">Search</button>
+            <button class="btn btn-sm btn-Danger" (click)="clearFilter()">Clear</button>
+        </div>
+        <div class="col-md-2 text-end dr-filter-actions">
+            <button class="btn btn-sm btn-primary" (click)="exportToExcel()">Export to Excel</button>
+        </div>
     </div>
-    <div class="col-md-2">
-        <label for="eventTypeId">Start Date</label>
-        <input class="form-control" type="date" id="eventDate" [(ngModel)]="startDate">
-    </div>
-    <div class="col-md-2">
-        <label for="eventTypeId">End Date</label>
-        <input class="form-control" type="date" id="eventDate" [(ngModel)]="endDate">
-    </div>
-    <div class="col-md-3" style="margin-top: 2rem;">
-        <button class="btn btn-sm btn-primary me-2" (click)="filterData()">Search</button>
-        <button class="btn btn-sm btn-Danger" (click)="clearFilter()">Clear</button>
-    </div>
-    <div class="col-md-2 text-end" style="margin-top: 2rem;">
-        <button class="btn btn-sm btn-primary" (click)="exportToExcel()">Export to Excel</button>
-    </div>
+  </div>
 </div>
-<nav class="nav nav-pills flex-column flex-sm-row" style="border:1px solid #EEDAC9;background-color: #EEF2FF;border-radius: 7px;">
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')" [style.color]="activeTab === 'all' ? '#ffffff' : '#4f46e5'">Queries</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')" [style.color]="activeTab === 'confirmed' ? '#ffffff' : '#4f46e5'">Confirmed</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')" [style.color]="activeTab === 'tentative' ? '#ffffff' : '#4f46e5'">Tentative</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'lost'" (click)="setActiveTab('lost')" [style.color]="activeTab === 'lost' ? '#ffffff' : '#4f46e5'">Lost</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'history'" (click)="setActiveTab('history')" [style.color]="activeTab === 'history' ? '#ffffff' : '#4f46e5'">History</a>
+<nav class="nav nav-pills flex-column flex-sm-row dr-status-tabs">
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')">Queries</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')">Confirmed</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')">Tentative</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'lost'" (click)="setActiveTab('lost')">Lost</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'history'" (click)="setActiveTab('history')">History</a>
 </nav>
 
 <div class="container-fluid d-flex justify-content-center align-items-center mt-5 "  *ngIf=" reportdata==null||reportdata.length === 0">
