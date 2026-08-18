@@ -12,8 +12,6 @@ import Swal from 'sweetalert2';
     standalone: false
 })
 export class ResetpasswordComponent implements OnInit, OnDestroy {
-  showPassword2:any;
-  showPassword1:any;
   public show: boolean = false;
   resetForm: any;
   private isFormValidating: boolean = false;
@@ -60,12 +58,6 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
   
     return null;
   }  
-  toggleShowPassword1(){
-    this.showPassword1=!this.showPassword1
-  }
-  toggleShowPassword2(){
-    this.showPassword2=!this.showPassword2
-  }
   passwordMatchValidator = (control: AbstractControl): {[key: string]: any} | null => {
     const password = control.get('password');
     const confirmPassword = control.get('cnpassword');
