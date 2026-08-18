@@ -1,6 +1,8 @@
+@import "../../../../../../assets/scss/tokens";
+
 .checkbox-container {
     display: flex;
-    
+
     align-items: center; /* Center vertically */
     max-height: 20px;
     overflow: hidden; /* Hide overflow content */
@@ -9,4 +11,33 @@
 .checkbox-container div {
     display: flex;
     align-items: center; /* Center vertically */
+}
+
+// -- Sectioned form ---------------------------------------------------------
+// Guest Information / Event Details / Venue / Additional Information,
+// replacing one flat 7-field grid with no grouping. Same form, same
+// controls/validators - just visual structure.
+.form-section {
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.form-section-last {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.form-section-title {
+  font-size: $fs-section-title;
+  font-weight: $fw-section-title;
+  color: $body-color;
+  margin-bottom: 0.25rem;
+}
+
+.form-actions {
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid $border-color;
 }
