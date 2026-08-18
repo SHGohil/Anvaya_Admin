@@ -41,3 +41,95 @@
     }
   }
 }
+
+// The two chart cards used inline style="height: 82%"/"height: 81%" -
+// fragile percentage heights with no clear reference height. A plain
+// height: 100% on a Bootstrap row's column (rows stretch children to
+// equal height via flex by default) achieves the same "both cards match
+// height" result without a magic-number percentage.
+.dr-chart-card {
+  height: 100%;
+}
+
+// -- Report item cards ------------------------------------------------
+// Was heavy hand-rolled inline styling (percentage padding/margin, a
+// hardcoded #E1E6EF border, 3 raw <img> status icons instead of the
+// shared status badge every other screen uses). Card's own border now
+// comes from the same $card-border-color every other .card in the app
+// uses - no need to redeclare it here.
+.dr-item-card {
+  cursor: pointer;
+}
+
+.dr-item-header {
+  padding: 0.75rem 1rem 0.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.dr-item-header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.dr-days-badge {
+  background-color: $primary;
+  color: #fff;
+}
+
+.dr-time-badge {
+  background-color: $info;
+  color: #fff;
+}
+
+.dr-time-badge-alt {
+  background-color: rgba($info, 0.15);
+  color: $info;
+}
+
+.dr-venue-chip {
+  background-color: #eef2ff;
+  color: $primary;
+  font-weight: 600;
+}
+
+.dr-item-body {
+  padding: 0.75rem 1rem;
+}
+
+.dr-item-col {
+  border-right: 1px solid $border-color;
+}
+
+.dr-item-label {
+  color: $muted-color;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.dr-item-value {
+  font-size: 0.85rem;
+  color: $body-color;
+  margin-bottom: 0;
+}
+
+// -- Read-only event detail (role 3) -----------------------------------
+.dr-detail-label {
+  color: $muted-color;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.dr-detail-value {
+  font-size: 0.9rem;
+  color: $body-color;
+  margin-bottom: 0;
+}
