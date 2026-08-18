@@ -34,6 +34,7 @@ import { StatusBadgeComponent } from "./components/status-badge/status-badge.com
 import { PageHeaderComponent } from "./components/page-header/page-header.component";
 import { EventCardCompactComponent } from "./components/event-card-compact/event-card-compact.component";
 import { EventCardDetailedComponent } from "./components/event-card-detailed/event-card-detailed.component";
+import { ToastContainerComponent } from "./components/toast-container/toast-container.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { EventCardDetailedComponent } from "./components/event-card-detailed/eve
     PageHeaderComponent,
     EventCardCompactComponent,
     EventCardDetailedComponent,
+    ToastContainerComponent,
   ],
   imports: [
     CommonModule, 
@@ -71,6 +73,6 @@ import { EventCardDetailedComponent } from "./components/event-card-detailed/eve
   providers: [NavService, LayoutService, DecimalPipe],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
-    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent],
+    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent, ToastContainerComponent],
 })
 export class SharedModule {}

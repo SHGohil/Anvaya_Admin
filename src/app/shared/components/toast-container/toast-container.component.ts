@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+import { ToastService } from '../../services/toast.service';
+
+@Component({
+    selector: 'app-toast-container',
+    templateUrl: './toast-container.component.html',
+    styleUrls: ['./toast-container.component.scss'],
+    standalone: false
+})
+export class ToastContainerComponent {
+  constructor(public toastService: ToastService) {}
+
+  dismiss(id: number): void {
+    this.toastService.dismiss(id);
+  }
+}
