@@ -30,6 +30,12 @@ export class DashboardComponent  implements OnInit {
   donutChart: any;
   todaysActivity: any[] = [];
   todaysCount = 0;
+  // Distinct from analytics/todaysActivity being falsy/empty - without
+  // these, "still loading" and "genuinely zero events" were the same
+  // state, so the KPI row and activity feed just rendered blank until
+  // the request resolved instead of showing a loading indicator.
+  analyticsLoading = true;
+  activityLoading = true;
 
   constructor(private cdr: ChangeDetectorRef,public navServices: NavService,private todaysservice: TodaysqueryService)
   {
@@ -59,8 +65,10 @@ export class DashboardComponent  implements OnInit {
 
   private loadAnalytics() {
     const year = new Date().getFullYear();
-    this.todaysservice.getanalytics(year).subscribe((apidata: any) => {
+    this.todaysservice.getanalytics(year).subscribe({
+      next: (apidata: any) => {
       this.analytics = apidata;
+      this.analyticsLoading = false;
       this.donutChart = {
         chart: { type: 'donut', height: 190, sparkline: { enabled: true } },
         series: [apidata.open, apidata.tentative, apidata.confirmed, apidata.lost],
@@ -88,14 +96,24 @@ export class DashboardComponent  implements OnInit {
           },
         },
       };
+      },
+      error: () => {
+        this.analyticsLoading = false;
+      },
     });
   }
 
   private loadTodaysActivity() {
-    this.todaysservice.getTodaysquerys().subscribe((apidata: any) => {
-      const list = apidata || [];
-      this.todaysCount = list.length;
-      this.todaysActivity = list.slice(0, 4);
+    this.todaysservice.getTodaysquerys().subscribe({
+      next: (apidata: any) => {
+        const list = apidata || [];
+        this.todaysCount = list.length;
+        this.todaysActivity = list.slice(0, 4);
+        this.activityLoading = false;
+      },
+      error: () => {
+        this.activityLoading = false;
+      },
     });
   }
  }

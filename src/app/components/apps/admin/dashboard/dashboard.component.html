@@ -2,6 +2,11 @@
     <app-page-header title="Dashboard" subtitle="Today's bookings at a glance"></app-page-header>
 
     <!-- KPI overview -->
+    <div class="row g-3 kpi-row" *ngIf="analyticsLoading">
+        <div class="col-6 col-md-4 col-lg" *ngFor="let i of [1,2,3,4,5]">
+            <div class="skeleton" style="height: 118px; border-radius: 0.85rem;"></div>
+        </div>
+    </div>
     <div class="row g-3 kpi-row" *ngIf="analytics">
         <div class="col-6 col-md-4 col-lg">
             <div class="kpi-tile kpi-total">
@@ -61,6 +66,10 @@
     </div>
 
     <!-- Pipeline + today's activity -->
+    <div class="row g-3 mt-1" *ngIf="analyticsLoading">
+        <div class="col-lg-5"><div class="skeleton" style="height: 280px; border-radius: 0.85rem;"></div></div>
+        <div class="col-lg-7"><div class="skeleton" style="height: 280px; border-radius: 0.85rem;"></div></div>
+    </div>
     <div class="row g-3 mt-1" *ngIf="analytics">
         <div class="col-lg-5">
             <div class="overview-card h-100">
@@ -92,7 +101,17 @@
                 <h6 class="overview-title">Today&rsquo;s activity</h6>
                 <p class="overview-sub">{{ todaysCount }} booking{{ todaysCount === 1 ? '' : 's' }} today{{ todaysCount > 4 ? ', newest first' : '' }}</p>
 
-                <div class="activity-empty" *ngIf="todaysCount === 0">
+                <div class="activity-skeleton" *ngIf="activityLoading">
+                    <div class="activity-row" *ngFor="let i of [1,2,3]">
+                        <div class="skeleton" style="width: 38px; height: 38px; border-radius: 10px;"></div>
+                        <div class="activity-body">
+                            <div class="skeleton" style="width: 60%; height: 12px; margin-bottom: 6px;"></div>
+                            <div class="skeleton" style="width: 40%; height: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-empty" *ngIf="!activityLoading && todaysCount === 0">
                     <img src="../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
                     <p>No bookings entered yet today.</p>
                 </div>
