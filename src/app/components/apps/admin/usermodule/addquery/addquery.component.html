@@ -1,114 +1,135 @@
-<div class="card">
-    <div class="card-header">
-        <h5>Daily Query Entry</h5>
-    </div>
-    <div class="card-body">
+<div class="container-fluid pt-3">
+    <app-page-header title="Daily Query Entry" subtitle="Log a new guest enquiry"></app-page-header>
 
-        <form [formGroup]="form">
+    <div class="card aq-card">
+        <div class="card-body">
 
-            <div class="form-section">
-                <h6 class="form-section-title">Guest Information</h6>
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Attending Sales Executive</label><span class="text-danger">*</span>
-                        <input class="form-control" formControlName="personName" type="text">
-                        <div *ngIf="form.controls.personName.invalid && ( form.controls.personName.touched)">
-                            <div *ngIf="form.controls.personName.errors.required" class="text-danger">Person Name is required.</div>
+            <form [formGroup]="form">
+
+                <div class="form-section">
+                    <div class="form-section-heading">
+                        <div class="form-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                         </div>
+                        <h6 class="form-section-title">Guest Information</h6>
                     </div>
-
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Guest Name</label><span class="text-danger">*</span>
-                        <input class="form-control" formControlName="guestName" type="text">
-                        <div *ngIf="form.get('guestName').invalid&&form.controls.guestName.invalid && ( form.controls.guestName.touched)">
-                            <div *ngIf="form.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="phonenumber">Phone Number</label><span class="text-danger">*</span>
-                        <input id="phonenumber" class="form-control" formControlName="phonenumber" type="text" maxlength="15" minlength="6" (input)="onPhoneNumberInput($event)">
-                        <div *ngIf="form.get('phonenumber').invalid && form.controls.phonenumber.invalid && form.controls.phonenumber.touched">
-                            <div *ngIf="form.controls.phonenumber.errors.required" class="text-danger">Phone number is required.</div>
-                            <div *ngIf="form.controls.phonenumber.errors.minlength" class="text-danger">Invalid Phone number.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h6 class="form-section-title">Event Details</h6>
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Event Date</label>
-                        <input class="form-control" formControlName="eventDate" type="date" id="eventDate"
-                               (change)="onDateChange($event.target.value)">
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Select Type Of Event</label>
-                        <select class="form-control form-select" placeholder="Select Event" formControlName="eventTypeId" name="" id="">
-                            <option selected value="">Select Type</option>
-                        <option *ngFor="let item of typedata" value="{{item.eventTypeId}}">{{item.eventTypeName}}</option>
-                    </select>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Select Time Of Event</label>
-                        <ng-select formControlName="eventTimeIds"  [items]="timedata"
-                         bindLabel="eventTimeName" bindValue="eventTimeId"
-                        [multiple]="true" placeholder="Select"  (change)="onSelectTime($event)"></ng-select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h6 class="form-section-title">Venue</h6>
-                <div class="row">
-                    <fieldset class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Select Venue</label>
-
-                        <ng-select formControlName="venueIds" [items]="venueData$"
-                            bindLabel="venueName" bindValue="venueId" [multiple]="true"
-                            placeholder="Select"
-                            (change)="onSelect($event)">
-                        </ng-select>
-
-                        <div class="checkbox-container mt-2">
-                            <div>
-                                <!-- standalone: this checkbox is a plain component property, not a
-                                     control on `form`. Without it Angular throws NG01350 and the
-                                     whole Daily Query Entry screen fails to render. -->
-                                <input type="checkbox" id="totalVenue" [(ngModel)]="isAllVenueSelected" [ngModelOptions]="{standalone: true}" (click)="getValue($event.target.checked)">
-                                <label for="totalVenue" style="margin-left:10px;margin-top:1px" class="mb-0">Total Venue</label>
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-4">
+                            <label for="">Attending Sales Executive</label><span class="text-danger">*</span>
+                            <input class="form-control" formControlName="personName" type="text">
+                            <div *ngIf="form.controls.personName.invalid && ( form.controls.personName.touched)">
+                                <div *ngIf="form.controls.personName.errors.required" class="text-danger">Person Name is required.</div>
                             </div>
                         </div>
 
-                    </fieldset>
-                </div>
-            </div>
+                        <div class="col-md-6 col-lg-4">
+                            <label for="">Guest Name</label><span class="text-danger">*</span>
+                            <input class="form-control" formControlName="guestName" type="text">
+                            <div *ngIf="form.get('guestName').invalid&&form.controls.guestName.invalid && ( form.controls.guestName.touched)">
+                                <div *ngIf="form.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
+                            </div>
+                        </div>
 
-            <div class="form-section form-section-last">
-                <h6 class="form-section-title">Additional Information</h6>
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 mt-3">
-                        <label for="">Comment</label>
-                        <textarea
-                          class="form-control"
-                          formControlName="comment"
-                          rows="3"
-                          placeholder="Enter your comment">
-                        </textarea>
+                        <div class="col-md-6 col-lg-4">
+                            <label for="phonenumber">Phone Number</label><span class="text-danger">*</span>
+                            <input id="phonenumber" class="form-control" formControlName="phonenumber" type="text" maxlength="15" minlength="6" (input)="onPhoneNumberInput($event)">
+                            <div *ngIf="form.get('phonenumber').invalid && form.controls.phonenumber.invalid && form.controls.phonenumber.touched">
+                                <div *ngIf="form.controls.phonenumber.errors.required" class="text-danger">Phone number is required.</div>
+                                <div *ngIf="form.controls.phonenumber.errors.minlength" class="text-danger">Invalid Phone number.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="form-section">
+                    <div class="form-section-heading">
+                        <div class="form-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <h6 class="form-section-title">Event Details</h6>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-4">
+                            <label for="">Event Date</label>
+                            <input class="form-control" formControlName="eventDate" type="date" id="eventDate"
+                                   (change)="onDateChange($event.target.value)">
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <label for="">Select Type Of Event</label>
+                            <select class="form-control form-select" placeholder="Select Event" formControlName="eventTypeId" name="" id="">
+                                <option selected value="">Select Type</option>
+                            <option *ngFor="let item of typedata" value="{{item.eventTypeId}}">{{item.eventTypeName}}</option>
+                        </select>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <label for="">Select Time Of Event</label>
+                            <ng-select formControlName="eventTimeIds"  [items]="timedata"
+                             bindLabel="eventTimeName" bindValue="eventTimeId"
+                            [multiple]="true" placeholder="Select"  (change)="onSelectTime($event)"></ng-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-heading">
+                        <div class="form-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <h6 class="form-section-title">Venue</h6>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <fieldset class="col-md-6 col-lg-5">
+                            <label for="">Select Venue</label>
+
+                            <ng-select formControlName="venueIds" [items]="venueData$"
+                                bindLabel="venueName" bindValue="venueId" [multiple]="true"
+                                placeholder="Select"
+                                (change)="onSelect($event)">
+                            </ng-select>
+                        </fieldset>
+
+                        <div class="col-md-6 col-lg-4">
+                            <!-- standalone: this checkbox is a plain component property, not a
+                                 control on `form`. Without it Angular throws NG01350 and the
+                                 whole Daily Query Entry screen fails to render. -->
+                            <label class="aq-toggle">
+                                <input type="checkbox" id="totalVenue" [(ngModel)]="isAllVenueSelected" [ngModelOptions]="{standalone: true}" (click)="getValue($event.target.checked)">
+                                <span class="aq-toggle-track"><span class="aq-toggle-thumb"></span></span>
+                                <span class="aq-toggle-label">All venues</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section form-section-last">
+                    <div class="form-section-heading">
+                        <div class="form-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <h6 class="form-section-title">Additional Information</h6>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-lg-8">
+                            <label for="">Comment</label>
+                            <textarea
+                              class="form-control"
+                              formControlName="comment"
+                              rows="3"
+                              placeholder="Enter your comment">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="d-flex justify-content-end mt-2 form-actions">
+                <button class="btn btn-sm btn-secondary" (click)="onclickcancel()">Cancel</button>
+                <button class="btn btn-sm btn-primary" (click)="post(form.value)">Save Query</button>
             </div>
 
-        </form>
-
-        <div class="d-flex justify-content-end mt-2 form-actions">
-            <button class="btn btn-sm btn-secondary" (click)="onclickcancel()">Cancel</button>
-            <button class="btn btn-sm btn-primary" (click)="post(form.value)">Save Query</button>
         </div>
-
     </div>
 </div>
