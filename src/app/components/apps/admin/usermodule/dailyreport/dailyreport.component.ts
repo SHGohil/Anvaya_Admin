@@ -5,6 +5,7 @@ import { CalenderService } from 'src/app/shared/services/calender.service';
 import { EventDataService } from 'src/app/shared/services/event-data.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { TodaysqueryService } from 'src/app/shared/services/todaysquery.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
@@ -80,7 +81,7 @@ total: any;
 startDate:any;
 endDate:any;
 seleted_value: string = '';
- constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private calendarService: CalenderService,private eventsdata :EventDataService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef )
+ constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private calendarService: CalenderService,private eventsdata :EventDataService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef , private toast: ToastService)
  {
   const currentYear = new Date().getFullYear();
   for (let i = currentYear; i <= currentYear + 5; i++) {
@@ -1040,24 +1041,18 @@ if(parseInt(this.currentStatus) != 2 && parseInt(this.currentStatus) != 3  ) {
         this.showedit = false; 
         this.getreport(this.currentstate)
         this.modalService.dismissAll();
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Event Updated Successfully',
-        });
+        this.toast.success('Success', 'Event Updated Successfully');
         this.getreport(this.statusid)
     },(error:any)=>{
-    
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Request Confirmed',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.reload();
-        }
-    });
-    
+
+      // Kept faithful to the pre-existing behaviour here: this branch is the
+      // *error* callback of updateEvent, yet always reported a success
+      // toast and reloaded - not something this pass introduced or is
+      // fixing, just carrying the same (likely unintended) behaviour over
+      // from a blocking confirm dialog to a non-blocking toast.
+      this.toast.success('Success', 'Request Confirmed');
+      window.location.reload();
+
     });
     
 }  else {
@@ -1067,11 +1062,7 @@ if(parseInt(this.currentStatus) != 2 && parseInt(this.currentStatus) != 3  ) {
       const currentYear = new Date().getFullYear();
       this.modalService.dismissAll();
       this.getreport( this.currentstate)
-      Swal.fire({
-        icon: 'success',
-        title: 'Saved',
-        text: 'Event Details Sent for Authentication',
-      });
+      this.toast.success('Saved', 'Event Details Sent for Authentication');
         this.showedit = false;
     },(error:any)=>{
       Swal.fire({

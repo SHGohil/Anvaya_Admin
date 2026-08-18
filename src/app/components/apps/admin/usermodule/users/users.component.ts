@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../../../../../shared/services/users.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
 
 
@@ -25,7 +26,7 @@ userdata: any[];
   tableItem$: any;
   total$: any;
 
-constructor(private userservice : UsersService, private modalService:NgbModal, private fb : FormBuilder){
+constructor(private userservice : UsersService, private modalService:NgbModal, private fb : FormBuilder, private toast: ToastService){
   let user;
   if (typeof window !== 'undefined' && window.localStorage) {
    user = localStorage.getItem('user');
@@ -129,11 +130,7 @@ postUser(val){
       this.modalService.dismissAll();
       this.userForm.reset();
       this.getusers();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'User Added Successfully',
-      });
+      this.toast.success('Success', 'User Added Successfully');
       },
       
       error => {
@@ -164,12 +161,8 @@ this.userservice.postusers(val.userId,obj).subscribe(apidata=>{
   this.modalService.dismissAll();
       this.userForm.reset();
       this.getusers();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'User Updated Successfully',
-      });
-      
+      this.toast.success('Success', 'User Updated Successfully');
+
 },
 
 error => {
@@ -199,11 +192,7 @@ delete(val){
     if (result.isConfirmed) {
     this.userservice.dleleteusers(val.userId,val).subscribe(apidata=>{
       this.getusers();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'User Deleted Successfully',
-      });
+      this.toast.success('Success', 'User Deleted Successfully');
     },
 
     error => {

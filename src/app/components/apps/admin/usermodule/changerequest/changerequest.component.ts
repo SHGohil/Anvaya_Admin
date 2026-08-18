@@ -3,6 +3,7 @@ import {ChangerequestService} from '../../../../../shared/services/changerequest
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { ReportsService } from 'src/app/shared/services/reports.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
 @Component({
     selector: 'app-changerequest',
@@ -23,7 +24,7 @@ export class ChangerequestComponent implements OnInit {
   changerequestLoading = true;
 
 
-  constructor(public rservice : ReportsService,private service:ChangerequestService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef){
+  constructor(public rservice : ReportsService,private service:ChangerequestService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef, private toast: ToastService){
 
   }
 
@@ -131,13 +132,12 @@ else{
     // Both outcomes used to report "Event Updated Successfully". A decline does
     // not update the event at all - the API leaves it untouched - so saying it
     // was updated told the reviewer the opposite of what happened.
-    Swal.fire({
-      icon: 'success',
-      title: this.isapproved ? 'Approved' : 'Declined',
-      text: this.isapproved
+    this.toast.success(
+      this.isapproved ? 'Approved' : 'Declined',
+      this.isapproved
         ? 'The change request was approved and the event has been updated.'
         : 'The change request was declined. The event is unchanged.',
-    });
+    );
     this.modalService.dismissAll();
     this.getspecialdates();
     },

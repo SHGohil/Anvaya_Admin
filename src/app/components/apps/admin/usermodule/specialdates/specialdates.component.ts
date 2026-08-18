@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpecialdatesService } from 'src/app/shared/services/specialdates.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +18,7 @@ export class SpecialdatesComponent implements OnInit {
   selectedDates: any[] = []; // Combined array for selected and special dates
   loginroleid: any;
 
-  constructor(private service: SpecialdatesService, private modalService: NgbModal, private fb: FormBuilder) {
+  constructor(private service: SpecialdatesService, private modalService: NgbModal, private fb: FormBuilder, private toast: ToastService) {
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
       user = localStorage.getItem('user');
@@ -103,11 +104,7 @@ export class SpecialdatesComponent implements OnInit {
     };
     this.service.postspecialdates(obj).subscribe(apidata=>{
    
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Special Dates updated to the calender Successfully',
-      });
+      this.toast.success('Success', 'Special Dates updated to the calender Successfully');
       this.getselecteddate();
       },
       

@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { Modal } from 'bootstrap'; 
 import { ReportsService } from '../../../../../shared/services/reports.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
     selector: 'app-calenderdates',
@@ -108,7 +109,7 @@ export class CalenderdatesComponent implements OnInit {
   eventdatedata: any=[];
   currentdateselected: any;
   years: number[] = [];
-  constructor(private fb:FormBuilder,public service : ReportsService, private calendarService: CalenderService,private modalService: NgbModal,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private eventsdata :EventDataService) 
+  constructor(private fb:FormBuilder,public service : ReportsService, private calendarService: CalenderService,private modalService: NgbModal,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private eventsdata :EventDataService,private toast: ToastService) 
   {
     const currentYear = new Date().getFullYear();
     for (let i = currentYear; i <= currentYear + 5; i++) {
@@ -569,11 +570,7 @@ getonecaledetdata(month){
           this.showedit = false; 
           this.modalService.dismissAll();
          this.getoncedatedata(this.currentdateselected);
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Event Updated Successfully',
-          });
+          this.toast.success('Success', 'Event Updated Successfully');
       },(error:any)=>{
       
         Swal.fire({
@@ -589,11 +586,7 @@ getonecaledetdata(month){
         this.getoncedatedata(this.currentdateselected);
         const currentYear = new Date().getFullYear();
         this.modalService.dismissAll();
-        Swal.fire({
-          icon: 'success',
-          title: 'Saved',
-          text: 'Event Details Sent for Authentication',
-        });
+        this.toast.success('Saved', 'Event Details Sent for Authentication');
         this.getcalenderdata(currentYear);
           this.showedit = false;
       },(error:any)=>{

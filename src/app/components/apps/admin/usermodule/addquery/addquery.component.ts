@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EventDataService } from 'src/app/shared/services/event-data.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,7 +26,7 @@ export class AddqueryComponent implements OnInit {
   loginid: any;
 
 
-  constructor(public router :Router ,private fb:FormBuilder, private service: EventDataService)
+  constructor(public router :Router ,private fb:FormBuilder, private service: EventDataService, private toast: ToastService)
   {
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -260,11 +261,7 @@ onSelectTime(event: any) {
      
     this.service.postevents(obj).subscribe(apidata=>{
       this.form.reset();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Event Added Successfully',
-      });
+      this.toast.success('Success', 'Event Added Successfully');
       window.location.reload();
       this.isAllVenueSelected = false;
       
