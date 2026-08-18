@@ -21,6 +21,6 @@
     <!-- Page Body End-->
   </div>
 </div>
-<div class="bg-overlay1"></div>
+<div class="sidebar-backdrop" *ngIf="!navServices.collapseSidebar" (click)="navServices.collapseSidebar = true"></div>
 <!-- <app-customizer></app-customizer> -->
 <!-- page-wrapper End-->

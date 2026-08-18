@@ -399,3 +399,19 @@
 .sidebar-wrapper.close_icon ~ .footer {
   margin-left: 0;
 }
+
+// Below lg, the sidebar overlays content instead of pushing it, so opening
+// it needs a dimmed backdrop - both to make the overlay legible against
+// whatever's underneath and to give a tap-outside-to-close target. Hidden
+// above the lg breakpoint since collapseSidebar there just means "open on a
+// layout with room for it", not "a modal overlay is up".
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1029;
+
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
