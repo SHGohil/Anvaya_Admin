@@ -46,9 +46,15 @@ $secondary-color: #667085;
 // brief's Muted Text value exactly before this pass - untouched.
 $muted-color: #98a2b3;
 
-// Typography
-$font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-$font-family-display: ui-rounded, "SF Pro Rounded", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+// Typography - Plus Jakarta Sans everywhere (2026-08), replacing Inter at
+// the user's request for "modern fonts." One face for both body and
+// display roles: $font-family-display previously fell back through
+// Apple-only system fonts (ui-rounded/SF Pro Rounded) that don't exist on
+// Windows/Linux/Android, so KPI numbers silently rendered in whatever
+// generic sans the OS substituted - now they get the same real, loaded
+// webfont as everything else, just heavier (800 vs body's 400-700).
+$font-family-sans-serif: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-family-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 $font-size-base: 0.9375rem;
 $headings-font-weight: 600;
 $headings-color: $dark;
