@@ -1,38 +1,30 @@
-<div class="container-fluid pt-4"    >
-    <div class="row">
-      <div class="col-lg-6">
-        <H6>Important Dates</H6>
-        <H6>Year : {{currentYear}}</H6>
-      </div>
-      <div class="col-lg-6 text-end" *ngIf="loginroleid==1" >
-        <button class="btn btn-md btn-primary"  (click)="post()" >Save</button>
-      </div>
-      <div class="col-lg-6"></div>
-    </div>
-  </div>
-  <div class="container-fluid pt-3">
+<div class="container-fluid pt-3">
+    <app-page-header title="Special Dates" subtitle="Year {{currentYear}}">
+        <button class="btn btn-md btn-primary" *ngIf="loginroleid==1" (click)="post()">Save</button>
+    </app-page-header>
     <div class="row">
       <div class="col-lg-4 mb-3" *ngFor="let item of calenderdata; let i = index">
-        <div class="p-3 ">
-          <p style="color: #b66623;"><strong>{{ item.month }}</strong></p>
-          <div *ngIf="loginroleid==1" class="row">
-            <div  class="col-2 mt-2 mb-2 text-center" *ngFor="let day of item.days" [ngClass]="{'bg-blue': isSelected(day.date, i),
-              'mb-3': true}" style="cursor: pointer; color: #b66623; border: 1px solid #b66623;" (click)="selectDate(day.date, i)">
-              <p style="line-height: 2;"><strong>{{ getFormattedDate(day.date) }}</strong></p>
-              <p style="line-height: 0;"><strong>{{ day.weekDay | slice: 0:3 }}</strong></p>
+        <div class="card month-card">
+          <div class="card-body">
+            <p class="month-label"><strong>{{ item.month }}</strong></p>
+            <div *ngIf="loginroleid==1" class="row">
+              <div class="col-2 mt-2 mb-2 text-center day-chip" *ngFor="let day of item.days" [ngClass]="{'bg-blue': isSelected(day.date, i),
+                'mb-3': true}" (click)="selectDate(day.date, i)">
+                <p style="line-height: 2;"><strong>{{ getFormattedDate(day.date) }}</strong></p>
+                <p style="line-height: 0;"><strong>{{ day.weekDay | slice: 0:3 }}</strong></p>
+              </div>
+
             </div>
-            
-          </div>
-          <div *ngIf="loginroleid!=1" class="row">
-            <div  class="col-2 mt-2 mb-2 text-center" *ngFor="let day of item.days" [ngClass]="{'bg-blue': isSelected(day.date, i),
-              'mb-3': true}" style="cursor:default; color: #b66623; border: 1px solid #b66623;" >
-              <p style="line-height: 2;"><strong>{{ getFormattedDate(day.date) }}</strong></p>
-              <p style="line-height: 0;"><strong>{{ day.weekDay | slice: 0:3 }}</strong></p>
+            <div *ngIf="loginroleid!=1" class="row">
+              <div class="col-2 mt-2 mb-2 text-center day-chip static" *ngFor="let day of item.days" [ngClass]="{'bg-blue': isSelected(day.date, i),
+                'mb-3': true}">
+                <p style="line-height: 2;"><strong>{{ getFormattedDate(day.date) }}</strong></p>
+                <p style="line-height: 0;"><strong>{{ day.weekDay | slice: 0:3 }}</strong></p>
+              </div>
+
             </div>
-            
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
+</div>

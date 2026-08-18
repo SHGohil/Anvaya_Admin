@@ -1,20 +1,8 @@
 <div class="container-fluid pt-3">
+    <app-page-header title="Users">
+        <button class="btn btn-sm btn-primary" (click)="add(content)">Add Users</button>
+    </app-page-header>
     <div class="card">
-        <div class="card-header">
-            <div class="row d-flex align-items-center">
-                <div class="col-lg-6">
-
-                    <div class="text-start ">
-                        <h5><b>USERS</b></h5>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="text-end">
-                        <button class="btn btn-sm btn-primary" (click)="add(content)" >Add Users</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
             <table class="table">

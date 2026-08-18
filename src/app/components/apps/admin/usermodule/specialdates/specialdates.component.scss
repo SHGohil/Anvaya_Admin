@@ -1,11 +1,32 @@
+@import "../../../../../../assets/scss/tokens";
+
 .bg-blue {
     background: #E58585;
     color: #ffffff !important;
-    
+
    }
-   
+
    .bg-special {
     background-color:#E58585; /* Adjust the color as needed */
     color: #ffffff !important;
   }
-  
+
+.month-card {
+  height: 100%;
+}
+
+.month-label {
+  color: $primary;
+  margin-bottom: 0.5rem;
+}
+
+.day-chip {
+  cursor: pointer;
+  color: $primary;
+  border: 1px solid $primary;
+  border-radius: $border-radius-sm;
+
+  &.static {
+    cursor: default;
+  }
+}
