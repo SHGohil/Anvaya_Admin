@@ -1,5 +1,188 @@
 @import "../../../../../assets/scss/tokens";
 
+// -- KPI tiles ------------------------------------------------------------
+.kpi-tile {
+  position: relative;
+  border-radius: $border-radius-lg;
+  padding: 1.1rem 1.2rem;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: $box-shadow;
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120px 90px at 100% 0%, rgba(255, 255, 255, 0.22), transparent 70%);
+  }
+}
+// Gradient stops are literal hex, not tint-color()/shade-color(): those are
+// Bootstrap Sass functions, only available where bootstrap/scss/functions is
+// actually imported. Component-scoped .scss files (like this one) compile as
+// their own independent Sass entry point - they get $variables from tokens.scss
+// via the @import above, but not Bootstrap's function library, since nothing
+// in that chain imports it. Sass doesn't error on an unknown function; it
+// assumes it's a plain CSS function and emits it verbatim, so this shipped as
+// invalid CSS (`color: shade-color(#f59e0b, 20%)`) that the browser silently
+// dropped - caught by checking the actually-rendered colour against the
+// intended one after first deploying this file.
+.kpi-total { background: linear-gradient(150deg, #7c3aed, #5b21b6); }
+.kpi-info { background: linear-gradient(150deg, #22b8f0, #0369a1); }
+.kpi-warn { background: linear-gradient(150deg, #fbb03b, #d97706); }
+.kpi-good { background: linear-gradient(150deg, #22d3ac, #047857); }
+.kpi-critical { background: linear-gradient(150deg, #fb5a79, #be123c); }
+
+.kpi-top {
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1;
+}
+.kpi-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+.kpi-num {
+  font-family: $font-family-display;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  z-index: 1;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.92;
+  z-index: 1;
+  margin-top: 0.25rem;
+}
+
+// -- Pipeline / activity cards ---------------------------------------------
+.overview-card {
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  padding: 1.25rem;
+  box-shadow: $box-shadow-sm;
+}
+.overview-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+.overview-sub {
+  font-size: 0.78rem;
+  color: $secondary-color;
+  margin-bottom: 0.75rem;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.donut-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  color: $secondary-color;
+}
+.donut-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  flex: none;
+}
+.dot-info { background: $info; }
+.dot-warn { background: $warning; }
+.dot-good { background: $success; }
+.dot-critical { background: $danger; }
+
+.activity-empty {
+  text-align: center;
+  padding: 1rem 0;
+
+  p {
+    color: $secondary-color;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.activity-row {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.4rem;
+  border-radius: $border-radius-sm;
+
+  &:hover {
+    background: $light;
+  }
+}
+.activity-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: #fff;
+  background: $total;
+
+  &.bg-info { background: $info; }
+  &.bg-warn { background: $warning; }
+  &.bg-good { background: $success; }
+  &.bg-critical { background: $danger; }
+}
+.activity-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.activity-meta {
+  font-size: 0.75rem;
+  color: $secondary-color;
+  margin-top: 1px;
+}
+
+.pill {
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: $border-radius-pill;
+  white-space: nowrap;
+}
+.pill-info { background: rgba($info, 0.12); color: $info; }
+.pill-warn { background: rgba($warning, 0.15); color: #b45309; }
+.pill-good { background: rgba($success, 0.12); color: $success; }
+.pill-critical { background: rgba($danger, 0.12); color: $danger; }
+
+.screens-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: $secondary-color;
+}
+
+// -- Existing screen-switcher cards, per-category coloured -----------------
 .icon {
   height: 44px;
   width: 44px;
@@ -8,6 +191,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgba($primary, 0.12);
+  color: $primary;
 
   svg {
     width: 20px;
@@ -26,6 +210,15 @@
   }
 }
 
+.sw-total .icon { background-color: rgba($total, 0.12); color: $total; }
+.sw-total:hover, .sw-total.active-card { border-color: $total; }
+.sw-warn .icon { background-color: rgba($warning, 0.15); color: #b45309; }
+.sw-warn:hover, .sw-warn.active-card { border-color: $warning; }
+.sw-good .icon { background-color: rgba($success, 0.12); color: $success; }
+.sw-good:hover, .sw-good.active-card { border-color: $success; }
+.sw-info .icon { background-color: rgba($info, 0.12); color: $info; }
+.sw-info:hover, .sw-info.active-card { border-color: $info; }
+
 .main-cardtext {
   margin: 0;
   font-size: 0.9rem;
@@ -35,7 +228,10 @@
 }
 
 .active-card {
-  border-color: $primary;
   background: rgba($primary, 0.06);
   box-shadow: $box-shadow;
 }
+.sw-total.active-card { background: rgba($total, 0.06); }
+.sw-warn.active-card { background: rgba($warning, 0.08); }
+.sw-good.active-card { background: rgba($success, 0.06); }
+.sw-info.active-card { background: rgba($info, 0.06); }

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavService } from 'src/app/shared/services/nav.service';
+import { TodaysqueryService } from 'src/app/shared/services/todaysquery.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -21,9 +22,18 @@ export class DashboardComponent  implements OnInit {
   lostPercentage:any;
   years: number[] = [];
   total: any;
-  constructor(private cdr: ChangeDetectorRef,public navServices: NavService) 
+
+  // KPI overview - reuses the same /Analytics and /Reports endpoints the
+  // Daily Report and Today's Events screens already call, so this adds no
+  // new backend surface, just a second place that renders the same data.
+  analytics: { open: number; tentative: number; confirmed: number; lost: number; total: number } | null = null;
+  donutChart: any;
+  todaysActivity: any[] = [];
+  todaysCount = 0;
+
+  constructor(private cdr: ChangeDetectorRef,public navServices: NavService,private todaysservice: TodaysqueryService)
   {
-    
+
     this.id=1;
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -33,17 +43,59 @@ export class DashboardComponent  implements OnInit {
     var token = userdata.token;
 
   }
- 
+
   ngOnInit() {
      this.activebad = this.id;
      this.cdr.detectChanges();
-    
-     
+     this.loadAnalytics();
+     this.loadTodaysActivity();
   }
 
   setactive(id){
-    
+
     this.id = id
     this.activebad=id;
+  }
+
+  private loadAnalytics() {
+    const year = new Date().getFullYear();
+    this.todaysservice.getanalytics(year).subscribe((apidata: any) => {
+      this.analytics = apidata;
+      this.donutChart = {
+        chart: { type: 'donut', height: 190, sparkline: { enabled: true } },
+        series: [apidata.open, apidata.tentative, apidata.confirmed, apidata.lost],
+        labels: ['Open', 'Tentative', 'Confirmed', 'Lost'],
+        colors: ['#0ea5e9', '#f59e0b', '#10b981', '#f43f5e'],
+        stroke: { width: 0 },
+        dataLabels: { enabled: false },
+        legend: { show: false },
+        tooltip: { y: { formatter: (val: number) => val + ' events' } },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '74%',
+              labels: {
+                show: true,
+                total: {
+                  show: true,
+                  label: 'Total',
+                  fontSize: '12px',
+                  color: '#5d5772',
+                  formatter: () => apidata.total,
+                },
+              },
+            },
+          },
+        },
+      };
+    });
+  }
+
+  private loadTodaysActivity() {
+    this.todaysservice.getTodaysquerys().subscribe((apidata: any) => {
+      const list = apidata || [];
+      this.todaysCount = list.length;
+      this.todaysActivity = list.slice(0, 4);
+    });
   }
  }
