@@ -316,10 +316,21 @@
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  .stroke-icon,
+  .fill-icon {
+    transition: transform 0.15s ease;
+  }
 
   &:hover {
     background: $light;
     color: $primary;
+
+    .stroke-icon,
+    .fill-icon {
+      transform: translateX(2px);
+    }
   }
 
   &.active {

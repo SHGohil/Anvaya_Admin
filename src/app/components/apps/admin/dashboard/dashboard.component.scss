@@ -12,6 +12,13 @@
   padding: 1rem 1.1rem;
   box-shadow: $box-shadow-sm;
   min-height: 104px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    border-color: rgba($primary, 0.35);
+    box-shadow: $box-shadow;
+    transform: translateY(-2px);
+  }
 }
 
 .kpi-icon {
@@ -62,6 +69,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    border-color: rgba($primary, 0.35);
+    box-shadow: $box-shadow;
+    transform: translateY(-2px);
+  }
 }
 .kpi-hero-num {
   font-family: $font-family-display;
@@ -80,12 +94,20 @@
 }
 
 // -- Pipeline / activity cards ---------------------------------------------
+// Shadow-only on hover, no lift/transform: these are dense content cards
+// (a chart, a scrollable activity list) rather than simple nav targets, so
+// a translateY here would feel gimmicky rather than purposeful.
 .overview-card {
   background: #fff;
   border: 1px solid $border-color;
   border-radius: $border-radius-lg;
   padding: 1.25rem;
   box-shadow: $box-shadow-sm;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: $box-shadow;
+  }
 }
 .overview-header {
   display: flex;
@@ -157,6 +179,7 @@
   gap: 0.75rem;
   padding: 0.6rem 0.4rem;
   border-radius: $border-radius-sm;
+  transition: background-color 0.15s ease;
 
   &:hover {
     background: $light;
