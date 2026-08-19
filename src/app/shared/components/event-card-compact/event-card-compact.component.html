@@ -20,7 +20,7 @@
             </div>
             <div class="col-6">
                 <h6 class="ec-label">Requested By</h6>
-                <p class="ec-value">{{item.createdByName?.length > 10 ? (item.createdByName | slice:0:10) + '...' : item.createdByName}}</p>
+                <p class="ec-value">{{item.createdByName?.length > 10 ? (item.createdByName | slice:0:10) + '...' : (item.createdByName || '—')}}</p>
             </div>
         </div>
     </div>

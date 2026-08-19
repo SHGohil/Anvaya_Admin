@@ -1,5 +1,5 @@
 <div class="container-fluid pt-3 pb-0">
-    <app-page-header title="Change Requests"></app-page-header>
+    <app-page-header title="Change Requests" subtitle="{{ changerequestLoading ? '' : changerequestdata.length + ' pending request' + (changerequestdata.length === 1 ? '' : 's') }}"></app-page-header>
 </div>
 <div class="container-fluid pt-1" *ngIf="changerequestLoading">
     <div class="row mt-5">

@@ -1,5 +1,5 @@
 <div class="container-fluid pt-3">
-    <app-page-header title="Users">
+    <app-page-header title="Users" subtitle="{{ usersLoading ? '' : (userdata?.length || 0) + ' user' + (userdata?.length === 1 ? '' : 's') }}">
         <button class="btn btn-sm btn-primary" (click)="add(content)">Add User</button>
     </app-page-header>
     <div class="card">
@@ -39,10 +39,10 @@
                 <tbody *ngIf="!usersLoading && filteredUsers?.length">
                   <tr class="border-bottom-secondary" *ngFor="let item of filteredUsers">
                     <th scope="row">{{item.userName}}</th>
-                    <td>{{item.mobileNumber}}</td>
+                    <td>{{item.mobileNumber || '—'}}</td>
                     <td>{{item.email}}</td>
                     <td>{{item.roleName}}</td>
-                    <td>{{item.createdByName}}</td>
+                    <td>{{item.createdByName || '—'}}</td>
                     <td>{{item.createdDate|date:'dd-MM-yyyy'}}</td>
                     <td>
                         <div ngbDropdown container="body" class="d-inline-block">
