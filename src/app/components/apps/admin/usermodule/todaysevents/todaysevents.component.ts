@@ -21,7 +21,9 @@ export class TodayseventsComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    
+    // currentDate was declared but never assigned, so the template's
+    // "Today : {{currentDate}}" rendered with nothing after the colon.
+    this.currentDate = this.getCurrentDateFormatted();
     this.gettodaysdata();
   }
  

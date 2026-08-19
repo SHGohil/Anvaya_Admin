@@ -1,53 +1,22 @@
 
-<div *ngIf="showtab">
-    <div class="row align-items-center" style="margin-top: 12px;">
-        <div class="col-lg-6 text-start">
-            <!-- <p><strong>Year 2024</strong></p> -->
-        </div>
-        <div class="col-lg-6">
-            <ng-container *ngIf="count === 1; else bookingsText">
-                <div class="d-flex align-items-center justify-content-end">
-                    <p class="mt-3">{{ count }} Booking</p>&nbsp;&nbsp;
-                    <button class="btn btn-sm btn-primary " (click)="adddailyquery()">Daily Query Entry</button>
-                </div>
-            </ng-container>
-            <ng-template #bookingsText>
-                <div *ngIf="count < 1; else noBookings">
-                    <div class="d-flex align-items-center justify-content-end">
-                        <p class="mt-3">{{ count }} Bookings</p>&nbsp;&nbsp;
-                        <button class="btn btn-sm btn-primary " (click)="adddailyquery()">Daily Query Entry</button>
-                    </div>
-                </div>
-                <ng-template #noBookings>
-                    <div class="d-flex align-items-center justify-content-end">
-                        <p class="mt-3">No Bookings</p>&nbsp;&nbsp;
-                        <button class="btn btn-sm btn-primary " (click)="adddailyquery()">Daily Query Entry</button>
-                    </div>
-                </ng-template>
-            </ng-template>
+<div class="container-fluid pt-3" *ngIf="showtab">
+    <app-page-header title="Today's Events" subtitle="{{currentDate}}{{ count == null ? '' : ' &middot; ' + (count === 1 ? '1 booking' : count + ' bookings') }}">
+        <button class="btn btn-sm btn-primary" (click)="adddailyquery()">Daily Query Entry</button>
+    </app-page-header>
+
+    <div class="row" *ngIf="todaysLoading">
+        <div class="col-lg-12" *ngFor="let i of [1,2,3]">
+            <div class="skeleton" style="height: 150px; border-radius: 20px; margin-bottom: 1rem;"></div>
         </div>
     </div>
-</div>
-
-
-
-<div class="row" style="margin-top: 4px;">
-    <p>Today : {{currentDate }}</p>
-
-</div>
-<div class="row" style="margin-top: -6px;" *ngIf="todaysLoading&&showtab">
-    <div class="col-lg-12" *ngFor="let i of [1,2,3]">
-        <div class="skeleton" style="height: 150px; border-radius: 20px; margin-bottom: 1rem;"></div>
+    <div class="d-flex justify-content-center align-items-center mt-5 " *ngIf="!todaysLoading&&todaysqueriesdata==null">
+        <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
+      </div>
+    <div class="row" *ngIf="!todaysLoading&&todaysqueriesdata" >
+        <div class="col-lg-12" *ngFor="let item of todaysqueriesdata" >
+            <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
+        </div>
     </div>
-</div>
-<div class="container-fluid d-flex justify-content-center align-items-center mt-5 " *ngIf="!todaysLoading&&todaysqueriesdata==null&&showtab">
-    <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
-  </div>
-<div class="row" style="margin-top: -6px;"*ngIf="!todaysLoading&&todaysqueriesdata&&showtab" >
-    <div class="col-lg-12" *ngFor="let item of todaysqueriesdata" >
-        <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
-    </div>
-  
 </div>
 
 
