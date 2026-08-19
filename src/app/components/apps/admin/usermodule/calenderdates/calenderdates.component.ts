@@ -457,8 +457,8 @@ getonecaledetdata(month){
     this.eventform.controls.bumpINstring.setValue(this.convertToIST(item.bumpINstring)) 
     this.eventform.controls.bumpOUTstring.setValue(this.convertToIST(item.bumpOUTstring)) 
     this.getTimes(item.eventDate,item.venueIds)
-   // this.geteventdetails(item.eventsId)
-   
+    this.geteventdetails(item.eventsId)
+
   }
   async updatetime(id: any) {
     try {
