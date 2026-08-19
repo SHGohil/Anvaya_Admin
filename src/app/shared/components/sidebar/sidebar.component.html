@@ -30,7 +30,7 @@
                   </a>
                   <div class="mobile-back text-end" (click)="sidebarToggle()">
                     <span>Back</span>
-                    <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+                    <svg class="ps-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
                   </div>
                 </li>
 
@@ -45,7 +45,7 @@
                     <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
                     <span>{{ menuItem.title | translate }}</span>
                     <div class="according-menu">
-                      <i class="fa fa-angle-{{ menuItem.active ? 'down' : 'right' }} pull-right" *ngIf="menuItem.children"></i>
+                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                   </a>
                   <!-- Link -->
@@ -53,14 +53,14 @@
                     <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
                     <span>{{ menuItem.title | translate }}</span>
                     <div class="according-menu">
-                      <i class="fa fa-angle-{{ menuItem.active ? 'down' : 'right' }} pull-right" *ngIf="menuItem.children"></i>
+                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                   </a>
                   <!-- External Link -->
                   <a href="{{ !menuItem.type ? null : menuItem.path }}" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'extLink'">
                     <app-svg-icon [icon]="menuItem.icon"></app-svg-icon><span>{{ menuItem.title | translate }}</span>
                     <div class="according-menu">
-                      <i class="fa fa-angle-{{ menuItem.active ? 'down' : 'right' }} pull-right" *ngIf="menuItem.children"></i>
+                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                   </a>
                   <!-- External Tab Link -->
@@ -68,7 +68,7 @@
                     <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
                     <span>{{ menuItem.title }}</span>
                     <div class="according-menu">
-                      <i class="fa fa-angle-{{ menuItem.active ? 'down' : 'right' }} pull-right" *ngIf="menuItem.children"></i>
+                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                   </a>
                   <!-- 2nd Level Menu -->
@@ -78,23 +78,23 @@
                       <a class="submenu-title" href="javascript:void(0)" *ngIf="childrenItem.type === 'sub'" (click)="toggletNavActive(childrenItem)">
                         <span> {{ childrenItem.title | translate }}</span>
                         <div class="according-menu">
-                          <i class="fa fa-angle-{{ childrenItem.active ? 'down' : 'right' }} pull-right" *ngIf="childrenItem.children"></i>
+                          <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="childrenItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </div>
                       </a>
                       <!-- Link -->
                       <a class="submenu-title" [routerLink]="!childrenItem.type ? null : [childrenItem.path]" *ngIf="childrenItem.type === 'link'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                         {{ childrenItem.title | translate }}
-                        <i class="fa fa-angle-down pull-right" *ngIf="childrenItem.children"></i>
+                        <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                       </a>
                       <!-- External Link -->
                       <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" *ngIf="childrenItem.type === 'extLink'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                         {{ childrenItem.title | translate }}
-                        <i class="fa fa-angle-down pull-right" *ngIf="childrenItem.children"></i>
+                        <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                       </a>
                       <!-- External Tab Link -->
                       <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" target="_blank" *ngIf="childrenItem.type === 'extTabLink'">
                         <span>{{ childrenItem.title | translate }}</span>
-                        <i class="fa fa-angle-down pull-right" *ngIf="childrenItem.children"></i>
+                        <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
                       </a>
                       <!-- 3rd Level Menu -->
                       <ul class="nav-sub-childmenu submenu-content" *ngIf="childrenItem.children" [ngClass]="{ active: childrenItem.active }" [ngClass]="{ 'menu-open': childrenItem.active, 'menu-close': !childrenItem.active }" [style.display]="childrenItem.active ? 'block' : 'none'">

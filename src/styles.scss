@@ -6,9 +6,9 @@
 @import "assets/scss/shell";
 
 /* Vendor CSS for the libraries the real screens use.
-   ngx-owl-carousel-o's prebuilt theme and font-awesome ship as plain CSS/SCSS
-   entry points and are loaded directly via angular.json's "styles" array
-   instead - @import-ing them here as well would double them up. */
+   ngx-owl-carousel-o's prebuilt theme ships as plain CSS and is loaded
+   directly via angular.json's "styles" array instead - @import-ing it
+   here as well would double it up. */
 @import "@angular/cdk/overlay-prebuilt.css";
 @import "@ng-select/ng-select/themes/default.theme.css";
 
