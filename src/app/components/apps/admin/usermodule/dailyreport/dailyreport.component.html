@@ -288,66 +288,7 @@
         </div> 
 
         <div class="modal-body" *ngIf="loginroleid==3" >
-            <div class="row mt-3" *ngIf="viewdails">
-                <div class="col-lg-6">
-                    <p class="dr-detail-label">Attending Sales Executive</p>
-                    <p class="dr-detail-value">{{viewdails?.personName}}</p>
-                </div>
-                <div class="col-lg-6">
-                    <p class="dr-detail-label">Entry Date</p>
-                    <p class="dr-detail-value">{{viewdails.createdDate|date:'dd-MM-yyyy'}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p class="dr-detail-label">Event Date</p>
-                    <p class="dr-detail-value">{{viewdails.eventDate |date:'dd-MM-yyyy'}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p class="dr-detail-label">Guest Name</p>
-                    <p class="dr-detail-value">{{viewdails.guestName}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p class="dr-detail-label">Type of Event</p>
-                    <p class="dr-detail-value">{{viewdails.eventType.eventTypeName}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-
-                </div>
-                <div class="col-lg-12 mt-3">
-                    <p class="dr-detail-label">Venue</p>
-                    <div class="d-flex flex-wrap gap-1">
-                        <span class="badge dr-venue-chip" *ngFor="let item of viewdails.venuelist">{{item.venueName}}</span>
-                    </div>
-                </div>
-
-                <div class="col-lg-12 mt-3">
-                    <p class="dr-detail-label">Time of Event</p>
-                    <div class="d-flex flex-wrap gap-1">
-                        <span class="badge dr-venue-chip" *ngFor="let item of viewdails.eventTimeIdslist">{{item.eventTimeName}}</span>
-                    </div>
-                </div>
-
-
-            </div>
-            <hr *ngIf="viewdails && activeTab!='all' && viewdails.eventStatusId==2">
-            <div class="row mt-3" *ngIf="viewdails && activeTab!='all' && viewdails.eventStatusId==2" >
-                <div class="col-lg-12 mt-3">
-                    <p class="dr-detail-label">Event Status</p>
-                    <p class="dr-detail-value">{{viewdails.eventStatusName}}</p>
-                </div>
-
-                <div class="col-lg-6 mt-3">
-                    <p class="dr-detail-label">Bump In</p>
-                    <p class="dr-detail-value">{{convertToIST(viewdails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p class="dr-detail-label">Bump Out</p>
-                    <p class="dr-detail-value">{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                </div>
-                <div class="col-lg-12 mt-3">
-                    <p class="dr-detail-label">Comment</p>
-                    <p class="dr-detail-value">{{viewdails.comment}}</p>
-                </div>
-            </div>
+            <app-event-detail [details]="viewdails" [showStatus]="activeTab!='all' && viewdails && viewdails.eventStatusId==2"></app-event-detail>
         </div>
     </ng-template>
 </div>

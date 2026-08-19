@@ -24,73 +24,7 @@
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body" >
-            <div class="row mt-3" *ngIf="viewdails">
-                <div class="col-lg-6">
-                    <p style="color:#1D243380;line-height: 0;">ATTENDING SALES EXECUTIVE</p>
-                    <p style="line-height:0.5">{{viewdails.personName}}</p>
-                </div>
-                <div class="col-lg-6">
-                    <p style="color:#1D243380;line-height: 0;">ENTRY DATE</p>
-                    <p style="line-height:0.5">{{viewdails.createdDate|date:'dd-MM-yyyy'}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">EVENT DATE</p>
-                    <p style="line-height:0.5">{{viewdails.eventDate |date:'dd-MM-yyyy'}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">GUEST NAME</p>
-                    <p style="line-height:0.5">{{viewdails.guestName}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">TYPE OF EVENT</p>
-                    <p style="line-height:0.5">{{viewdails.eventType.eventTypeName}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    
-                </div>
-                <div class="col-lg-12 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">VENUE</p>
-                    <div class="row" style="line-height:0.5">
-                        <div class="col-2" *ngFor="let item of viewdails.venuelist">
-                            <p><span class="badge" style="background-color: #EEF2FF; color:#4F46E5;">{{item.venueName}}</span></p>
-                        </div>
-                     
-                    </div>
-                </div>
-                
-                <div class="col-lg-12 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">TIME OF EVENT</p>
-                    <div class="row" style="line-height:0.5">
-                        <div class="col-2" *ngFor="let item of viewdails.eventTimeIdslist">
-                            <p><span class="badge" style="background-color: #EEF2FF; color:#4F46E5;">{{item.eventTimeName}}</span></p>
-                        </div>
-                       
-                    </div>
-                </div>
-
-                
-            </div>
-            <hr *ngIf="viewdails && activeTab!='all'">
-            <div class="row mt-3" *ngIf="viewdails && activeTab!='all'" >
-                <div class="col-lg-12 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">EVEMT STATUS</p>
-                   
-                    <p style="line-height:0.5" >{{viewdails.eventStatusName}}</p>
-                </div>
-               
-                <div class="col-lg-6 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">BUMP IN</p>
-                    <p style="line-height:0.5" >{{convertToIST(viewdails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                </div>
-                <div class="col-lg-6 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">BUMP OUT</p>
-                    <p style="line-height:0.5" >{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
-                </div>
-                <div class="col-lg-12 mt-3">
-                    <p style="color:#1D243380;line-height: 0;">COMMENT</p>
-                    <p style="line-height:0.5" >{{viewdails.comment}}</p>
-                </div>
-            </div>
+            <app-event-detail [details]="viewdails" [showStatus]="true"></app-event-detail>
         </div>
     </ng-template>
 

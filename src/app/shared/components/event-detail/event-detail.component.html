@@ -1,0 +1,54 @@
+<div class="row mt-3" *ngIf="details">
+    <div class="col-lg-6">
+        <p class="evd-label">Attending Sales Executive</p>
+        <p class="evd-value">{{details?.personName}}</p>
+    </div>
+    <div class="col-lg-6">
+        <p class="evd-label">Entry Date</p>
+        <p class="evd-value">{{details.createdDate|date:'dd-MM-yyyy'}}</p>
+    </div>
+    <div class="col-lg-6 mt-3">
+        <p class="evd-label">Event Date</p>
+        <p class="evd-value">{{details.eventDate|date:'dd-MM-yyyy'}}</p>
+    </div>
+    <div class="col-lg-6 mt-3">
+        <p class="evd-label">Guest Name</p>
+        <p class="evd-value">{{details.guestName}}</p>
+    </div>
+    <div class="col-lg-6 mt-3">
+        <p class="evd-label">Type of Event</p>
+        <p class="evd-value">{{details.eventType?.eventTypeName}}</p>
+    </div>
+    <div class="col-lg-6 mt-3"></div>
+    <div class="col-lg-12 mt-3">
+        <p class="evd-label">Venue</p>
+        <div>
+            <span class="badge evd-chip" *ngFor="let item of details.venuelist">{{item.venueName}}</span>
+        </div>
+    </div>
+    <div class="col-lg-12 mt-3">
+        <p class="evd-label">Time of Event</p>
+        <div>
+            <span class="badge evd-chip" *ngFor="let item of details.eventTimeIdslist">{{item.eventTimeName}}</span>
+        </div>
+    </div>
+</div>
+<hr *ngIf="details && showStatus">
+<div class="row mt-3" *ngIf="details && showStatus">
+    <div class="col-lg-12 mt-3">
+        <p class="evd-label">Event Status</p>
+        <p class="evd-value">{{details.eventStatusName}}</p>
+    </div>
+    <div class="col-lg-6 mt-3">
+        <p class="evd-label">Bump In</p>
+        <p class="evd-value">{{convertToIST(details.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</p>
+    </div>
+    <div class="col-lg-6 mt-3">
+        <p class="evd-label">Bump Out</p>
+        <p class="evd-value">{{convertToIST(details.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
+    </div>
+    <div class="col-lg-12 mt-3">
+        <p class="evd-label">Comment</p>
+        <p class="evd-value">{{details.comment}}</p>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+@import "../../../../assets/scss/tokens";
+
+.evd-label {
+  color: $muted-color;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.evd-value {
+  font-size: 0.9rem;
+  color: $body-color;
+  margin-bottom: 0;
+}
+
+.evd-chip {
+  background-color: rgba($primary, 0.1);
+  color: $primary;
+  font-weight: 600;
+  margin-right: 0.35rem;
+  margin-bottom: 0.35rem;
+}

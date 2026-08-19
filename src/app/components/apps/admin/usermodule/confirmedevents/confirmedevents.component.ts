@@ -26,34 +26,6 @@ export class ConfirmedeventsComponent implements OnInit {
   this.modalService.open(content, { size: 'lg'})
 this.geteventdetails(val.eventsId)
 }
-convertToIST(val: string): string {
-  // bumpIN/bumpOUT are null until the event is actually bumped in/out, even
-  // for events *ngIf gates as eventStatusId==2 - without this, new Date(null)
-  // produces an Invalid Date and every field below becomes NaN, which the
-  // date pipe then throws on rather than rendering.
-  if (!val) {
-    return null;
-  }
-  // Create a Date object from the input string
-  const date = new Date(val);
- 
-  // Adjust the date to IST (GMT+05:30)
-  // Add 5 hours and 30 minutes to the UTC time
-  date.setHours(date.getHours() + 5);
-  date.setMinutes(date.getMinutes() + 30);
- 
-  // Format the date and time to "YYYY-MM-DDTHH:mm:ss"
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const day = String(date.getDate()).padStart(2, '0');
-  const hour = String(date.getHours()).padStart(2, '0');
-  const minute = String(date.getMinutes()).padStart(2, '0');
-  const second = String(date.getSeconds()).padStart(2, '0');
- 
-  const istDate = `${year}-${month}-${day}T${hour}:${minute}:${second}`;
- 
-  return istDate;
- }
 geteventdetails(id: number) {
   this.service.getEventdetails(id).subscribe((apidata: any) => {
     this.viewdails = apidata;

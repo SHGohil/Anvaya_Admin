@@ -117,19 +117,3 @@
   color: $body-color;
   margin-bottom: 0;
 }
-
-// -- Read-only event detail (role 3) -----------------------------------
-.dr-detail-label {
-  color: $muted-color;
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.15rem;
-}
-
-.dr-detail-value {
-  font-size: 0.9rem;
-  color: $body-color;
-  margin-bottom: 0;
-}
