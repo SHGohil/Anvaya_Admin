@@ -97,3 +97,53 @@
   font-weight: 600;
   font-size: 0.72rem;
 }
+
+// Below ~576px the 3-column grid (field label + two value columns) has no
+// room to breathe - "minmax(120px, 1fr)" alone for the field column eats
+// most of a 375px viewport, leaving the two value columns fighting over
+// what's left. Stack each row instead: field label on its own line, then
+// Original/Requested each on their own line with an inline mini-label
+// (the column-header row that explains this at desktop width gets hidden,
+// since it no longer applies once nothing is side-by-side).
+@media (max-width: 576px) {
+  .cr-compare-header {
+    display: none;
+  }
+
+  .cr-compare-row {
+    display: block;
+    padding: 0.75rem;
+  }
+
+  .cr-compare-field {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .cr-compare-val {
+    display: block;
+    padding: 0.15rem 0;
+
+    &::before {
+      content: "Original";
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: $muted-color;
+    }
+  }
+
+  .cr-compare-val-new::before {
+    content: "Requested";
+  }
+
+  // The chip rows keep display:flex (so badges still wrap normally) - the
+  // mobile label becomes a flex item forced onto its own line via
+  // flex-basis:100%, rather than switching this element to block, which
+  // would undo the badge wrapping.
+  .cr-compare-row-chips .cr-compare-val::before {
+    flex-basis: 100%;
+  }
+}
