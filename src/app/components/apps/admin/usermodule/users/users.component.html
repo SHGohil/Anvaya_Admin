@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-body">
             <div class="users-toolbar" *ngIf="!usersLoading && userdata?.length">
-                <input type="search" class="form-control users-search" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
+                <input type="search" class="form-control users-search" aria-label="Search users" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
             </div>
             <div class="table-responsive">
             <table class="table">
@@ -82,35 +82,35 @@
             <div class="row m-2">
               <div class="col-lg-6">
                 <label for="userName">Name<span class="mandatory">*</span></label>
-                <input class="form-control" formControlName="userName" type="text">
+                <input id="userName" class="form-control" formControlName="userName" type="text">
                 <div *ngIf="userForm.get('userName').touched && userForm.get('userName').hasError('required')" class="text text-danger mt-1">Name is required</div>
               </div>
-          
+
               <div class="col-lg-6">
                 <label for="mobileNumber">Mobile Number<span class="mandatory">*</span></label>
-                <input class="form-control" formControlName="mobileNumber" type="text" (input)="onPhoneNumberInput($event)">
+                <input id="mobileNumber" class="form-control" formControlName="mobileNumber" type="text" (input)="onPhoneNumberInput($event)">
                 <div *ngIf="userForm.get('mobileNumber').touched && userForm.get('mobileNumber').hasError('required')" class="text text-danger mt-1">Mobile number is required</div>
               </div>
-          
+
               <div class="col-lg-6 mt-3">
                 <label for="email">Email<span class="mandatory">*</span></label>
-                <input class="form-control" formControlName="email" type="email">
+                <input id="email" class="form-control" formControlName="email" type="email">
                 <div *ngIf="userForm.get('email').touched && userForm.get('email').hasError('required')" class="text text-danger mt-1">Email is required</div>
                 <div *ngIf="userForm.get('email').touched && userForm.get('email').hasError('email')" class="text text-danger mt-1">Invalid email format</div>
               </div>
-          
+
               <div class="col-lg-6 mt-3">
                 <label for="roleId">Role<span class="mandatory">*</span></label>
-                <select class="form-control form-select" formControlName="roleId">
+                <select id="roleId" class="form-control form-select" formControlName="roleId">
                   <option selected disabled>Select Role</option>
                   <option *ngFor="let item of rolesdata" [value]="item.rolesId">{{item.roleName}}</option>
                 </select>
                 <div *ngIf="userForm.get('roleId').touched && userForm.get('roleId').hasError('required')" class="text text-danger mt-1">Role is required</div>
               </div>
-          
+
               <div class="col-lg-12 mt-3">
                 <label for="password">Password<span class="mandatory">*</span></label>
-                <input class="form-control" formControlName="password" [type]="show ? 'text' : 'password'" required placeholder="*********">
+                <input id="password" class="form-control" formControlName="password" [type]="show ? 'text' : 'password'" required placeholder="*********">
                 <div class="show-hide" (click)="showPassword()" *ngIf="!show"><span class="show"></span></div>
                 <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
                 <div *ngIf="userForm.get('password').touched && userForm.get('password').hasError('required')" class="text text-danger mt-1">Password is required</div>

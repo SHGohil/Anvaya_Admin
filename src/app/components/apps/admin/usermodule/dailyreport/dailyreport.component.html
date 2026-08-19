@@ -56,20 +56,20 @@
   <div class="card-body">
     <div class="row">
         <div class="col-md-3">
-            <label for="eventTypeId">Sales Executive </label>
-            <select class="form-select" #seletedValue [(ngModel)]="seleted_value"
+            <label for="salesExecutiveFilter">Sales Executive </label>
+            <select id="salesExecutiveFilter" class="form-select" #seletedValue [(ngModel)]="seleted_value"
                 (change)="onNameChange($event.target.value)">
                 <option value=""> Select Sales Executive </option>
                 <option *ngFor="let item of uniqueNames" [value]="item">{{ item }}</option>
             </select>
         </div>
         <div class="col-md-2">
-            <label for="eventTypeId">Start Date</label>
-            <input class="form-control" type="date" id="eventDate" [(ngModel)]="startDate">
+            <label for="startDate">Start Date</label>
+            <input class="form-control" type="date" id="startDate" [(ngModel)]="startDate">
         </div>
         <div class="col-md-2">
-            <label for="eventTypeId">End Date</label>
-            <input class="form-control" type="date" id="eventDate" [(ngModel)]="endDate">
+            <label for="endDate">End Date</label>
+            <input class="form-control" type="date" id="endDate" [(ngModel)]="endDate">
         </div>
         <div class="col-md-3 dr-filter-actions">
             <button class="btn btn-sm btn-primary me-2" (click)="filterData()">Search</button>
@@ -160,7 +160,7 @@
             <form  [formGroup]="eventform" class="row " style="padding:20px;">
                 <div class="col-6 mt-3">
                     <label for="personName">Attending Sales Executive<span class="text-danger">*</span></label>
-                    <input class="form-control" formControlName="personName" type="text">
+                    <input id="personName" class="form-control" formControlName="personName" type="text">
                     <div *ngIf="eventform.controls.personName.invalid && ( eventform.controls.personName.touched)">
                         <div *ngIf="eventform.controls.personName.errors.required" class="text-danger">Attending Sales Executive is required.</div>
                     </div>
@@ -168,7 +168,7 @@
             
                 <div class="col-6 mt-3">
                     <label for="guestName">Guest Name<span class="text-danger">*</span></label>
-                    <input class="form-control" formControlName="guestName" type="text">
+                    <input id="guestName" class="form-control" formControlName="guestName" type="text">
                     <div *ngIf="eventform.controls.guestName.invalid && ( eventform.controls.guestName.touched)">
                         <div *ngIf="eventform.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
                     </div>
@@ -176,7 +176,7 @@
             
                 <div class="col-6 mt-3">
                     <label for="phonenumber">Guest Phone Number<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" formControlName="phonenumber" minlength="6" maxLength="15" (input)="onPhoneNumberInput($event)">
+                    <input id="phonenumber" class="form-control" type="text" formControlName="phonenumber" minlength="6" maxLength="15" (input)="onPhoneNumberInput($event)">
                     <div *ngIf="eventform.controls.phonenumber.invalid && eventform.controls.phonenumber.touched">
                         <div *ngIf="eventform.controls.phonenumber.errors.required" class="text-danger">Phone number is required.</div>
                         <div *ngIf="eventform.controls.phonenumber.errors.minlength" class="text-danger">Invalid Phone number.</div>
@@ -185,20 +185,20 @@
             
                 <div class="col-6 mt-3">
                     <label for="eventDate">Event Date<span class="text-danger">*</span></label>
-                    <input class="form-control" type="date" formControlName="eventDate" >
+                    <input id="eventDate" class="form-control" type="date" formControlName="eventDate" >
                 </div>
-                
-                
-            
+
+
+
                 <div class="col-6 mt-3">
                     <label for="eventTypeId">Event Type<span class="text-danger">*</span></label>
-                    <select class="form-select" formControlName="eventTypeId">
+                    <select id="eventTypeId" class="form-select" formControlName="eventTypeId">
                         <option *ngFor="let item of eventtypedata" [value]="item.eventTypeId">{{item.eventTypeName}}</option>
                     </select>
                 </div>
                 <div class="col-6 mt-3">
                     <label for="eventStatusId">Event Status </label>
-                    <select class="form-select" formControlName="eventStatusId" placeholder="Select Status" (change)="updateEventStatus($event.target.value)">
+                    <select id="eventStatusId" class="form-select" formControlName="eventStatusId" placeholder="Select Status" (change)="updateEventStatus($event.target.value)">
                         <option *ngFor="let item of statusdata" [value]="item.eventStatusId">{{item.eventStatusName}}</option>
                     </select>
                     <!-- <div class="text-danger" *ngIf="eventform.controls.eventStatusId.value=='0' && eventform.controls.eventStatusId.touched">
@@ -209,7 +209,7 @@
                 
                 <div class="col-12 mt-3">
                     <label for="venueIds">Venue<span class="text-danger">*</span></label>
-                    <ng-select formControlName="venueIds" [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
+                    <ng-select id="venueIds" formControlName="venueIds" [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
                         bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
                     </ng-select> 
                     <div class="text-danger" *ngIf="eventform.controls.venueIds.errors?.required">
@@ -219,7 +219,7 @@
             
                 <div class="col-12 mt-3">
                     <label for="eventTimeIds">Event Time<span class="text-danger">*</span></label>
-                    <ng-select formControlName="eventTimeIds"  [items]="eventTimeData"
+                    <ng-select id="eventTimeIds" formControlName="eventTimeIds"  [items]="eventTimeData"
                         [(ngModel)]="multipleSelectedEventTime" bindLabel="eventTimeName" bindValue="eventTimeId"
                         [multiple]="true" placeholder="Select"></ng-select> 
                         <div class="text-danger" *ngIf="eventform.controls.eventTimeIds.errors?.required">
@@ -268,13 +268,13 @@
                     </div>
                 </div> 
                 <div *ngIf="status != 1 && status != 2 && status != 3" class="col-12 mt-3">
-                    <label for="">Comment</label>
-                    <textarea class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
+                    <label for="comment">Comment</label>
+                    <textarea id="comment" class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
                   </div>
-                  
+
                 <div *ngIf="status == 2 || status == 3 ||status == 1" class="col-12 mt-3">
-                  <label for="">Comment</label>
-                  <textarea class="form-control" formControlName="comment" name="" id="" cols="30" rows="3"></textarea>
+                  <label for="comment">Comment</label>
+                  <textarea id="comment" class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
               </div>
               </form>
               <button *ngIf="loginroleid != 3"  

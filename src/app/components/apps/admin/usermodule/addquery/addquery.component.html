@@ -15,16 +15,16 @@
                     </div>
                     <div class="row g-3">
                         <div class="col-md-6 col-lg-4">
-                            <label for="">Attending Sales Executive</label><span class="text-danger">*</span>
-                            <input class="form-control" formControlName="personName" type="text">
+                            <label for="personName">Attending Sales Executive</label><span class="text-danger">*</span>
+                            <input id="personName" class="form-control" formControlName="personName" type="text">
                             <div *ngIf="form.controls.personName.invalid && ( form.controls.personName.touched)">
                                 <div *ngIf="form.controls.personName.errors.required" class="text-danger">Person Name is required.</div>
                             </div>
                         </div>
 
                         <div class="col-md-6 col-lg-4">
-                            <label for="">Guest Name</label><span class="text-danger">*</span>
-                            <input class="form-control" formControlName="guestName" type="text">
+                            <label for="guestName">Guest Name</label><span class="text-danger">*</span>
+                            <input id="guestName" class="form-control" formControlName="guestName" type="text">
                             <div *ngIf="form.get('guestName').invalid&&form.controls.guestName.invalid && ( form.controls.guestName.touched)">
                                 <div *ngIf="form.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
                             </div>
@@ -50,22 +50,22 @@
                     </div>
                     <div class="row g-3">
                         <div class="col-md-6 col-lg-4">
-                            <label for="">Event Date</label>
+                            <label for="eventDate">Event Date</label>
                             <input class="form-control" formControlName="eventDate" type="date" id="eventDate"
                                    (change)="onDateChange($event.target.value)">
                         </div>
 
                         <div class="col-md-6 col-lg-4">
-                            <label for="">Select Type Of Event</label>
-                            <select class="form-control form-select" placeholder="Select Event" formControlName="eventTypeId" name="" id="">
+                            <label for="eventTypeId">Select Type Of Event</label>
+                            <select class="form-control form-select" placeholder="Select Event" formControlName="eventTypeId" id="eventTypeId">
                                 <option selected value="">Select Type</option>
                             <option *ngFor="let item of typedata" value="{{item.eventTypeId}}">{{item.eventTypeName}}</option>
                         </select>
                         </div>
 
                         <div class="col-md-6 col-lg-4">
-                            <label for="">Select Time Of Event</label>
-                            <ng-select formControlName="eventTimeIds"  [items]="timedata"
+                            <label for="eventTimeIds">Select Time Of Event</label>
+                            <ng-select id="eventTimeIds" formControlName="eventTimeIds"  [items]="timedata"
                              bindLabel="eventTimeName" bindValue="eventTimeId"
                             [multiple]="true" placeholder="Select"  (change)="onSelectTime($event)"></ng-select>
                         </div>
@@ -81,9 +81,9 @@
                     </div>
                     <div class="row g-3 align-items-center">
                         <fieldset class="col-md-6 col-lg-5">
-                            <label for="">Select Venue</label>
+                            <label for="venueIds">Select Venue</label>
 
-                            <ng-select formControlName="venueIds" [items]="venueData$"
+                            <ng-select id="venueIds" formControlName="venueIds" [items]="venueData$"
                                 bindLabel="venueName" bindValue="venueId" [multiple]="true"
                                 placeholder="Select"
                                 (change)="onSelect($event)">
@@ -112,8 +112,9 @@
                     </div>
                     <div class="row g-3">
                         <div class="col-lg-8">
-                            <label for="">Comment</label>
+                            <label for="comment">Comment</label>
                             <textarea
+                              id="comment"
                               class="form-control"
                               formControlName="comment"
                               rows="3"
