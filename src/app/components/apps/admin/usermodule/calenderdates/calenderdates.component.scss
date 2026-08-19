@@ -242,6 +242,35 @@ button:disabled {
   }
 }
 
+// Below ~576px the grid is genuinely wider than the viewport (31 day
+// columns at ~43px each) and stays that way - a full mobile-specific
+// rework (e.g. a single-day list view) is a much bigger job than this
+// pass covers. What actually made it hard to use on a phone wasn't the
+// width itself (the wrapper already scrolls it without breaking page
+// layout) - it was that scrolling right to see later days loses all
+// context for which venue's row you're looking at, since the venue name
+// column scrolls away with everything else. Pinning it fixes that
+// specific problem without touching the grid's actual layout.
+// Matches Bootstrap's lg breakpoint (same cutoff as the "Swipe to see more
+// days" hint's d-lg-none) - the grid overflows its wrapper below desktop
+// width generally, not just on phones.
+@media (max-width: 991.98px) {
+  .cal-th-corner,
+  .cal-th-venue {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.cal-scroll-hint {
+  font-size: 0.75rem;
+  color: $muted-color;
+  text-align: center;
+  margin: 0.5rem 0 0;
+}
+
 .cal-cell-dot {
   display: inline-block;
   width: 14px;
