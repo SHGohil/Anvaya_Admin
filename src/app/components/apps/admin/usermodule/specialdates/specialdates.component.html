@@ -1,47 +1,34 @@
-<div class="container-fluid pt-3">
+<div class="ui-stack-lg">
   <app-page-header title="Special Dates" subtitle="Year {{currentYear}} &middot; {{selectedThisYear}} date{{selectedThisYear === 1 ? '' : 's'}} selected">
     @if (perm.has('specialdates.manage')) {
-      <button class="btn btn-md btn-primary" (click)="post()">Save</button>
+      <button class="ui-btn ui-btn-primary" (click)="post()">Save</button>
     }
   </app-page-header>
-  <div class="row">
+
+  <div class="ui-grid ui-cols">
     @for (item of calenderdata; track item; let i = $index) {
-      <div class="col-lg-4 mb-3">
-        <div class="card month-card">
-          <div class="card-body">
-            <p class="month-label"><strong>{{ item.month }}</strong></p>
+      <section class="ui-card ui-card-pad">
+        <h3 class="ui-month">{{ item.month }}</h3>
+        <div class="ui-days">
+          @for (day of item.days; track day) {
             @if (perm.has('specialdates.manage')) {
-              <div class="row">
-                @for (day of item.days; track day) {
-<div class="col-2 mt-2 mb-2 text-center day-chip" [ngClass]="{'bg-blue': isSelected(day.date, i),
-                'mb-3': true}"
-                    role="checkbox"
-                    tabindex="0"
-                    [attr.aria-checked]="isSelected(day.date, i)"
-                    [attr.aria-label]="item.month + ' ' + getFormattedDate(day.date) + ', ' + day.weekDay + (isSelected(day.date, i) ? ', special date' : '')"
-                    (click)="selectDate(day.date, i)"
-                    (keydown.enter)="selectDate(day.date, i)"
-                    (keydown.space)="$event.preventDefault(); selectDate(day.date, i)">
-                    <p style="line-height: 2;"><strong>{{ getFormattedDate(day.date) }}</strong></p>
-                    <p style="line-height: 0;"><strong>{{ day.weekDay | slice: 0:3 }}</strong></p>
-                  </div>
-                }
+              <div class="ui-day ui-day-btn" [class.ui-on]="isSelected(day.date, i)"
+                role="checkbox" tabindex="0"
+                [attr.aria-checked]="isSelected(day.date, i)"
+                [attr.aria-label]="item.month + ' ' + getFormattedDate(day.date) + ', ' + day.weekDay + (isSelected(day.date, i) ? ', special date' : '')"
+                (click)="selectDate(day.date, i)"
+                (keydown.enter)="selectDate(day.date, i)"
+                (keydown.space)="$event.preventDefault(); selectDate(day.date, i)">
+                <b>{{ getFormattedDate(day.date) }}</b><small>{{ day.weekDay | slice: 0:3 }}</small>
+              </div>
+            } @else {
+              <div class="ui-day" [class.ui-on]="isSelected(day.date, i)">
+                <b>{{ getFormattedDate(day.date) }}</b><small>{{ day.weekDay | slice: 0:3 }}</small>
               </div>
             }
-            @if (!perm.has('specialdates.manage')) {
-              <div class="row">
-                @for (day of item.days; track day) {
-<div class="col-2 mt-2 mb-2 text-center day-chip static" [ngClass]="{'bg-blue': isSelected(day.date, i),
-                'mb-3': true}">
-                    <p style="line-height: 2;"><strong>{{ getFormattedDate(day.date) }}</strong></p>
-                    <p style="line-height: 0;"><strong>{{ day.weekDay | slice: 0:3 }}</strong></p>
-                  </div>
-                }
-              </div>
-            }
-          </div>
+          }
         </div>
-      </div>
+      </section>
     }
   </div>
 </div>

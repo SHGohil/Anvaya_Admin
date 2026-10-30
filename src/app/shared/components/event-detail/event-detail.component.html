@@ -1,64 +1,17 @@
 @if (details) {
-  <div class="row mt-3">
-    <div class="col-lg-6">
-      <p class="evd-label">Attending Sales Executive</p>
-      <p class="evd-value">{{details?.personName}}</p>
-    </div>
-    <div class="col-lg-6">
-      <p class="evd-label">Entry Date</p>
-      <p class="evd-value">{{details.createdDate|date:'dd-MM-yyyy'}}</p>
-    </div>
-    <div class="col-lg-6 mt-3">
-      <p class="evd-label">Event Date</p>
-      <p class="evd-value">{{details.eventDate|date:'dd-MM-yyyy'}}</p>
-    </div>
-    <div class="col-lg-6 mt-3">
-      <p class="evd-label">Guest Name</p>
-      <p class="evd-value">{{details.guestName}}</p>
-    </div>
-    <div class="col-lg-6 mt-3">
-      <p class="evd-label">Type of Event</p>
-      <p class="evd-value">{{details.eventType?.eventTypeName}}</p>
-    </div>
-    <div class="col-lg-6 mt-3"></div>
-    <div class="col-lg-12 mt-3">
-      <p class="evd-label">Venue</p>
-      <div>
-        @for (item of details.venuelist; track item) {
-          <span class="badge evd-chip">{{item.venueName}}</span>
-        }
-      </div>
-    </div>
-    <div class="col-lg-12 mt-3">
-      <p class="evd-label">Time of Event</p>
-      <div>
-        @for (item of details.eventTimeIdslist; track item) {
-          <span class="badge evd-chip">{{item.eventTimeName}}</span>
-        }
-      </div>
-    </div>
-  </div>
+  <dl class="ui-facts">
+    <div><dt>Attending sales executive</dt><dd>{{ details.personName || '-' }}</dd></div>
+    <div><dt>Entry date</dt><dd>{{ details.createdDate | date:'dd MMM yyyy' }}</dd></div>
+    <div><dt>Event date</dt><dd>{{ details.eventDate | date:'dd MMM yyyy' }}</dd></div>
+    <div><dt>Guest name</dt><dd>{{ details.guestName || '-' }}</dd></div>
+    <div><dt>Type of event</dt><dd>{{ details.eventType?.eventTypeName || '-' }}</dd></div>
+    <div class="ui-wide"><dt>Venue</dt><dd>@for (item of details.venuelist; track item) {<span class="ui-tag">{{ item.venueName }}</span>}</dd></div>
+    <div class="ui-wide"><dt>Time of event</dt><dd>@for (item of details.eventTimeIdslist; track item) {<span class="ui-tag">{{ item.eventTimeName }}</span>}</dd></div>
+    @if (showStatus) {
+      <div class="ui-wide"><dt>Status</dt><dd>{{ details.eventStatusName }}</dd></div>
+      <div><dt>Bump in</dt><dd>{{ convertToIST(details.bumpIN) | date:'dd MMM yyyy, hh:mm a' }}</dd></div>
+      <div><dt>Bump out</dt><dd>{{ convertToIST(details.bumpOUT) | date:'dd MMM yyyy, hh:mm a' }}</dd></div>
+      <div class="ui-wide"><dt>Comment</dt><dd>{{ details.comment || '-' }}</dd></div>
+    }
+  </dl>
 }
-@if (details && showStatus) {
-  <hr>
-  }
-  @if (details && showStatus) {
-    <div class="row mt-3">
-      <div class="col-lg-12 mt-3">
-        <p class="evd-label">Event Status</p>
-        <p class="evd-value">{{details.eventStatusName}}</p>
-      </div>
-      <div class="col-lg-6 mt-3">
-        <p class="evd-label">Bump In</p>
-        <p class="evd-value">{{convertToIST(details.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</p>
-      </div>
-      <div class="col-lg-6 mt-3">
-        <p class="evd-label">Bump Out</p>
-        <p class="evd-value">{{convertToIST(details.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</p>
-      </div>
-      <div class="col-lg-12 mt-3">
-        <p class="evd-label">Comment</p>
-        <p class="evd-value">{{details.comment}}</p>
-      </div>
-    </div>
-  }

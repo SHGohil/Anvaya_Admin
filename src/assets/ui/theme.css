@@ -201,3 +201,36 @@ body{background:var(--bg);color:var(--text)}
 .ui-grid.ui-two.ui-even{grid-template-columns:1fr 1fr}
 @media(max-width:991px){.ui-grid.ui-two.ui-even{grid-template-columns:1fr}}
 .ui-empty{text-align:center;padding:2rem 1rem;color:var(--text-2)}
+
+/* ---------- More page pieces ---------- */
+.ui-grid.ui-cols{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.ui-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;margin:0}
+.ui-facts dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);font-weight:700}
+.ui-facts dd{margin:.15rem 0 0;font-weight:600}
+.ui-facts .ui-wide{grid-column:1/-1}
+@media(max-width:500px){.ui-facts{grid-template-columns:1fr}}
+.ui-month{color:var(--primary);margin-bottom:.75rem}
+.ui-days{display:grid;grid-template-columns:repeat(7,1fr);gap:.35rem}
+.ui-day{display:grid;justify-items:center;padding:.4rem 0;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);line-height:1.2}
+.ui-day small{font-size:.62rem;text-transform:uppercase;color:var(--text-3)}
+.ui-day-btn{cursor:pointer;transition:all var(--dur)} .ui-day-btn:hover{border-color:var(--primary);color:var(--primary)}
+.ui-day.ui-on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)} .ui-day.ui-on small{color:inherit;opacity:.8}
+
+/* ---------- Bridge: old Bootstrap parts (modals, fields, dropdowns) follow the tokens ---------- */
+.modal-content{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-2);overflow:hidden}
+.modal-header,.modal-footer{border-color:var(--border);background:transparent;padding:1rem 1.25rem}
+.modal-header .modal-title{font-weight:700}
+.modal-body{padding:1.25rem}
+:root[data-theme="dark"] .btn-close{filter:invert(1)}
+.form-control,.form-select{background-color:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:var(--r-sm);min-height:42px}
+.form-control:focus,.form-select:focus{background-color:var(--surface);color:var(--text);border-color:var(--primary);box-shadow:var(--focus)}
+.form-control::placeholder{color:var(--text-3)}
+.modal label{font-size:.8125rem;font-weight:600;color:var(--text-2);margin-bottom:.35rem}
+.dropdown-menu{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-2);padding:.35rem}
+.dropdown-item{color:var(--text);border-radius:var(--r-sm);padding:.5rem .75rem;font-weight:500}
+.dropdown-item:hover,.dropdown-item:focus{background:var(--surface-2);color:var(--text)}
+.ui-table-wrap{overflow-x:auto}
+td.ui-empty{display:table-cell;text-align:center;padding:2rem}
+@media(max-width:700px){td.ui-empty{display:block}}
+:is(.ui-app,.modal) :is(h1,h2,h3,h4,h5,h6),.modal-title{color:var(--text)}
+:root[data-theme="dark"] .text-danger{color:var(--lost)!important}

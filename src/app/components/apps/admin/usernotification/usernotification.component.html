@@ -1,38 +1,32 @@
-<app-page-header title="Notification"></app-page-header>
-@if (notificationLoading) {
-  <div class="row mt-3">
-    @for (i of [1,2,3]; track i) {
-      <div class="col-lg-4">
-        <div class="skeleton" style="height: 210px; border-radius: 20px;"></div>
-      </div>
+<div class="ui-stack-lg">
+  <app-page-header title="Notifications" subtitle="Recent activity on your events"></app-page-header>
+
+  @if (notificationLoading) {
+    <div class="ui-grid ui-cols">
+      @for (i of [1,2,3]; track i) {
+        <div class="ui-skeleton" style="height: 150px; border-radius: var(--r-lg);"></div>
+      }
+    </div>
+  }
+  @if (!notificationLoading && !usernotificationData?.length) {
+    <div class="ui-card ui-empty">
+      <strong>Nothing new</strong>
+      <p class="ui-small">You're all caught up.</p>
+    </div>
+  }
+  <div class="ui-grid ui-cols">
+    @for (item of usernotificationData; track item) {
+      <app-event-card-compact [item]="item.eventdetails" (cardClick)="onviewdeails(item, content)"></app-event-card-compact>
     }
   </div>
-}
-<div class="row mt-3" >
-  @if (!notificationLoading && !usernotificationData?.length) {
-    <div class="container-fluid d-flex justify-content-center align-items-center mt-5">
-      <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
-    </div>
-  }
-  @for (item of usernotificationData; track item) {
-    <div class="col-lg-4">
-      <app-event-card-compact [item]="item.eventdetails" (cardClick)="onviewdeails(item, content)"></app-event-card-compact>
-    </div>
-  }
 </div>
 
-<!-- POPPUP MODEL -->
-<div class="card-body">
-  <ng-template #content let-modal>
-    <div class="modal-header ">
-      <h4 class="modal-title">Event Details  </h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-
-    <div  class="modal-body popup-container"  >
-      <app-event-detail [details]="viewdetails" [showStatus]="true"></app-event-detail>
-    </div>
-  </ng-template>
-
-</div>
-
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-event-detail [details]="viewdetails" [showStatus]="true"></app-event-detail>
+  </div>
+</ng-template>

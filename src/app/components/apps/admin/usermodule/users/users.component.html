@@ -1,99 +1,73 @@
-<div class="container-fluid pt-3">
+<div class="ui-stack-lg">
   <app-page-header title="Users" subtitle="{{ usersLoading ? '' : (userdata?.length || 0) + ' user' + (userdata?.length === 1 ? '' : 's') }}">
-    <button class="btn btn-sm btn-primary" (click)="add(content)">Add User</button>
+    <button class="ui-btn ui-btn-primary" (click)="add(content)">+ Add user</button>
   </app-page-header>
-  <div class="card">
-    <div class="card-body">
-      @if (!usersLoading && userdata?.length) {
-        <div class="users-toolbar">
-          <input type="search" class="form-control users-search" aria-label="Search users" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
-        </div>
-      }
-      <div class="table-responsive">
-        <table class="table">
 
-          <thead>
-            <tr class="border-bottom-primary">
-              <th scope="col">User Name</th>
-              <th scope="col">Mobile Number</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-              <th scope="col">Created By</th>
-              <th scope="col">Created Date</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          @if (usersLoading) {
-            <tbody>
-              @for (i of [1,2,3,4,5]; track i) {
-                <tr class="border-bottom-secondary">
-                  <th scope="row" colspan="7"><div class="skeleton" style="height: 18px; width: 100%;"></div></th>
-                </tr>
-              }
-            </tbody>
-          }
-          @if (!usersLoading && !userdata?.length) {
-            <tbody>
-              <tr>
-                <td colspan="7" class="text-center text-grey py-4">No users found.</td>
-              </tr>
-            </tbody>
-          }
-          @if (!usersLoading && userdata?.length && !filteredUsers.length) {
-            <tbody>
-              <tr>
-                <td colspan="7" class="text-center text-grey py-4">No users match "{{searchTerm}}".</td>
-              </tr>
-            </tbody>
-          }
-          @if (!usersLoading && filteredUsers?.length) {
-            <tbody>
-              @for (item of filteredUsers; track item) {
-                <tr class="border-bottom-secondary">
-                  <th scope="row">{{item.userName}}</th>
-                  <td>{{item.mobileNumber || '—'}}</td>
-                  <td>{{item.email}}</td>
-                  <td>{{item.roleName}}</td>
-                  <td>{{item.createdByName || '—'}}</td>
-                  <td>{{item.createdDate|date:'dd-MM-yyyy'}}</td>
-                  <td>
-                    <div ngbDropdown container="body" class="d-inline-block">
-                      <button class="btn btn-xs btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Options</button>
-                      <div class="dropdown-menu" ngbDropdownMenu>
-                        <h6 class="dropdown-header">Select Actions</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item " style="cursor: pointer;"  ngbDropdownItem (click)="edit(item,content)">Edit</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="delete(item)">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          }
-        </table>
+  <div class="ui-card">
+    @if (!usersLoading && userdata?.length) {
+      <div class="ui-card-head">
+        <input type="search" class="ui-input" style="max-width:360px" aria-label="Search users" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
       </div>
+    }
+    <div class="ui-table-wrap">
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Created by</th>
+            <th scope="col">Created</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        @if (usersLoading) {
+          <tbody>
+            @for (i of [1,2,3,4,5]; track i) {
+              <tr><td colspan="7"><div class="ui-skeleton" style="height: 18px; width: 100%;"></div></td></tr>
+            }
+          </tbody>
+        }
+        @if (!usersLoading && !userdata?.length) {
+          <tbody><tr><td colspan="7" class="ui-empty">No users found.</td></tr></tbody>
+        }
+        @if (!usersLoading && userdata?.length && !filteredUsers.length) {
+          <tbody><tr><td colspan="7" class="ui-empty">No users match "{{searchTerm}}".</td></tr></tbody>
+        }
+        @if (!usersLoading && filteredUsers?.length) {
+          <tbody>
+            @for (item of filteredUsers; track item) {
+              <tr>
+                <td data-label="User"><div class="ui-row"><span class="ui-avatar">{{ (item.userName || '?').slice(0,2).toUpperCase() }}</span><b>{{item.userName}}</b></div></td>
+                <td data-label="Mobile">{{item.mobileNumber || '—'}}</td>
+                <td data-label="Email">{{item.email}}</td>
+                <td data-label="Role"><span class="ui-tag">{{item.roleName}}</span></td>
+                <td data-label="Created by">{{item.createdByName || '—'}}</td>
+                <td data-label="Created">{{item.createdDate|date:'dd MMM yyyy'}}</td>
+                <td>
+                  <div ngbDropdown container="body" class="d-inline-block">
+                    <button class="ui-btn ui-btn-sm" type="button" ngbDropdownToggle>Options</button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                      <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="edit(item,content)">Edit</a>
+                      <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="delete(item)">Delete</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        }
+      </table>
     </div>
   </div>
-
 </div>
 
-
 <ng-template #content let-modal>
-
-  @if (flag==1) {
-    <div class="modal-header bg-primary">
-      <h6 class="modal-title">Add User</h6>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-  }
-  @if (flag==2) {
-    <div class="modal-header bg-primary">
-      <h6 class="modal-title" >Update User</h6>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-  }
+  <div class="modal-header">
+    <h6 class="modal-title">{{ flag == 1 ? 'Add user' : 'Update user' }}</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
   <form [formGroup]="userForm" class="modal-body">
     <div class="row m-2">
       <div class="col-lg-6">
@@ -152,12 +126,8 @@
     </div>
   </form>
 
-
-
-  <div class="modal-footer bg-light-primary "  >
-    <div class="col-lg-6 text-end">
-      <button class="btn btn-sm btn-primary" (click)="postUser(userForm.value)" >Save</button>
-      <button class="btn btn-sm btn-Danger" style="margin-left:5px" (click)="cancel()" >Cancel</button>
-    </div>
+  <div class="modal-footer">
+    <button class="ui-btn" (click)="cancel()">Cancel</button>
+    <button class="ui-btn ui-btn-primary" (click)="postUser(userForm.value)">Save</button>
   </div>
 </ng-template>

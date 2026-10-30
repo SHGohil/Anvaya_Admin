@@ -1,58 +1,42 @@
-
 @if (showtab) {
-  <div class="container-fluid pt-3">
+  <div class="ui-stack-lg">
     <app-page-header title="Today's Events" subtitle="{{currentDate}}{{ count == null ? '' : ' &middot; ' + (count === 1 ? '1 booking' : count + ' bookings') }}">
-      <button class="btn btn-sm btn-primary" (click)="adddailyquery()">Daily Query Entry</button>
+      <button class="ui-btn ui-btn-primary" (click)="adddailyquery()">Daily query entry</button>
     </app-page-header>
+
     @if (todaysLoading) {
-      <div class="row">
+      <div>
         @for (i of [1,2,3]; track i) {
-          <div class="col-lg-12">
-            <div class="skeleton" style="height: 150px; border-radius: 20px; margin-bottom: 1rem;"></div>
-          </div>
+          <div class="ui-skeleton" style="height: 130px; border-radius: var(--r-lg); margin-bottom: .75rem;"></div>
         }
       </div>
     }
-    @if (!todaysLoading&&todaysqueriesdata==null) {
-      <div class="d-flex justify-content-center align-items-center mt-5 ">
-        <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
+    @if (!todaysLoading && todaysqueriesdata == null) {
+      <div class="ui-card ui-empty">
+        <strong>No events today</strong>
+        <p class="ui-small">Bookings for today will appear here.</p>
       </div>
     }
-    @if (!todaysLoading&&todaysqueriesdata) {
-      <div class="row" >
+    @if (!todaysLoading && todaysqueriesdata) {
+      <div>
         @for (item of todaysqueriesdata; track item) {
-          <div class="col-lg-12" >
-            <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
-          </div>
+          <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
         }
       </div>
     }
   </div>
 }
 
-
-
-
-
-<div class="card-body">
-  <ng-template #content let-modal>
-    <div class="modal-header ">
-      <h4 class="modal-title">Event Details  </h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body" >
-      <app-event-detail [details]="viewdails" [showStatus]="true"></app-event-detail>
-    </div>
-  </ng-template>
-
-</div>
-
-
-
-
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-event-detail [details]="viewdails" [showStatus]="true"></app-event-detail>
+  </div>
+</ng-template>
 
 @if (!showtab) {
-  <div class="container-fluid" style="cursor:pointer">
-    <app-addquery  ></app-addquery>
-  </div>
+  <app-addquery></app-addquery>
 }
