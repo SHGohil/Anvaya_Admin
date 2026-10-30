@@ -76,6 +76,10 @@ guard.** Ask `PermissionService` (`shared/services/permission.service.ts`) inste
 
 The API issues a 30-minute access token plus a rotating refresh token, both kept in the `user` object in localStorage. `AuthInterceptor` answers a 401 by calling `Login/refresh` once (concurrent calls share it), saves the new pair and retries; with no refresh token, or if renewal fails, it signs out. Sign-out calls `Login/logout` to revoke the refresh token. Long event lists should use `ReportsService.getEventsPage(status, page)`, which returns `{items, total}` from the API's `page`/`pageSize` and `X-Total-Count`.
 
+### Editing the same event twice
+
+Events carry a `rowVersion`. The calendar and daily-report edit forms remember it when an event is opened (`editRowVersion`) and send it back on Save; if someone else saved first the API answers 409 and the existing error dialog shows its message. Any new screen that edits an event must do the same.
+
 ### Environments
 
 `src/environments/environment.ts` (dev) and `environment.prod.ts` both hold only

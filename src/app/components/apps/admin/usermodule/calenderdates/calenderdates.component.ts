@@ -92,6 +92,8 @@ export class CalenderdatesComponent implements OnInit {
   
   
   
+  /** Row version of the event open in the edit form (see the API's optimistic concurrency). */
+  editRowVersion: string | null = null;
   eventform: any;
   test:any; 
   myForm: any;   
@@ -408,6 +410,9 @@ getonecaledetdata(month){
     this.eventStatusId = item.eventStatusId;
    
     const datePart = item.eventDate.split('T')[0]; 
+    // The version the event had when it was opened. Sent back on save so the API can refuse the
+    // save if someone else changed the event in the meantime.
+    this.editRowVersion = item.rowVersion ?? null;
     this.eventform.controls.eventsId.setValue(item.eventsId)  
     
    
@@ -562,6 +567,7 @@ getonecaledetdata(month){
   
     let payload = {
       eventsId: this.eventform.controls.eventsId.value,
+      rowVersion: this.editRowVersion,
       eventDate: this.eventform.controls.eventDate.value,
       eventEndDate: this.eventform.controls.eventEndDate.value,
       personName: this.eventform.controls.personName.value,

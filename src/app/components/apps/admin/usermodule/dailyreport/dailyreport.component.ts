@@ -29,6 +29,8 @@ export class DailyreportComponent  implements OnInit {
   form: FormGroup;
   multipleSelectedVenue: number[] = [];
   myForm: FormGroup<{ fname: FormControl<string>; }>;
+  /** Row version of the event open in the edit form (see the API's optimistic concurrency). */
+  editRowVersion: string | null = null;
   eventform: FormGroup<{ eventsId: FormControl<string>; eventDate: FormControl<string>;  personName: FormControl<string>; guestName: FormControl<string>; phonenumber: FormControl<string>; venueIds: FormControl<number[]>; eventTypeId: FormControl<string>; eventTimeIds: FormControl<string>; eventStatusId: FormControl<string>; eventFoodtypeId: FormControl<string>; comment: FormControl<string>; createdBy: FormControl<string>; createdDate: FormControl<string>; modifiedBy: FormControl<string>; modifiedDate: FormControl<string>; isStatusgivenbyuser: FormControl<string>; bumpIN: FormControl<string>; bumpOUT: FormControl<string>; bumpINstring: FormControl<string>; bumpOUTstring: FormControl<string>; }>;
   specialdates: any[];
   venuedata: Object;
@@ -903,7 +905,10 @@ onviewdeails(item,content)
   this.eventStatusId = item.eventStatusId;
   this.showedit =true ;
   const datePart = item.eventDate.split('T')[0]; 
-  this.eventform.controls.eventsId.setValue(item.eventsId)  
+  // The version the event had when it was opened. Sent back on save so the API can refuse the
+    // save if someone else changed the event in the meantime.
+    this.editRowVersion = item.rowVersion ?? null;
+    this.eventform.controls.eventsId.setValue(item.eventsId)  
   this.eventform.controls.eventDate.setValue(datePart)
   this.eventform.controls.personName.setValue(item.personName) 
   this.eventform.controls.guestName.setValue(item?.guestName) 
@@ -1012,6 +1017,7 @@ console.log(typeof(this.status))
 
   let payload = {
     eventsId: this.eventform.controls.eventsId.value,
+      rowVersion: this.editRowVersion,
     eventDate: this.eventform.controls.eventDate.value,
     eventEndDate: this.eventform.controls.eventDate.value,
     personName: this.eventform.controls.personName.value,
