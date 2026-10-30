@@ -357,43 +357,43 @@ getonecaledetdata(month){
     switch (event.eventStatusId) {
       case 0:
       case null: 
-        return {'background-color': '#2e90fa'}; 
+        return {'background-color': '#6366f1'}; 
       case 1:
-        return {'background-color': '#f79009'};
+        return {'background-color': '#d97706'};
       case 2:
-        return {'background-color': '#12b76a'};
+        return {'background-color': '#059669'};
       case 3:
-        return {'background-color': '#f04438'};
+        return {'background-color': '#e11d48'};
       default:  
-        return {'background-color': '#f79009'};
+        return {'background-color': '#d97706'};
     }
   }
   else if(hasStatusId2){
-    return {'background-color': '#12b76a'};
+    return {'background-color': '#059669'};
   }
 
  else if(hasStatusId1){
-    return {'background-color': '#f79009'};
+    return {'background-color': '#d97706'};
   }
   else if(hasStatusId3){
-    return {'background-color': '#2e90fa'}; 
+    return {'background-color': '#6366f1'}; 
   }
   else if(hasStatusId4){
-    return {'background-color': '#f04438'};
+    return {'background-color': '#e11d48'};
   }
   else{
     switch (event.eventStatusId) {
       case 0:
       case null: 
-        return {'background-color': '#2e90fa'}; 
+        return {'background-color': '#6366f1'}; 
       case 1:
-        return {'background-color': '#f79009'};
+        return {'background-color': '#d97706'};
       case 2:
-        return {'background-color': '#12b76a'};
+        return {'background-color': '#059669'};
       case 3:
-        return {'background-color': '#f04438'};
+        return {'background-color': '#e11d48'};
       default:  
-        return {'background-color': '#f79009'};
+        return {'background-color': '#d97706'};
     }
   }
       } else {

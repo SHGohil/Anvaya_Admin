@@ -1,446 +1,226 @@
-<div class="container-fluid pt-3">
+<div class="ui-stack-lg">
   <app-page-header title="Calendar" subtitle="Venue availability across all locations"></app-page-header>
 
   <div class="cal-toolbar">
     <div class="cal-nav">
-      <button type="button" class="cal-nav-btn" (click)="previousMonth()" aria-label="Previous month">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      <button type="button" class="ui-btn ui-btn-icon" (click)="previousMonth()" aria-label="Previous month">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
-      <button type="button" class="cal-nav-btn cal-today-btn" (click)="goToToday()">Today</button>
-      <button type="button" class="cal-nav-btn" (click)="nextMonth()" aria-label="Next month">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <button type="button" class="ui-btn" (click)="goToToday()">Today</button>
+      <button type="button" class="ui-btn ui-btn-icon" (click)="nextMonth()" aria-label="Next month">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
-      <span class="cal-month-label">{{ months[currentMonthIndex] }} {{ currentYear }}</span>
+      <h2 class="cal-month-label">{{ months[currentMonthIndex] }} {{ currentYear }}</h2>
     </div>
-    <select class="form-control form-select cal-year-select" (change)="onchangeyear($event)">
+    <select class="ui-select cal-year-select" aria-label="Year" (change)="onchangeyear($event)">
       <option selected disabled>Select year</option>
       @for (year of years; track year) {
         <option [selected]="currentYear==year" [value]="year">{{ year }}</option>
       }
     </select>
   </div>
+
   <div class="cal-month-strip">
     @for (month of months; track month; let i = $index) {
-      <button type="button" class="cal-month-chip" [class.active]="selectedIndex === i" (click)="toggleSelection(i)">{{ month.slice(0,3) }}</button>
+      <button type="button" class="ui-chip" [class.ui-on]="selectedIndex === i" (click)="toggleSelection(i)">{{ month.slice(0,3) }}</button>
     }
   </div>
-  <div>
-    <div style="display: flex; flex-direction: column;">
-      @if ( onecalendarData) {
-        <div class="mt-1">
-          <div class="cal-grid-wrap">
-            <table class="cal-grid">
-              <tr>
-                <th class="cal-th cal-th-corner text-center">Day &amp; Date</th>
-                @for (day of onecalendarData.days; track day) {
-                  <th class="cal-th centered-text"
-                    [class.cal-th-special]="isSpecialDate(day.date)"
-                    [title]="isSpecialDate(day.date) ? 'Special date' : null">
-                    <div class="cal-date-num">
-                      {{ getFormattedDate(day.date) }}
-                    </div>
-                  </th>
-                }
-              </tr>
-              <tr>
-                <th class="cal-th cal-th-corner text-center">Venue</th>
-                @for (day of onecalendarData.days; track day) {
-                  <th class="cal-th cal-th-weekday text-center"
-                    >{{ day.weekDay |
-                    slice:0:3
-                  }}</th>
-                }
-              </tr>
-              @for (venue of onecalendarData.venuedata; track venue) {
-                <tr>
-                  <th class="cal-th cal-th-venue text-center" [title]="venue.venueName">{{
-                    venue.venueName.length > 10 ? (venue.venueName | slice:0:10) + '...' :
-                  venue.venueName }}</th>
-                  @for (day of onecalendarData.days; track day) {
-                    <td
-                      class="cal-cell"
-                      (click)="onclickdata(day, onecalendarData.month)"
-                      [title]="day.events.length > 0 ? day.events.length + ' event(s)' : null">
-                      @if (day.events.length > 0) {
-                        <span class="cal-cell-dot" [ngStyle]="getCellStyle(day,venue)"></span>
-                      }
-                    </td>
-                  }
-                </tr>
-              }
-            </table>
-          </div>
-          <p class="cal-scroll-hint d-lg-none">Swipe to see more days &rarr;</p>
-          <div class="cal-legend">
-            <span class="cal-legend-item"><span class="cal-legend-dot dot-open"></span>Open</span>
-            <span class="cal-legend-item"><span class="cal-legend-dot dot-tentative"></span>Tentative</span>
-            <span class="cal-legend-item"><span class="cal-legend-dot dot-confirmed"></span>Confirmed</span>
-            <span class="cal-legend-item"><span class="cal-legend-dot dot-lost"></span>Lost</span>
-            <span class="cal-legend-item"><span class="cal-legend-dot dot-special"></span>Special Date</span>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
 
+  @if (onecalendarData) {
+    <section class="ui-card cal-grid-card">
+      <div class="cal-grid-wrap">
+        <table class="cal-grid">
+          <tr>
+            <th class="cal-th cal-th-corner">Day &amp; date</th>
+            @for (day of onecalendarData.days; track day) {
+              <th class="cal-th" [class.cal-th-special]="isSpecialDate(day.date)" [title]="isSpecialDate(day.date) ? 'Special date' : null">
+                <div class="cal-date-num">{{ getFormattedDate(day.date) }}</div>
+              </th>
+            }
+          </tr>
+          <tr>
+            <th class="cal-th cal-th-corner">Venue</th>
+            @for (day of onecalendarData.days; track day) {
+              <th class="cal-th cal-th-weekday">{{ day.weekDay | slice:0:3 }}</th>
+            }
+          </tr>
+          @for (venue of onecalendarData.venuedata; track venue) {
+            <tr>
+              <th class="cal-th cal-th-venue" [title]="venue.venueName">{{ venue.venueName.length > 10 ? (venue.venueName | slice:0:10) + '...' : venue.venueName }}</th>
+              @for (day of onecalendarData.days; track day) {
+                <td class="cal-cell" (click)="onclickdata(day, onecalendarData.month)" [title]="day.events.length > 0 ? day.events.length + ' event(s)' : null">
+                  @if (day.events.length > 0) {
+                    <span class="cal-cell-dot" [ngStyle]="getCellStyle(day,venue)"></span>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </table>
+      </div>
+      <p class="cal-scroll-hint">Swipe to see more days &rarr;</p>
+      <div class="cal-legend">
+        <span><i class="cal-dot" style="--c: var(--open)"></i>Open</span>
+        <span><i class="cal-dot" style="--c: var(--tentative)"></i>Tentative</span>
+        <span><i class="cal-dot" style="--c: var(--confirmed)"></i>Confirmed</span>
+        <span><i class="cal-dot" style="--c: var(--lost)"></i>Lost</span>
+        <span><i class="cal-dot" style="--c: #e58585"></i>Special date</span>
+      </div>
+    </section>
+  }
 
   @if (eventdatedata && !showedit) {
-    <div class="mt-3">
-      @if (eventdatedata.previousDateEvents || eventdatedata.currentDateEvents || eventdatedata.nextDateEvents ) {
-        <div class="card day-panel-card">
-          <div class="row">
-            <div class="col-lg-4 mt-1">
-              <p class="day-col-label">{{previousdate|date }}</p>
-              @if (eventdatedata.previousDateEvents[0]!==undefined) {
-                <div>
-                  @for (item of eventdatedata.previousDateEvents; track item) {
-                    <div>
-                      <div class="card day-event-card" (click)="onviewdeails(item,content)">
-                        <div class="day-event-header">
-                          <div class="row" style="line-height: 1;">
-                            <div class="col-6 text-left">
-                              <p class="eventvenuename mb-2"><strong>{{item.guestName}}</strong> &nbsp;@if (item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null ) {
-                              <span class="badge day-event-days-badge">{{ noofdays(item.createdDate) }} days</span>
-                            }</p>
-                            <p class="day-event-venue">Venue:@for (item1 of item.venuelist | slice:0:1; track item1) {
-                              <span
-                              >{{item1.venueName}}</span>
-                            }
-                            @if (item.venuelist.length > 1) {
-                              <span>,</span>
-                              } @if (item.venuelist.length > 1) {
-                              <span>
-                              +{{item.venuelist.length - 1}}</span>
-                            }
-                          </p>
-                        </div>
-                        @if (item.eventTimeIdslist!=null) {
-                          <div class="col-6 text-end">
-                            @if (item.eventTimeIdslist.length >0 ) {
-                              <span class="badge day-event-time-badge"
-                              >{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                            }
-                            @if (item.eventTimeIdslist.length >1 ) {
-                              <span class="badge day-event-time-badge-alt"
-                              >+{{ item?.eventTimeIdslist?.length-1 }}</span>
-                            }
-                            <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
-                          </div>
-                        }
-                      </div>
-                    </div>
-                    <div class="card-body bg-white day-event-body">
-                      <div class="row">
-                        <div class="col-6 day-event-col">
-                          <h6 class="day-event-label">Sales Exec Name</h6>
-                          <p class="day-event-value"> {{ item.personName && item.personName.length > 10 ?
-                          (item.personName| slice:0:10) + '...' : item.personName}}</p>
-                        </div>
-                        <div class="col-6">
-                          <h6 class="day-event-label">Event Date</h6>
-                          <p class="day-event-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              }
-            </div>
-          }
-          @if (eventdatedata.previousDateEvents[0]===undefined) {
-            <div class="day-event-empty">
-              <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
-            </div>
-          }
-        </div>
-        <div class="col-lg-4 mt-1">
-          <div>
-            <p class="day-col-label day-col-label-current">{{currentdate|date }}</p>
-            @if (eventdatedata.currentDateEvents[0]!==undefined) {
-              <div>
-                @for (item of eventdatedata.currentDateEvents; track item) {
-                  <div>
-                    <div class="card day-event-card" (click)="onviewdeails(item,content)">
-                      <div class="day-event-header">
-                        <div class="row" style="line-height: 1;">
-                          <div class="col-6 text-left">
-                            <p class="eventvenuename mb-2"><strong>{{item.guestName}}</strong> &nbsp;@if (item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null ) {
-                            <span class="badge day-event-days-badge">{{ noofdays(item.createdDate) }} days</span>
-                          } </p>
-                          <p class="day-event-venue">Venue:@for (item1 of item.venuelist | slice:0:1; track item1) {
-                            <span
-                            >{{item1.venueName}}</span>
-                          }
-                          @if (item.venuelist.length > 1) {
-                            <span>,</span>
-                            } @if (item.venuelist.length > 1) {
-                            <span>
-                            +{{item.venuelist.length - 1}}</span>
-                          }
-                        </p>
-                      </div>
-                      @if (item.eventTimeIdslist!=null) {
-                        <div class="col-6 text-end">
-                          @if (item.eventTimeIdslist.length >0) {
-                            <span class="badge day-event-time-badge"
-                            >{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                          }
-                          @if (item.eventTimeIdslist.length >1 ) {
-                            <span class="badge day-event-time-badge-alt"
-                            >+{{ item?.eventTimeIdslist?.length-1 }}</span>
-                          }
-                          <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
-                        </div>
-                      }
-                    </div>
-                  </div>
-                  <div class="card-body bg-white day-event-body">
-                    <div class="row">
-                      <div class="col-6 day-event-col">
-                        <h6 class="day-event-label">Sales Exec Name</h6>
-                        <p class="day-event-value"> {{ item.personName && item.personName.length > 10 ?
-                        (item.personName| slice:0:10) + '...' : item.personName}}</p>
-                      </div>
-                      <div class="col-6">
-                        <h6 class="day-event-label">Event Date</h6>
-                        <p class="day-event-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
-          </div>
-        }
-        @if (eventdatedata.currentDateEvents[0]===undefined) {
-          <div class="day-event-empty">
-            <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
-          </div>
-        }
+    @if (eventdatedata.previousDateEvents || eventdatedata.currentDateEvents || eventdatedata.nextDateEvents) {
+      <div class="cal-days">
+        <ng-container *ngTemplateOutlet="dayCol; context: { label: previousdate, events: eventdatedata.previousDateEvents, current: false }"></ng-container>
+        <ng-container *ngTemplateOutlet="dayCol; context: { label: currentdate, events: eventdatedata.currentDateEvents, current: true }"></ng-container>
+        <ng-container *ngTemplateOutlet="dayCol; context: { label: nextDate, events: eventdatedata.nextDateEvents, current: false }"></ng-container>
       </div>
-    </div>
-    <div class="col-lg-4 mt-2">
-      <p class="day-col-label">{{nextDate|date }}</p>
-      @if (eventdatedata.nextDateEvents[0]!==undefined) {
-        <div>
-          @for (item of eventdatedata.nextDateEvents; track item) {
-            <div>
-              <div class="card day-event-card" (click)="onviewdeails(item,content)">
-                <div class="day-event-header">
-                  <div class="row" style="line-height: 1;">
-                    <div class="col-6 text-left">
-                      <p class="eventvenuename mb-2"><strong>{{item.guestName}}</strong> &nbsp;@if (item.eventStatusId==1 ||item.eventStatusId==0||item.eventStatusId==null ) {
-                      <span class="badge day-event-days-badge">{{ noofdays(item.createdDate) }} days</span>
-                    }</p>
-                    <p class="day-event-venue">Venue:@for (item1 of item.venuelist | slice:0:1; track item1) {
-                      <span
-                      >{{item1.venueName}}</span>
-                    }
-                    @if (item.venuelist.length > 1) {
-                      <span>,</span>
-                      } @if (item.venuelist.length > 1) {
-                      <span>
-                      +{{item.venuelist.length - 1}}</span>
-                    }
-                  </p>
-                </div>
-                @if (item.eventTimeIdslist!=null) {
-                  <div class="col-6 text-end">
-                    @if (item.eventTimeIdslist.length >0 ) {
-                      <span class="badge day-event-time-badge"
-                      >{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                    }
-                    @if (item.eventTimeIdslist.length >1 ) {
-                      <span class="badge day-event-time-badge-alt"
-                      >+{{ item?.eventTimeIdslist?.length-1 }}</span>
-                    }
-                    <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
-                  </div>
-                }
-              </div>
-            </div>
-            <div class="card-body bg-white day-event-body">
-              <div class="row">
-                <div class="col-6 day-event-col">
-                  <h6 class="day-event-label">Sales Exec Name</h6>
-                  <p class="day-event-value"> {{ item.personName && item.personName.length > 10 ?
-                  (item.personName| slice:0:10) + '...' : item.personName}}</p>
-                </div>
-                <div class="col-6">
-                  <h6 class="day-event-label">Event Date</h6>
-                  <p class="day-event-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+    }
+  }
+</div>
+
+<!-- One day of the previous / selected / next panel -->
+<ng-template #dayCol let-label="label" let-events="events" let-current="current">
+  <section class="cal-day">
+    <h3 class="cal-day-label" [class.cal-day-current]="current">{{ label | date }}</h3>
+    @for (item of events; track item) {
+      <article class="ui-card cal-ev" tabindex="0" (click)="onviewdeails(item,content)" (keydown.enter)="onviewdeails(item,content)">
+        <div class="cal-ev-top">
+          <strong class="ui-ellipsis">{{ item.guestName }}</strong>
+          <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
         </div>
-      }
-    </div>
-  }
-  @if (eventdatedata.nextDateEvents[0]===undefined) {
-    <div class="day-event-empty">
-      <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="120" width="120" class="img-fluid">
-    </div>
-  }
-</div>
-</div>
-</div>
-}
-</div>
-}
+        <div class="ui-small ui-muted ui-ellipsis">
+          {{ item.venuelist?.[0]?.venueName }}@if (item.venuelist?.length > 1) { +{{ item.venuelist.length - 1 }}}
+        </div>
+        <div class="cal-ev-meta">
+          @if (item.eventTimeIdslist?.length) {
+            <span class="ui-chip">{{ item.eventTimeIdslist[0].eventTimeName }}@if (item.eventTimeIdslist.length > 1) { +{{ item.eventTimeIdslist.length - 1 }}}</span>
+          }
+          @if (item.eventStatusId == 1 || item.eventStatusId == 0 || item.eventStatusId == null) {
+            <span class="ui-chip">{{ noofdays(item.createdDate) }} days</span>
+          }
+          <span class="ui-small ui-muted ui-ellipsis">{{ item.personName }}</span>
+        </div>
+      </article>
+    } @empty {
+      <div class="ui-card ui-empty ui-small">No events</div>
+    }
+  </section>
+</ng-template>
 
-
-<div class="card-body">
-  <ng-template #content let-modal>
-    <div class="modal-header ">
-      <h4 class="modal-title">Event Details <span class="text-danger">*</span></h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    @if (perm.canEditEvents) {
-      <div class="modal-body">
-        <form [formGroup]="eventform" class="row " style="padding:20px;">
-          <div class="col-6 mt-3">
-            <label for="personName">Attending Sales Executive  <span class="text-danger">*</span></label>
-            <input id="personName" class="form-control" formControlName="personName" type="text">
-            @if (eventform.get('personName')?.invalid && eventform.get('personName')?.touched) {
-              <div class="text-danger">
-                Attending Sales Executive  is required.
-              </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  @if (perm.canEditEvents) {
+    <div class="modal-body">
+      <form [formGroup]="eventform" class="cal-form">
+        <div class="ui-field">
+          <label for="personName">Attending sales executive <span class="cal-req">*</span></label>
+          <input id="personName" class="ui-input" formControlName="personName" type="text">
+          @if (eventform.get('personName')?.invalid && eventform.get('personName')?.touched) {
+            <span class="ui-err">Attending sales executive is required.</span>
+          }
+        </div>
+        <div class="ui-field">
+          <label for="guestName">Guest name <span class="cal-req">*</span></label>
+          <input id="guestName" class="ui-input" formControlName="guestName" type="text">
+          @if (eventform.get('guestName')?.invalid && eventform.get('guestName')?.touched) {
+            <span class="ui-err">Guest name is required.</span>
+          }
+        </div>
+        <div class="ui-field">
+          <label for="phonenumber">Guest phone number <span class="cal-req">*</span></label>
+          <input id="phonenumber" class="ui-input" type="text" inputmode="tel" formControlName="phonenumber">
+          @if (eventform.get('phonenumber')?.invalid && eventform.get('phonenumber')?.touched) {
+            <span class="ui-err">Phone number is required.</span>
+          }
+        </div>
+        <div class="ui-field">
+          <label for="eventDate">Event date <span class="cal-req">*</span></label>
+          <input id="eventDate" class="ui-input" type="date" formControlName="eventDate">
+        </div>
+        <div class="ui-field">
+          <label for="eventTypeId">Event type <span class="cal-req">*</span></label>
+          <select id="eventTypeId" class="ui-select" formControlName="eventTypeId">
+            @for (item of eventtypedata; track item) {
+              <option [value]="item.eventTypeId">{{item.eventTypeName}}</option>
             }
-          </div>
-          <div class="col-6 mt-3">
-            <label for="guestName">Guest Name <span class="text-danger">*</span></label>
-            <input id="guestName" class="form-control" formControlName="guestName" type="text">
-            @if (eventform.get('guestName')?.invalid && eventform.get('guestName')?.touched) {
-              <div class="text-danger">
-                Guest Name  is required.
-              </div>
+          </select>
+          @if (eventform.get('eventTypeId')?.invalid && eventform.get('eventTypeId')?.touched) {
+            <span class="ui-err">Event type is required.</span>
+          }
+        </div>
+        <div class="ui-field">
+          <label for="eventStatusId">Event status</label>
+          <select id="eventStatusId" class="ui-select" formControlName="eventStatusId" (change)="updateEventStatus($event.target.value)">
+            @for (item of statusdata; track item) {
+              <option [value]="item.eventStatusId">{{item.eventStatusName}}</option>
             }
-          </div>
-          <div class="col-6 mt-3">
-            <label for="phonenumber">Guest Phone Number <span class="text-danger">*</span></label>
-            <input id="phonenumber" class="form-control" type="text" formControlName="phonenumber">
-            @if (eventform.get('phonenumber')?.invalid && eventform.get('phonenumber')?.touched) {
-              <div class="text-danger">
-                Phone number  is required.
-              </div>
-            }
-          </div>
-          <div class="col-6 mt-3">
-            <label for="eventDate">Event Date <span class="text-danger">*</span></label>
-            <input id="eventDate" class="form-control" type="date" formControlName="eventDate">
-          </div>
-          <div class="col-6 mt-3">
-            <label for="eventTypeId">Event Type <span class="text-danger">*</span></label>
-            <select id="eventTypeId" class="form-select" formControlName="eventTypeId">
-              @for (item of eventtypedata; track item) {
-                <option [value]="item.eventTypeId">{{item.eventTypeName}}</option>
-              }
-            </select>
-            @if (eventform.get('eventTypeId')?.invalid && eventform.get('eventTypeId')?.touched) {
-              <div class="text-danger">
-                Event type is required.
-              </div>
-            }
-          </div>
-          <div class="col-6 mt-3">
-            <label for="eventStatusId">Event Status </label>
-            <select id="eventStatusId" class="form-select" formControlName="eventStatusId" (change)="updateEventStatus($event.target.value)">
-              @for (item of statusdata; track item) {
-                <option [value]="item.eventStatusId">
-                  {{item.eventStatusName}}
-                </option>
-              }
-            </select>
-          </div>
-          <div class="col-12 mt-3">
-            <label for="venueIds">Venue <span class="text-danger">*</span></label>
-            <ng-select id="venueIds" formControlName="venueIds"  [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
-              bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
-            </ng-select>
-            @if (eventform.get('venueIds')?.invalid && eventform.get('venueIds')?.touched) {
-              <div class="text-danger">
-                Venue is required.
-              </div>
-            }
-          </div>
-          <div class="col-12 mt-3">
-            <label for="eventTimeIds">Event Time <span class="text-danger">*</span> </label>
-            <ng-select id="eventTimeIds" formControlName="eventTimeIds"  [items]="eventTimeData" [(ngModel)]="multipleSelectedEventTime"
+          </select>
+        </div>
+        <div class="ui-field cal-wide">
+          <label for="venueIds">Venue <span class="cal-req">*</span></label>
+          <ng-select id="venueIds" formControlName="venueIds" [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
+            bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
+          </ng-select>
+          @if (eventform.get('venueIds')?.invalid && eventform.get('venueIds')?.touched) {
+            <span class="ui-err">Venue is required.</span>
+          }
+        </div>
+        <div class="ui-field cal-wide">
+          <label for="eventTimeIds">Event time <span class="cal-req">*</span></label>
+          <ng-select id="eventTimeIds" formControlName="eventTimeIds" [items]="eventTimeData" [(ngModel)]="multipleSelectedEventTime"
             bindLabel="eventTimeName" bindValue="eventTimeId" [multiple]="true" placeholder="Select"></ng-select>
-            @if (eventform.get('eventTimeIds')?.invalid && eventform.get('eventTimeIds')?.touched) {
-              <div class="text-danger">
-                Event time is required.
-              </div>
+          @if (eventform.get('eventTimeIds')?.invalid && eventform.get('eventTimeIds')?.touched) {
+            <span class="ui-err">Event time is required.</span>
+          }
+        </div>
+        @if (status == 2) {
+          <div class="ui-field cal-wide">
+            <label for="eventFoodtypeId">Event food type <span class="cal-req">*</span></label>
+            <select class="ui-select" formControlName="eventFoodtypeId" id="eventFoodtypeId">
+              @for (item of eventFoodtypedata; track item) {
+                <option [value]="item.eventFoodtypeId">{{item.eventFoodtypeName}}</option>
+              }
+            </select>
+            @if (eventform.get('eventFoodtypeId')?.invalid && eventform.get('eventFoodtypeId')?.touched) {
+              <span class="ui-err">Event food type is required.</span>
             }
           </div>
-          @if (status == 2) {
-            <div class="col-12 mt-3">
-              <label for="eventFoodtypeId">Event Food Type <span class="text-danger">*</span></label>
-              <select class="form-select" formControlName="eventFoodtypeId" id="eventFoodtypeId">
-                @for (item of eventFoodtypedata; track item) {
-                  <option [value]="item.eventFoodtypeId">
-                    {{item.eventFoodtypeName}}
-                  </option>
-                }
-              </select>
-              @if (eventform.get('eventFoodtypeId')?.invalid && eventform.get('eventFoodtypeId')?.touched) {
-                <div
-                  class="text-danger">
-                  Event food type is required.
-                </div>
-              }
-            </div>
-          }
-          <!-- Bump In input field -->
-          @if (status == 2) {
-            <div class="col-6 mt-3">
-              <label for="bumpIN">Bump In <span class="text-danger">*</span></label>
-              <input id="bumpIN" type="datetime-local" formControlName="bumpIN" class="form-control">
-              @if (eventform.get('bumpIN')?.invalid && eventform.get('bumpIN')?.touched) {
-                <div class="text-danger">
-                  Bump In time is required.
-                </div>
-              }
-            </div>
-          }
-          <!-- Bump Out input field -->
-          @if (status == 2) {
-            <div class="col-6 mt-3">
-              <label for="bumpOUT">Bump Out <span class="text-danger">*</span></label>
-              <input id="bumpOUT" type="datetime-local" formControlName="bumpOUT" class="form-control">
-              @if (eventform.get('bumpOUT')?.invalid && eventform.get('bumpOUT')?.touched) {
-                <div class="text-danger">
-                  Bump Out time is required.
-                </div>
-              }
-            </div>
-          }
-          @if (status == 2 || status == 3) {
-            <div class="col-12 mt-3">
-              <label for="comment">Comment</label>
-              <textarea id="comment" class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
-            </div>
-          }
-        </form>
-        @if (perm.canEditEvents) {
-          <button
-            [disabled]="eventStatusId == 2"
-            (click)="Save()"
-            type="button"
-            class="mt-2 mb-2 btn btn-primary"
-            style="margin-left:16px">
-            Save
-          </button>
+          <div class="ui-field">
+            <label for="bumpIN">Bump in <span class="cal-req">*</span></label>
+            <input id="bumpIN" type="datetime-local" formControlName="bumpIN" class="ui-input">
+            @if (eventform.get('bumpIN')?.invalid && eventform.get('bumpIN')?.touched) {
+              <span class="ui-err">Bump In time is required.</span>
+            }
+          </div>
+          <div class="ui-field">
+            <label for="bumpOUT">Bump out <span class="cal-req">*</span></label>
+            <input id="bumpOUT" type="datetime-local" formControlName="bumpOUT" class="ui-input">
+            @if (eventform.get('bumpOUT')?.invalid && eventform.get('bumpOUT')?.touched) {
+              <span class="ui-err">Bump Out time is required.</span>
+            }
+          </div>
         }
-      </div>
-    }
-    @if (!perm.canEditEvents) {
-      <div class="modal-body" >
-        <app-event-detail [details]="viewdails" [showStatus]="viewdails && viewdails.eventStatusId==2"></app-event-detail>
-      </div>
-    }
-  </ng-template>
-
-</div>
-</div>
+        @if (status == 2 || status == 3) {
+          <div class="ui-field cal-wide">
+            <label for="comment">Comment</label>
+            <textarea id="comment" class="ui-textarea" formControlName="comment" rows="3"></textarea>
+          </div>
+        }
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="ui-btn" (click)="modal.dismiss('cancel')">Cancel</button>
+      <button type="button" class="ui-btn ui-btn-primary" [disabled]="eventStatusId == 2" (click)="Save()">Save</button>
+    </div>
+  }
+  @if (!perm.canEditEvents) {
+    <div class="modal-body">
+      <app-event-detail [details]="viewdails" [showStatus]="viewdails && viewdails.eventStatusId==2"></app-event-detail>
+    </div>
+  }
+</ng-template>

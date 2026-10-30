@@ -260,3 +260,5 @@ td.ui-empty{display:table-cell;text-align:center;padding:2rem}
 .ui-select{appearance:auto}
 .ng-select.ng-select-opened>.ng-select-container{background:var(--surface);border-color:var(--primary)}
 .ng-select .ng-select-container .ng-value-container .ng-input>input{color:var(--text)}
+.ui-stack-lg>*{min-width:0}
+.ui-main,.ui-content{min-width:0}
