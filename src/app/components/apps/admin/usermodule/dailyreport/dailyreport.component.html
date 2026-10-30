@@ -1,296 +1,186 @@
+<div class="ui-stack-lg">
+  <app-page-header title="Daily Report" subtitle="Query history, status breakdown, and exports"></app-page-header>
 
-
-<div class="container-fluid pt-3">
-<app-page-header title="Daily Report" subtitle="Query history, status breakdown, and exports"></app-page-header>
-
-<div class="row g-3">
-<div class="col-lg-6">
-    <div class="card dr-chart-card">
-        <div class="card-header">
-            <h5>Total Events ({{total}}) </h5>
+  <div class="ui-grid ui-two ui-even">
+    <section class="ui-card">
+      <div class="ui-card-head"><h3>Total events ({{total}})</h3></div>
+      <div class="ui-card-pad">
+        <div id="circlechart" *ngIf="skillStatus">
+          <apx-chart [chart]="skillStatus.chart" [plotOptions]="skillStatus.plotOptions" [series]="skillStatus.series" [labels]="skillStatus.labels" [legend]="skillStatus.legend" [colors]="skillStatus.colors" [responsive]="skillStatus.responsive"></apx-chart>
         </div>
-    <div class="card-body chart-block " >
-            <div id="circlechart" *ngIf="skillStatus">
-              <apx-chart [chart]="skillStatus.chart" [plotOptions]="skillStatus.plotOptions" [series]="skillStatus.series" [labels]="skillStatus.labels" [legend]="skillStatus.legend" [colors]="skillStatus.colors" [responsive]="skillStatus.responsive"></apx-chart>
-            </div>
+      </div>
+    </section>
 
-    </div>
-    </div>
-</div>
-    <div class="col-lg-6">
-        <div class="card dr-chart-card">
-            <div class="card-header">
-              <div class="header-top">
-                <h5>Event Summary</h5>
-                <div class="card-header-right-icon">
-                  <div class="dropdown">
-                    <select name="" id="" class="form-control form-select" (change)="onchangeyear($event)">
-                        <option  [selected]="currentYear==year" *ngFor="let year of years" [value]="year" >{{ year }}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="chart-container progress-chart">
-                <div id="progress4" *ngIf="openpercentage">
-                    <apx-chart [chart]="openpercentage.chart" [plotOptions]="openpercentage.plotOptions" [colors]="openpercentage.colors" [stroke]="openpercentage.stroke" [fill]="openpercentage.fill" [series]="openpercentage.series" [title]="openpercentage.title" [subtitle]="openpercentage.subtitle" [tooltip]="openpercentage.tooltip" [xaxis]="openpercentage.xaxis" [yaxis]="openpercentage.yaxis" [responsive]="openpercentage.responsive"></apx-chart>
-                  </div>
-                <div id="progress1" *ngIf="tentativepercentage">
-                  <apx-chart [chart]="tentativepercentage.chart" [plotOptions]="tentativepercentage.plotOptions" [colors]="tentativepercentage.colors" [stroke]="tentativepercentage.stroke" [fill]="tentativepercentage.fill" [series]="tentativepercentage.series" [title]="tentativepercentage.title" [subtitle]="tentativepercentage.subtitle" [tooltip]="tentativepercentage.tooltip" [xaxis]="tentativepercentage.xaxis" [yaxis]="tentativepercentage.yaxis" [responsive]="tentativepercentage.responsive"></apx-chart>
-                </div>
-                <div id="progress2" *ngIf="confirmedPercentage">
-                  <apx-chart [chart]="confirmedPercentage.chart" [plotOptions]="confirmedPercentage.plotOptions" [colors]="confirmedPercentage.colors" [stroke]="confirmedPercentage.stroke" [fill]="confirmedPercentage.fill" [series]="confirmedPercentage.series" [title]="confirmedPercentage.title" [subtitle]="confirmedPercentage.subtitle" [tooltip]="confirmedPercentage.tooltip" [xaxis]="confirmedPercentage.xaxis" [yaxis]="confirmedPercentage.yaxis" [responsive]="confirmedPercentage.responsive"></apx-chart>
-                </div>
-                <div id="progress3" *ngIf="lostPercentage">
-                  <apx-chart [chart]="lostPercentage.chart" [plotOptions]="lostPercentage.plotOptions" [colors]="lostPercentage.colors" [stroke]="lostPercentage.stroke" [fill]="lostPercentage.fill" [series]="lostPercentage.series" [title]="lostPercentage.title" [subtitle]="lostPercentage.subtitle" [tooltip]="lostPercentage.tooltip" [xaxis]="lostPercentage.xaxis" [yaxis]="lostPercentage.yaxis" [responsive]="lostPercentage.responsive"></apx-chart>
-                </div>
-
-
-              </div>
-            </div>
+    <section class="ui-card">
+      <div class="ui-card-head">
+        <h3>Event summary</h3>
+        <select class="ui-select dr-year" aria-label="Year" (change)="onchangeyear($event)">
+          <option *ngFor="let year of years" [selected]="currentYear==year" [value]="year">{{ year }}</option>
+        </select>
+      </div>
+      <div class="ui-card-pad">
+        <div class="chart-container progress-chart">
+          <div id="progress4" *ngIf="openpercentage">
+            <apx-chart [chart]="openpercentage.chart" [plotOptions]="openpercentage.plotOptions" [colors]="openpercentage.colors" [stroke]="openpercentage.stroke" [fill]="openpercentage.fill" [series]="openpercentage.series" [title]="openpercentage.title" [subtitle]="openpercentage.subtitle" [tooltip]="openpercentage.tooltip" [xaxis]="openpercentage.xaxis" [yaxis]="openpercentage.yaxis" [responsive]="openpercentage.responsive"></apx-chart>
           </div>
+          <div id="progress1" *ngIf="tentativepercentage">
+            <apx-chart [chart]="tentativepercentage.chart" [plotOptions]="tentativepercentage.plotOptions" [colors]="tentativepercentage.colors" [stroke]="tentativepercentage.stroke" [fill]="tentativepercentage.fill" [series]="tentativepercentage.series" [title]="tentativepercentage.title" [subtitle]="tentativepercentage.subtitle" [tooltip]="tentativepercentage.tooltip" [xaxis]="tentativepercentage.xaxis" [yaxis]="tentativepercentage.yaxis" [responsive]="tentativepercentage.responsive"></apx-chart>
+          </div>
+          <div id="progress2" *ngIf="confirmedPercentage">
+            <apx-chart [chart]="confirmedPercentage.chart" [plotOptions]="confirmedPercentage.plotOptions" [colors]="confirmedPercentage.colors" [stroke]="confirmedPercentage.stroke" [fill]="confirmedPercentage.fill" [series]="confirmedPercentage.series" [title]="confirmedPercentage.title" [subtitle]="confirmedPercentage.subtitle" [tooltip]="confirmedPercentage.tooltip" [xaxis]="confirmedPercentage.xaxis" [yaxis]="confirmedPercentage.yaxis" [responsive]="confirmedPercentage.responsive"></apx-chart>
+          </div>
+          <div id="progress3" *ngIf="lostPercentage">
+            <apx-chart [chart]="lostPercentage.chart" [plotOptions]="lostPercentage.plotOptions" [colors]="lostPercentage.colors" [stroke]="lostPercentage.stroke" [fill]="lostPercentage.fill" [series]="lostPercentage.series" [title]="lostPercentage.title" [subtitle]="lostPercentage.subtitle" [tooltip]="lostPercentage.tooltip" [xaxis]="lostPercentage.xaxis" [yaxis]="lostPercentage.yaxis" [responsive]="lostPercentage.responsive"></apx-chart>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="ui-card ui-card-pad dr-filters">
+    <div class="ui-field">
+      <label for="salesExecutiveFilter">Sales executive</label>
+      <select id="salesExecutiveFilter" class="ui-select" #seletedValue [(ngModel)]="seleted_value" (change)="onNameChange($event.target.value)">
+        <option value="">All sales executives</option>
+        <option *ngFor="let item of uniqueNames" [value]="item">{{ item }}</option>
+      </select>
     </div>
-</div>
-<div class="card dr-filter-card">
-  <div class="card-body">
-    <div class="row">
-        <div class="col-md-3">
-            <label for="salesExecutiveFilter">Sales Executive </label>
-            <select id="salesExecutiveFilter" class="form-select" #seletedValue [(ngModel)]="seleted_value"
-                (change)="onNameChange($event.target.value)">
-                <option value=""> Select Sales Executive </option>
-                <option *ngFor="let item of uniqueNames" [value]="item">{{ item }}</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label for="startDate">Start Date</label>
-            <input class="form-control" type="date" id="startDate" [(ngModel)]="startDate">
-        </div>
-        <div class="col-md-2">
-            <label for="endDate">End Date</label>
-            <input class="form-control" type="date" id="endDate" [(ngModel)]="endDate">
-        </div>
-        <div class="col-md-3 dr-filter-actions">
-            <button class="btn btn-sm btn-primary me-2" (click)="filterData()">Search</button>
-            <button class="btn btn-sm btn-Danger" (click)="clearFilter()">Clear</button>
-        </div>
-        <div class="col-md-2 text-end dr-filter-actions">
-            <button class="btn btn-sm btn-primary" (click)="exportToExcel()">Export to Excel</button>
-        </div>
+    <div class="ui-field">
+      <label for="startDate">Start date</label>
+      <input class="ui-input" type="date" id="startDate" [(ngModel)]="startDate">
     </div>
+    <div class="ui-field">
+      <label for="endDate">End date</label>
+      <input class="ui-input" type="date" id="endDate" [(ngModel)]="endDate">
+    </div>
+    <div class="dr-filter-actions">
+      <button type="button" class="ui-btn ui-btn-primary" (click)="filterData()">Search</button>
+      <button type="button" class="ui-btn" (click)="clearFilter()">Clear</button>
+      <button type="button" class="ui-btn" (click)="exportToExcel()">Export to Excel</button>
+    </div>
+  </section>
+
+  <div class="ui-tabs" role="tablist">
+    <button type="button" role="tab" class="ui-tab" [class.ui-active]="activeTab === 'all'" (click)="setActiveTab('all')">Queries</button>
+    <button type="button" role="tab" class="ui-tab" [class.ui-active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')">Confirmed</button>
+    <button type="button" role="tab" class="ui-tab" [class.ui-active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')">Tentative</button>
+    <button type="button" role="tab" class="ui-tab" [class.ui-active]="activeTab === 'lost'" (click)="setActiveTab('lost')">Lost</button>
+    <button type="button" role="tab" class="ui-tab" [class.ui-active]="activeTab === 'history'" (click)="setActiveTab('history')">History</button>
+  </div>
+
+  <div class="ui-card ui-empty" *ngIf="reportdata==null||reportdata.length === 0">
+    <strong>Nothing here</strong>
+    <p class="ui-small">No events match this view.</p>
+  </div>
+
+  <div *ngIf="reportdata">
+    <app-event-card-detailed *ngFor="let item of reportdata" [item]="item"
+      [daysOpen]="(activeTab === 'all' || activeTab === 'tentative') ? noofdays(item.createdDate) : null"
+      (cardClick)="onviewdeails(item,content)"></app-event-card-detailed>
   </div>
 </div>
-<nav class="nav nav-pills flex-column flex-sm-row dr-status-tabs">
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')">Queries</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'confirmed'" (click)="setActiveTab('confirmed')">Confirmed</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'tentative'" (click)="setActiveTab('tentative')">Tentative</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'lost'" (click)="setActiveTab('lost')">Lost</a>
-    <a class="flex-sm-fill text-sm-center nav-link" [class.active]="activeTab === 'history'" (click)="setActiveTab('history')">History</a>
-</nav>
 
-<div class="d-flex justify-content-center align-items-center mt-5"  *ngIf=" reportdata==null||reportdata.length === 0">
-    <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-<div class="row g-3 mt-1" *ngIf="reportdata" >
-    <div class="col-lg-12" *ngFor="let item of reportdata">
-        <div class="card dr-item-card card_hover" (click)="onviewdeails(item,content)">
-            <div class="dr-item-header">
-                <div class="row align-items-center">
-                    <div class="col-lg-3">
-                        <p class="eventvenuename"><strong>{{item.createdByName}}</strong> <span *ngIf="activeTab === 'all'||activeTab === 'tentative'" class="badge dr-days-badge">{{ noofdays(item.createdDate) }} days</span></p>
-                    </div>
-                    <div class="col-lg-3" *ngIf="item.eventStatusId==2">
-                        <p class="eventvenuename">BumpIn: <strong>{{convertToIST(item.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</strong></p>
-                    </div>
-                    <div class="col-lg-3" *ngIf="item.eventStatusId==2">
-                        <p class="eventvenuename">BumpOut: <strong>{{convertToIST(item.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</strong></p>
-                    </div>
-                    <div class="col-lg-3 text-lg-end dr-item-header-right" *ngIf="item.eventTimeIdslist!=null">
-                        <span class="badge dr-time-badge">{{item.eventTimeIdslist[0].eventTimeName}}</span>
-                        <span class="badge dr-time-badge-alt" *ngIf="item.eventTimeIdslist.length >1 ">+{{ item?.eventTimeIdslist?.length-1 }}</span>
-                        <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
-                    </div>
-                </div>
-            </div>
-            <div class="dr-item-body">
-                <div class="row">
-                    <div class="col-6 col-lg-2 dr-item-col">
-                        <h6 class="dr-item-label">Sales Exec Name</h6>
-                        <p class="dr-item-value"> {{ item.personName && item.personName.length > 10 ? (item.personName| slice:0:10) + '...' : item.personName}}</p>
-                    </div>
-                    <div class="col-6 col-lg-2 dr-item-col">
-                        <h6 class="dr-item-label">Event Date</h6>
-                        <p class="dr-item-value"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
-                    </div>
-                    <div class="col-6 col-lg-2 dr-item-col">
-                        <h6 class="dr-item-label">Entry Date</h6>
-                        <p class="dr-item-value"> {{item.createdDate|date:'dd-MM-yyyy'}}</p>
-                    </div>
-                    <div class="col-6 col-lg-2 dr-item-col">
-                        <h6 class="dr-item-label">Guest Name</h6>
-                        <p class="dr-item-value"> {{ item.guestName && item.guestName.length > 10 ? (item.guestName| slice:0:10) + '...' : item.guestName }}</p>
-                    </div>
-                    <div class="col-6 col-lg-2 dr-item-col">
-                        <h6 class="dr-item-label">Event Type</h6>
-                        <p class="dr-item-value"> {{ item.eventType && item.eventType.eventTypeName && item.eventType.eventTypeName.length > 10 ? (item.eventType.eventTypeName | slice:0:10) + '...' : item.eventType.eventTypeName }}</p>
-                    </div>
 
-                    <div class="col-6 col-lg-2">
-                        <h6 class="dr-item-label">Venues</h6>
-                        <p class="mb-0">
-                            <span class="badge dr-venue-chip" *ngFor="let item1 of item.venuelist | slice:0:1">{{item1.venueName}}</span>
-                           <span *ngIf="item.venuelist &&item.venuelist.length > 1">,</span> <span class="badge dr-venue-chip" *ngIf="item.venuelist &&item.venuelist.length > 1"> +{{item.venuelist.length - 1}}</span>
-                          </p>
-
-                    </div>
-                </div>
-            </div>
+  <div class="modal-body" *ngIf="perm.canEditEvents">
+    <form [formGroup]="eventform" class="dr-form">
+      <div class="ui-field">
+        <label for="personName">Attending sales executive <span class="dr-req">*</span></label>
+        <input id="personName" class="ui-input" formControlName="personName" type="text">
+        <div *ngIf="eventform.controls.personName.invalid && eventform.controls.personName.touched">
+          <span *ngIf="eventform.controls.personName.errors.required" class="ui-err">Attending Sales Executive is required.</span>
         </div>
-    </div>
-</div>
+      </div>
 
-<div class="card-body">
-    <ng-template #content let-modal>
-        <div class="modal-header ">
-            <h4 class="modal-title">Event Details  </h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      <div class="ui-field">
+        <label for="guestName">Guest name <span class="dr-req">*</span></label>
+        <input id="guestName" class="ui-input" formControlName="guestName" type="text">
+        <div *ngIf="eventform.controls.guestName.invalid && eventform.controls.guestName.touched">
+          <span *ngIf="eventform.controls.guestName.errors.required" class="ui-err">Guest Name is required.</span>
         </div>
-        <div class="modal-body"*ngIf="perm.canEditEvents" >
-            <form  [formGroup]="eventform" class="row " style="padding:20px;">
-                <div class="col-6 mt-3">
-                    <label for="personName">Attending Sales Executive<span class="text-danger">*</span></label>
-                    <input id="personName" class="form-control" formControlName="personName" type="text">
-                    <div *ngIf="eventform.controls.personName.invalid && ( eventform.controls.personName.touched)">
-                        <div *ngIf="eventform.controls.personName.errors.required" class="text-danger">Attending Sales Executive is required.</div>
-                    </div>
-                </div>
-            
-                <div class="col-6 mt-3">
-                    <label for="guestName">Guest Name<span class="text-danger">*</span></label>
-                    <input id="guestName" class="form-control" formControlName="guestName" type="text">
-                    <div *ngIf="eventform.controls.guestName.invalid && ( eventform.controls.guestName.touched)">
-                        <div *ngIf="eventform.controls.guestName.errors.required" class="text-danger">Guest Name is required.</div>
-                    </div>
-                </div>
-            
-                <div class="col-6 mt-3">
-                    <label for="phonenumber">Guest Phone Number<span class="text-danger">*</span></label>
-                    <input id="phonenumber" class="form-control" type="text" formControlName="phonenumber" minlength="6" maxLength="15" (input)="onPhoneNumberInput($event)">
-                    <div *ngIf="eventform.controls.phonenumber.invalid && eventform.controls.phonenumber.touched">
-                        <div *ngIf="eventform.controls.phonenumber.errors.required" class="text-danger">Phone number is required.</div>
-                        <div *ngIf="eventform.controls.phonenumber.errors.minlength" class="text-danger">Invalid Phone number.</div>
-                    </div>  
-                </div>
-            
-                <div class="col-6 mt-3">
-                    <label for="eventDate">Event Date<span class="text-danger">*</span></label>
-                    <input id="eventDate" class="form-control" type="date" formControlName="eventDate" >
-                </div>
+      </div>
 
-
-
-                <div class="col-6 mt-3">
-                    <label for="eventTypeId">Event Type<span class="text-danger">*</span></label>
-                    <select id="eventTypeId" class="form-select" formControlName="eventTypeId">
-                        <option *ngFor="let item of eventtypedata" [value]="item.eventTypeId">{{item.eventTypeName}}</option>
-                    </select>
-                </div>
-                <div class="col-6 mt-3">
-                    <label for="eventStatusId">Event Status </label>
-                    <select id="eventStatusId" class="form-select" formControlName="eventStatusId" placeholder="Select Status" (change)="updateEventStatus($event.target.value)">
-                        <option *ngFor="let item of statusdata" [value]="item.eventStatusId">{{item.eventStatusName}}</option>
-                    </select>
-                    <!-- <div class="text-danger" *ngIf="eventform.controls.eventStatusId.value=='0' && eventform.controls.eventStatusId.touched">
-                        Event Status is required
-                    </div> -->
-                </div>
-                
-                
-                <div class="col-12 mt-3">
-                    <label for="venueIds">Venue<span class="text-danger">*</span></label>
-                    <ng-select id="venueIds" formControlName="venueIds" [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
-                        bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
-                    </ng-select> 
-                    <div class="text-danger" *ngIf="eventform.controls.venueIds.errors?.required">
-                       Venue is required
-                    </div>
-                </div>
-            
-                <div class="col-12 mt-3">
-                    <label for="eventTimeIds">Event Time<span class="text-danger">*</span></label>
-                    <ng-select id="eventTimeIds" formControlName="eventTimeIds"  [items]="eventTimeData"
-                        [(ngModel)]="multipleSelectedEventTime" bindLabel="eventTimeName" bindValue="eventTimeId"
-                        [multiple]="true" placeholder="Select"></ng-select> 
-                        <div class="text-danger" *ngIf="eventform.controls.eventTimeIds.errors?.required">
-                            Event Time is required
-                        </div>
-                </div>
-             
-                <!-- <div class="col-12 mt-3">
-                    <label for="comment"> Comment</label>
-                    <input class="form-control" formControlName="comment" type="text">
-                
-                </div> -->
-            
-                
-  
-                <div *ngIf="status == 2" class="col-12 mt-3">
-                    <label for="eventFoodtypeId">Event Food Type</label>
-                    <select class="form-select" formControlName="eventFoodtypeId" id="eventFoodtypeId">
-                        <option *ngFor="let item of eventFoodtypedata" [value]="item.eventFoodtypeId">
-                            {{item.eventFoodtypeName}}
-                        </option>
-                    </select>
-                    <div *ngIf="eventform.controls.eventFoodtypeId?.invalid && eventform.controls.eventFoodtypeId?.touched"
-                        class="text-danger">
-                        Event food type is required.
-                    </div>
-                </div>
-            
-             
-            
-                <!-- Bump In input field -->
-                <div *ngIf="status == 2" class="col-6 mt-3">
-                    <label for="bumpIN">Bump In</label>
-                    <input type="datetime-local" formControlName="bumpIN" class="form-control">
-                    <div *ngIf="eventform.get('bumpIN')?.invalid && eventform.get('bumpIN')?.touched" class="text-danger">
-                        Bump In time is required.
-                    </div>
-                </div>
-            
-                <!-- Bump Out input field -->
-                <div *ngIf="status == 2" class="col-6 mt-3">
-                    <label for="bumpOUT">Bump Out</label>
-                    <input type="datetime-local" formControlName="bumpOUT" class="form-control">
-                    <div *ngIf="eventform.get('bumpOUT')?.invalid && eventform.get('bumpOUT')?.touched" class="text-danger">
-                        Bump Out time is required.
-                    </div>
-                </div> 
-                <div *ngIf="status != 1 && status != 2 && status != 3" class="col-12 mt-3">
-                    <label for="comment">Comment</label>
-                    <textarea id="comment" class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
-                  </div>
-
-                <div *ngIf="status == 2 || status == 3 ||status == 1" class="col-12 mt-3">
-                  <label for="comment">Comment</label>
-                  <textarea id="comment" class="form-control" formControlName="comment" cols="30" rows="3"></textarea>
-              </div>
-              </form>
-              <button *ngIf="perm.canEditEvents"  
-        [disabled]="eventStatusId == 2"  
-        (click)="Save()"  
-        type="button"  
-        class="mt-2 mb-2 btn btn-primary"  
-        style="margin-left:16px">
-        Save
-      </button>
-        </div> 
-
-        <div class="modal-body" *ngIf="!perm.canEditEvents" >
-            <app-event-detail [details]="viewdails" [showStatus]="activeTab!='all' && viewdails && viewdails.eventStatusId==2"></app-event-detail>
+      <div class="ui-field">
+        <label for="phonenumber">Guest phone number <span class="dr-req">*</span></label>
+        <input id="phonenumber" class="ui-input" type="text" formControlName="phonenumber" minlength="6" maxLength="15" inputmode="tel" (input)="onPhoneNumberInput($event)">
+        <div *ngIf="eventform.controls.phonenumber.invalid && eventform.controls.phonenumber.touched">
+          <span *ngIf="eventform.controls.phonenumber.errors.required" class="ui-err">Phone number is required.</span>
+          <span *ngIf="eventform.controls.phonenumber.errors.minlength" class="ui-err">Invalid phone number.</span>
         </div>
-    </ng-template>
-</div>
+      </div>
 
-</div>
+      <div class="ui-field">
+        <label for="eventDate">Event date <span class="dr-req">*</span></label>
+        <input id="eventDate" class="ui-input" type="date" formControlName="eventDate">
+      </div>
+
+      <div class="ui-field">
+        <label for="eventTypeId">Event type <span class="dr-req">*</span></label>
+        <select id="eventTypeId" class="ui-select" formControlName="eventTypeId">
+          <option *ngFor="let item of eventtypedata" [value]="item.eventTypeId">{{item.eventTypeName}}</option>
+        </select>
+      </div>
+
+      <div class="ui-field">
+        <label for="eventStatusId">Event status</label>
+        <select id="eventStatusId" class="ui-select" formControlName="eventStatusId" (change)="updateEventStatus($event.target.value)">
+          <option *ngFor="let item of statusdata" [value]="item.eventStatusId">{{item.eventStatusName}}</option>
+        </select>
+      </div>
+
+      <div class="ui-field dr-wide">
+        <label for="venueIds">Venue <span class="dr-req">*</span></label>
+        <ng-select id="venueIds" formControlName="venueIds" [items]="venuedata" [(ngModel)]="multipleSelectedVenue"
+          bindLabel="venueName" bindValue="venueId" [multiple]="true" placeholder="Select">
+        </ng-select>
+        <span class="ui-err" *ngIf="eventform.controls.venueIds.errors?.required">Venue is required</span>
+      </div>
+
+      <div class="ui-field dr-wide">
+        <label for="eventTimeIds">Event time <span class="dr-req">*</span></label>
+        <ng-select id="eventTimeIds" formControlName="eventTimeIds" [items]="eventTimeData"
+          [(ngModel)]="multipleSelectedEventTime" bindLabel="eventTimeName" bindValue="eventTimeId"
+          [multiple]="true" placeholder="Select"></ng-select>
+        <span class="ui-err" *ngIf="eventform.controls.eventTimeIds.errors?.required">Event time is required</span>
+      </div>
+
+      <div *ngIf="status == 2" class="ui-field dr-wide">
+        <label for="eventFoodtypeId">Event food type</label>
+        <select class="ui-select" formControlName="eventFoodtypeId" id="eventFoodtypeId">
+          <option *ngFor="let item of eventFoodtypedata" [value]="item.eventFoodtypeId">{{item.eventFoodtypeName}}</option>
+        </select>
+        <span *ngIf="eventform.controls.eventFoodtypeId?.invalid && eventform.controls.eventFoodtypeId?.touched" class="ui-err">Event food type is required.</span>
+      </div>
+
+      <div *ngIf="status == 2" class="ui-field">
+        <label for="bumpIN">Bump in</label>
+        <input id="bumpIN" type="datetime-local" formControlName="bumpIN" class="ui-input">
+        <span *ngIf="eventform.get('bumpIN')?.invalid && eventform.get('bumpIN')?.touched" class="ui-err">Bump In time is required.</span>
+      </div>
+
+      <div *ngIf="status == 2" class="ui-field">
+        <label for="bumpOUT">Bump out</label>
+        <input id="bumpOUT" type="datetime-local" formControlName="bumpOUT" class="ui-input">
+        <span *ngIf="eventform.get('bumpOUT')?.invalid && eventform.get('bumpOUT')?.touched" class="ui-err">Bump Out time is required.</span>
+      </div>
+
+      <div class="ui-field dr-wide">
+        <label for="comment">Comment</label>
+        <textarea id="comment" class="ui-textarea" formControlName="comment" rows="3"></textarea>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer" *ngIf="perm.canEditEvents">
+    <button type="button" class="ui-btn" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="ui-btn ui-btn-primary" [disabled]="eventStatusId == 2" (click)="Save()">Save</button>
+  </div>
+
+  <div class="modal-body" *ngIf="!perm.canEditEvents">
+    <app-event-detail [details]="viewdails" [showStatus]="activeTab!='all' && viewdails && viewdails.eventStatusId==2"></app-event-detail>
+  </div>
+</ng-template>

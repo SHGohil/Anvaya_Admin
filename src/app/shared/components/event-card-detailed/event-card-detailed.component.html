@@ -12,6 +12,9 @@
       @if (item.eventTimeIdslist?.length) {
         <span class="ui-chip">{{ item.eventTimeIdslist[0].eventTimeName }}@if (item.eventTimeIdslist.length > 1) { +{{ item.eventTimeIdslist.length - 1 }}}</span>
       }
+      @if (daysOpen !== null) {
+        <span class="ui-chip">{{ daysOpen }} days</span>
+      }
       <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
     </div>
   </div>

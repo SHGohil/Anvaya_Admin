@@ -1,119 +1,56 @@
-@import "../../../../../../assets/scss/tokens";
+:host { display: block; }
 
-// Real color bug found here too: this hover border was a leftover warm
-// orange (#ea9042) from the original theme, unrelated to the current
-// primary through two full palette swaps since.
-.card_hover:hover{
- border: 1px solid $primary !important;
-    box-shadow: $box-shadow-sm;
-    transform: translateY(-2px); /* subtle lift on hover */
-}
-
-.dr-filter-card {
-  margin-bottom: 1rem;
+.dr-filters {
+  display: grid;
+  grid-template-columns: minmax(200px, 1.4fr) repeat(2, minmax(150px, 1fr)) auto;
+  gap: 1rem;
+  align-items: end;
 }
 
 .dr-filter-actions {
   display: flex;
-  align-items: flex-end;
-  padding-bottom: 0.1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-// Status tab bar - previously a bare <nav> with inline
-// border/background/per-link [style.color] toggling; same idea, now
-// token-driven so it stays correct across future re-themes instead of
-// needing another manual hex sweep.
-.dr-status-tabs {
-  border: 1px solid $border-color;
-  background-color: $light;
-  border-radius: $border-radius;
-  padding: 0.25rem;
-  margin-bottom: 1rem;
-
-  .nav-link {
-    color: $primary;
-    border-radius: $border-radius-sm;
-    font-weight: 500;
-
-    &.active {
-      background-color: $primary;
-      color: #fff;
-    }
+@media (max-width: 991px) {
+  .dr-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+  .dr-filters > :first-child,
+  .dr-filter-actions {
+    grid-column: 1 / -1;
   }
 }
 
-// The two chart cards used inline style="height: 82%"/"height: 81%" -
-// fragile percentage heights with no clear reference height. A plain
-// height: 100% on a Bootstrap row's column (rows stretch children to
-// equal height via flex by default) achieves the same "both cards match
-// height" result without a magic-number percentage.
-.dr-chart-card {
-  height: 100%;
+@media (max-width: 520px) {
+  .dr-filters {
+    grid-template-columns: 1fr;
+  }
 }
 
-// -- Report item cards ------------------------------------------------
-// Was heavy hand-rolled inline styling (percentage padding/margin, a
-// hardcoded #E1E6EF border, 3 raw <img> status icons instead of the
-// shared status badge every other screen uses). Card's own border now
-// comes from the same $card-border-color every other .card in the app
-// uses - no need to redeclare it here.
-.dr-item-card {
-  cursor: pointer;
+.dr-year {
+  width: auto;
+  min-width: 96px;
+  height: 36px;
 }
 
-.dr-item-header {
-  padding: 0.75rem 1rem 0.5rem;
-  border-bottom: 1px solid $border-color;
+.dr-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
-.dr-item-header-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+.dr-wide {
+  grid-column: 1 / -1;
 }
 
-.dr-days-badge {
-  background-color: $primary;
-  color: #fff;
+.dr-req {
+  color: var(--lost);
 }
 
-.dr-time-badge {
-  background-color: $info;
-  color: #fff;
-}
-
-.dr-time-badge-alt {
-  background-color: rgba($info, 0.15);
-  color: $info;
-}
-
-.dr-venue-chip {
-  background-color: #eef2ff;
-  color: $primary;
-  font-weight: 600;
-}
-
-.dr-item-body {
-  padding: 0.75rem 1rem;
-}
-
-.dr-item-col {
-  border-right: 1px solid $border-color;
-}
-
-.dr-item-label {
-  color: $muted-color;
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.15rem;
-}
-
-.dr-item-value {
-  font-size: 0.85rem;
-  color: $body-color;
-  margin-bottom: 0;
+@media (max-width: 600px) {
+  .dr-form {
+    grid-template-columns: 1fr;
+  }
 }

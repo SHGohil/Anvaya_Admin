@@ -74,8 +74,8 @@ export class DailyreportComponent  implements OnInit {
       this.getreport(this.statusid)
     }
   }
- primary_color = "#F3C37C";
- secondary_color = "#B9E298";
+ primary_color = "#d97706";
+ secondary_color = "#059669";
  skillStatus: any ;
 year: number;
 data: any;
@@ -180,7 +180,7 @@ const currentYear = new Date().getFullYear()
             },
             track: {
               show: true,
-              background: "#f2f2f2",
+              background: "rgba(127,127,127,0.15)",
               strokeWidth: "10%",
               opacity: 1,
               margin: 3,
@@ -203,7 +203,7 @@ const currentYear = new Date().getFullYear()
             radius: 3,
           },
         },
-        colors: ["#57AEEC", "#F3C37C", "#B9E298","#807979"],
+        colors: ["#6366f1", "#d97706", "#059669","#e11d48"],
         responsive: [
           {
             breakpoint: 767,
@@ -231,7 +231,7 @@ const currentYear = new Date().getFullYear()
             is3D: true,
             width: '100%',
             height: 400,
-            colors: ["#57AEEC", "#F3C37C", "#B9E298", "#807979"],
+            colors: ["#6366f1", "#d97706", "#059669", "#e11d48"],
             backgroundColor: 'transparent'
           },
         };
@@ -246,7 +246,7 @@ const currentYear = new Date().getFullYear()
             is3D: true,
             width: '100%',
             height: 400,
-            colors: ["#CCCCCC"],
+            colors: ["rgba(127,127,127,0.35)"],
             backgroundColor: 'transparent'
           },
         };
@@ -426,13 +426,13 @@ const currentYear = new Date().getFullYear()
             horizontal: true,
             barHeight: "15%",
             colors: {
-              backgroundBarColors: ["#807979"],
+              backgroundBarColors: ["#e11d48"],
               backgroundBarOpacity: 0.2,
               backgroundBarRadius: 10,
             },
           },
         },
-        colors: ["#807979"],
+        colors: ["#e11d48"],
         stroke: {
           width: 0,
         },
@@ -443,10 +443,10 @@ const currentYear = new Date().getFullYear()
           },
         ],
         fill: {
-          colors: ["#807979"],
+          colors: ["#e11d48"],
           type: "gradient",
           gradient: {
-            gradientToColors: ["#807979"],
+            gradientToColors: ["#e11d48"],
           },
         },
         title: {
@@ -506,13 +506,13 @@ const currentYear = new Date().getFullYear()
             horizontal: true,
             barHeight: "15%",
             colors: {
-              backgroundBarColors: ["#57AEEC"],
+              backgroundBarColors: ["#6366f1"],
               backgroundBarOpacity: 0.2,
               backgroundBarRadius: 10,
             },
           },
         },
-        colors: ["#57AEEC"],
+        colors: ["#6366f1"],
         stroke: {
           width: 0,
         },
@@ -523,10 +523,10 @@ const currentYear = new Date().getFullYear()
           },
         ],
         fill: {
-          colors: ["#57AEEC"],
+          colors: ["#6366f1"],
           type: "gradient",
           gradient: {
-            gradientToColors: ["#57AEEC"],
+            gradientToColors: ["#6366f1"],
           },
         },
         title: {

@@ -15,6 +15,8 @@ import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from 
 })
 export class EventCardDetailedComponent {
   @Input() item: any;
+  /** Days since the query was logged; shown as a chip when set (open and tentative queries). */
+  @Input() daysOpen: number | null = null;
   @Output() cardClick = new EventEmitter<void>();
 
   // bumpIN/bumpOUT are null until the event is actually bumped in/out, even
