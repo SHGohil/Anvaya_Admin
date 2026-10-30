@@ -1,48 +1,50 @@
-# Handoff: where the work stands (2026-10-30)
+# Handoff: where the work stands (2026-10-31)
 
 Read `CLAUDE.md` first.
 
-## Renamed from Anvaya to Venexa (2026-10-30)
-
-The visible name is now **Venexa** (sidebar, login page, browser tab, theme files). The API it talks to was renamed the same
-day (see `Anvaya_API/HANDOFF.md`). Unchanged on purpose: the live API hostname in `environment.prod.ts`, the GitHub repo
-and folder names, and `package.json`. The browser-tab icon (`assets/images/sLogo.png`, an orange star with no text) is the old artwork; swap it when the new logo exists.
-
 ## State
 
-- **Everything is on `main` and pushed** (`SHGohil/Anvaya_Admin`, last commit `5be913a`). The old
-  `upgrade/angular-22` branch was merged (fast-forward) and deleted. It covers the Angular 20 -> 22 upgrade, the
-  role-based UI (permission-driven menu, guards, Roles screen), session renewal with refresh tokens, paged Confirmed
-  Events, row-version-aware edit forms and the bug fixes found while testing.
+- **Everything is on `main` and pushed** (`SHGohil/Anvaya_Admin`). The app was renamed to **Venexa** and given a
+  completely new UI: new theme (`src/assets/ui/theme.css`, light and dark), responsive shell, every screen rewritten,
+  new login page, Bootstrap and ng-bootstrap removed, all old theme images/fonts/video deleted. Earlier work on `main`:
+  the Angular 20 -> 22 upgrade, the permission-driven menu, guards and Roles screen, session renewal with refresh
+  tokens, paged Confirmed Events and row-version-aware edit forms.
 - `npx ng build --configuration production` passes. There are no unit tests worth running (see `CLAUDE.md`).
-- Checked in a browser against the real local API: login, token renewal after a 401, sign-out revoking the
-  refresh token, Confirmed Events "Load more", and the role-based menu. **Not clicked through:** the role-change
-  confirmation on Users, a real edit hitting the 409 "changed by someone else" message, the Excel export after
-  the latest changes.
+- Checked in a browser on 2026-10-31 against the local API: all 12 routes as an Admin (no console errors, no failed
+  API calls, no sideways overflow at 390 px), the permission-limited Sales Manager (menu filtered, `/settings/users`
+  and `/settings/roles` redirect to the dashboard, lists limited to their own events), pop-ups, menus and dark mode.
+  **Not checked:** a real Save from the edit forms or a real 409 "changed by someone else" (the API tests cover the
+  server side), the Excel export (it triggers a download), a real phone, sign-in with a real password.
 - **Not deployed anywhere yet.** It needs the current API `main` (`Anvaya_API`): the app calls `/api/me`,
-  `Login/refresh`, `Login/logout`, and the paged `Events/{status}/status`. Deploy the API (and its migrations) first.
+  `Login/refresh`, `Login/logout`, the paged `Events/{status}/status`, and the edit forms need the API's `VenueIds` fix
+  (without it the venue box opens empty). Deploy the API (and its migrations) first.
+
+## Brand
+
+The visible name is Venexa. The logo is a **placeholder** mark drawn for this project: replace
+`src/assets/brand/venexa-mark.svg` and `favicon.svg` with the real logo (the sidebar, login page and browser tab read
+them from there). Unchanged on purpose: the live API hostname in `environment.prod.ts`, the GitHub repo and folder
+names (`Anvaya_Admin`, `Anvaya_API`; renaming a repo changes the remote, so ask the owner first) and `package.json`'s
+name. `src/environments/environment.prod.ts` points at the live server, so **never check a production build in a browser
+with test tokens**; use `ng serve`, whose environment points at the local API.
 
 ## Still to do
 
 1. Deploy after the API (see `Anvaya_API/HANDOFF.md` for the order and the database checks).
-2. `xlsx` 0.18.5 has two advisories; the fixed build is only on SheetJS's own CDN
+2. `xlsx` 0.18.5 has two advisories (`npm audit`); the fixed build is only on SheetJS's own CDN
    (`https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz`). Replacing it is a non-registry dependency, so confirm first.
 3. Move to the non-deprecated builder: `ng update @angular/cli --name use-application-builder`.
-4. Optional: components to OnPush, `strict` back on in `tsconfig.base.json`, the ~500 ESLint findings, Sass
-   `@import` -> `@use`, unused theme assets (~30 MB), `package.json` name is still `cuba`.
+4. Check that the **live** API really enforces sign-in. During testing it appeared to answer a request carrying a made-up
+   token (not confirmed). The API in this repo's sibling does enforce it.
+5. Optional: components to OnPush, `strict` back on in `tsconfig.base.json`, the ~400 ESLint findings (`npm run lint`,
+   old style debt), Sass `@import` -> `@use`, `package.json` name is still `cuba`, dead carousel options in
+   `calenderdates.component.ts`.
 
 ## Gotchas
 
-- `npm start` and `npm run build` go through `scripts/ng.js`, which raises the Node heap to 8 GB. If memory is tight,
-  `npx ng build --output-path <scratch>/dist` plus a tiny static server is much lighter than `ng serve`; there is no
+- `npm start` and `npm run build` go through `scripts/ng.js`, which raises the Node heap to 8 GB. There is no
   `development` build configuration.
-- Port 4200 may be taken by your own dev server; use `node scripts/ng.js serve --port 4300`.
+- Port 4200 may be taken by your own dev server (or a leftover of an earlier one: `netstat -ano | findstr :4200`); use
+  `node scripts/ng.js serve --port 4300` and add that origin to the API's `Cors:AllowedOrigins`.
 - Do not write `package.json` with PowerShell 5.1 `Set-Content -Encoding utf8`: the BOM breaks webpack.
-
-## New brand artwork and login (2026-10-30)
-
-All the old theme images, fonts, videos and the icon sprite (about 24 MB, none of it displayed any more) were deleted from
-`src/assets`. The only artwork now is `src/assets/brand/` (`venexa-mark.svg`, `favicon.svg`): a placeholder Venexa mark
-drawn for this project. Replace those two files with the final logo when it exists; the sidebar, login page and browser tab
-all read them from there. The login page was redesigned (centered card on a soft grid background, icons in the fields,
-show/hide eye, light and dark).
+- Pop-ups use `ModalService`, not `NgbModal`; row menus use the CDK menu. See "Styling" in `CLAUDE.md`.

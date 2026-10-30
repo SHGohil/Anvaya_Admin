@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "anvaya-admin",
+      "name": "venexa-admin",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["start"],
       "port": 4300

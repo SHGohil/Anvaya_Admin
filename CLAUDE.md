@@ -112,5 +112,5 @@ CDK menu (`cdkMenuTriggerFor`, `.ui-menu`). ng-select is still used for multi-se
   component to `ChangeDetectionStrategy.Eager`. Moving components to OnPush is a separate piece of work.
 - `@ngx-translate` 18 has no `TranslateModule`: the pipe is imported directly in `SharedModule`, and
   `provideTranslateService` / `provideTranslateHttpLoader` are registered in `AppModule`.
-- ESLint reports ~486 findings, almost all pre-existing style debt (`no-var`,
+- ESLint reports ~400 findings, almost all pre-existing style debt (`no-var`,
   `@angular-eslint/prefer-inject`) unrelated to the re-skin.
