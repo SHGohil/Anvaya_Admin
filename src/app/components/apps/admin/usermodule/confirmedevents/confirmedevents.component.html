@@ -1,5 +1,5 @@
 <div class="container-fluid pt-3">
-  <app-page-header title="Confirmed Events" subtitle="{{ reportLoading ? '' : (reportdata?.length || 0) + ' confirmed event' + (reportdata?.length === 1 ? '' : 's') }}"></app-page-header>
+  <app-page-header title="Confirmed Events" subtitle="{{ reportLoading ? '' : total + ' confirmed event' + (total === 1 ? '' : 's') }}"></app-page-header>
 
   @if (reportLoading) {
     <div class="row">
@@ -18,12 +18,19 @@
 
   @if (!reportLoading && reportdata?.length) {
     <div class="row">
-      @for (item of reportdata; track item) {
+      @for (item of reportdata; track item.eventsId) {
         <div class="col-lg-12">
           <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
         </div>
       }
     </div>
+    @if (hasMore) {
+      <div class="d-flex justify-content-center my-3">
+        <button type="button" class="btn btn-outline-primary" [disabled]="loadingMore" (click)="loadPage()">
+          {{ loadingMore ? 'Loading...' : 'Load more (' + reportdata.length + ' of ' + total + ')' }}
+        </button>
+      </div>
+    }
   }
 </div>
 

@@ -42,7 +42,7 @@ Read this first, then `CLAUDE.md`. Delete this file once every item below is don
    browser against the real local database (custom "Front Desk" role gets exactly its menu; forbidden URLs
    bounce to the dashboard). Also fixed the same day: Edit User no longer demands a password, the Excel export
    fills EventType and leaves BumpIn/BumpOut blank, Special Dates replaces its list on reload, the calendar
-   grid refreshes after a save. Still open: Special Dates loads every year's dates but lets you toggle only the
+   grid refreshes after a save. Also done since: the session renews itself with the API refresh token (interceptor), Confirmed Events loads 50 at a time with a Load more button (API paging), the Special Dates header counts only the year shown, and changing a user's role asks for confirmation. Not yet exercised in a browser: token renewal, Load more, the role confirmation.
    current year (the API now keeps each date's real year); the Users screen has no role-change confirmation.
 
 ## What changed in the upgrade, in case something looks odd

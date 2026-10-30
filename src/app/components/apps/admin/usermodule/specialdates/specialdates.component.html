@@ -1,5 +1,5 @@
 <div class="container-fluid pt-3">
-  <app-page-header title="Special Dates" subtitle="Year {{currentYear}} &middot; {{selectedDates.length}} date{{selectedDates.length === 1 ? '' : 's'}} selected">
+  <app-page-header title="Special Dates" subtitle="Year {{currentYear}} &middot; {{selectedThisYear}} date{{selectedThisYear === 1 ? '' : 's'}} selected">
     @if (perm.has('specialdates.manage')) {
       <button class="btn btn-md btn-primary" (click)="post()">Save</button>
     }

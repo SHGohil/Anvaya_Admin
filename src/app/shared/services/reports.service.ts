@@ -2,6 +2,7 @@ import { readAuthToken } from './auth-token';
 import { skipGlobalErrorDialog } from '../interceptors/http-error.context';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -23,6 +24,19 @@ export class ReportsService {
 
     return this.http.get(url, { headers, responseType: 'json' });
  }
+  /**
+   * One page of the events with a status (0 = every status), newest first. The API keeps the
+   * body a plain array and puts the total in the X-Total-Count header, so the total is returned
+   * alongside the rows.
+   */
+  getEventsPage(statusId: number, page: number, pageSize = 50) {
+    const url = environment.backendAPIURL + `/Events/${statusId}/status?page=${page}&pageSize=${pageSize}`;
+
+    return this.http.get<any[]>(url, { observe: 'response' }).pipe(
+      map(res => ({ items: res.body ?? [], total: Number(res.headers.get('X-Total-Count') ?? res.body?.length ?? 0) }))
+    );
+  }
+
   getEventdetails(id) {
     
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);

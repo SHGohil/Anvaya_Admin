@@ -46,6 +46,11 @@ export class SpecialdatesComponent implements OnInit {
     this.getcalederdates(this.currentYear);
     this.getselecteddate();
   }
+  /** Dates selected in the year being shown (the list also holds other years' dates, which are kept as they are). */
+  get selectedThisYear(): number {
+    return this.selectedDates.filter(d => typeof d === 'string' && d.startsWith(String(this.currentYear))).length;
+  }
+
   selectDate(date: string, i: number) {
     // Remove the time part from the date string
     const dateWithoutTime = date.split('T')[0];

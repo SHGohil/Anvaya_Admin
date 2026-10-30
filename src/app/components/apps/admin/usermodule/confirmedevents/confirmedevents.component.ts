@@ -9,8 +9,12 @@ import { ReportsService } from 'src/app/shared/services/reports.service';
     standalone: false
 })
 export class ConfirmedeventsComponent implements OnInit {
-  reportdata: any;
+  reportdata: any[] = [];
   reportLoading = true;
+  total = 0;
+  page = 1;
+  loadingMore = false;
+  readonly pageSize = 50;
   constructor(public service : ReportsService,private cdr: ChangeDetectorRef ,private modalService: NgbModal,)
   {
  
@@ -18,7 +22,7 @@ export class ConfirmedeventsComponent implements OnInit {
  
   ngOnInit()
   {
-   this.getreport(2);
+   this.loadPage();
   }
  
 
@@ -36,18 +40,25 @@ geteventdetails(id: number) {
     throw new Error('Method not implemented.');
   }
 
-  getreport(id){
-   this.service.getDailyquery(id).subscribe(apidata=>{
+  /** Loads the next page of confirmed events and appends it to what is already shown. */
+  loadPage(){
+    this.loadingMore = true;
+    this.service.getEventsPage(2, this.page, this.pageSize).subscribe({
+      next: ({ items, total }) => {
+        this.reportdata = [...this.reportdata, ...items];
+        this.total = total;
+        this.page++;
+        this.reportLoading = false;
+        this.loadingMore = false;
+      },
+      error: () => {
+        this.reportLoading = false;
+        this.loadingMore = false;
+      }
+    });
+  }
 
-     this.reportdata = apidata;
-     this.reportLoading = false;
- },
-
-error => {
-
-  console.error('Error during login:', error);
-  this.reportLoading = false;
-
-})
-}
+  get hasMore(): boolean {
+    return this.reportdata.length < this.total;
+  }
 }

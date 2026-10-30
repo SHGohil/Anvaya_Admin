@@ -72,6 +72,10 @@ guard.** Ask `PermissionService` (`shared/services/permission.service.ts`) inste
   request. The built-in Admin role is shown read-only.
 - Adding a permission is an API change first (`Authorization/Permissions.cs`); the UI then just names it.
 
+### Session renewal and paging
+
+The API issues a 30-minute access token plus a rotating refresh token, both kept in the `user` object in localStorage. `AuthInterceptor` answers a 401 by calling `Login/refresh` once (concurrent calls share it), saves the new pair and retries; with no refresh token, or if renewal fails, it signs out. Sign-out calls `Login/logout` to revoke the refresh token. Long event lists should use `ReportsService.getEventsPage(status, page)`, which returns `{items, total}` from the API's `page`/`pageSize` and `X-Total-Count`.
+
 ### Environments
 
 `src/environments/environment.ts` (dev) and `environment.prod.ts` both hold only

@@ -41,6 +41,8 @@ userdata: any[];
   public show: boolean = false
   userForm: FormGroup;
   flag: number;
+  /** The role the user being edited had when the dialog opened, to spot a role change. */
+  private originalRoleId: number | null = null;
   loginid: any;
   tableItem$: any;
   total$: any;
@@ -129,6 +131,7 @@ this.flag=2;
   this.userForm.controls.email.setValue(item.email)
   this.userForm.controls.password.setValue('')
   this.userForm.controls.roleId.setValue(item.roleId)
+  this.originalRoleId = item.roleId;
 }
 cancel(){
   this.modalService.dismissAll();
@@ -167,6 +170,26 @@ postUser(val){
       })
   }
   else{
+  // Changing someone's role changes what they can do on their next request, so ask first.
+  if (this.originalRoleId !== null && parseInt(val.roleId) !== Number(this.originalRoleId)) {
+    Swal.fire({
+      title: "Change this user's role?",
+      text: 'Their access changes immediately, on their next request.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, change it'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.saveEditedUser(val);
+      }
+    });
+    return;
+  }
+  this.saveEditedUser(val);
+}
+}
+
+private saveEditedUser(val){
 let obj={
       userId:val.userId,
       userName:val.userName,
@@ -192,7 +215,6 @@ error => {
         // The auth interceptor already shows the server's own explanation (for example "A user with that
         // name or email already exists."), so no second, generic dialog here.
 })
-  }
 }
 
 showPassword(){
