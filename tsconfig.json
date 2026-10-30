@@ -20,8 +20,10 @@
 "compilerOptions": {
   "allowJs": true,
   "target": "ES2022",
+  "esModuleInterop": true,
   "importHelpers": true,
   "emitDecoratorMetadata": true,
+  "moduleResolution": "bundler",
   "experimentalDecorators": true,
   "useDefineForClassFields": false,
 

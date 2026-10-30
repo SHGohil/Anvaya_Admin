@@ -33,7 +33,7 @@ with test tokens**; use `ng serve`, whose environment points at the local API.
 1. Deploy after the API (see `Anvaya_API/HANDOFF.md` for the order and the database checks).
 2. `xlsx` 0.18.5 has two advisories (`npm audit`); the fixed build is only on SheetJS's own CDN
    (`https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz`). Replacing it is a non-registry dependency, so confirm first.
-3. Move to the non-deprecated builder: `ng update @angular/cli --name use-application-builder`.
+3. (Done 2026-10-31) The app builds with the new `@angular/build:application` builder; output is still `dist/cuba` (`outputPath.browser` is "").
 4. Check that the **live** API really enforces sign-in. During testing it appeared to answer a request carrying a made-up
    token (not confirmed). The API in this repo's sibling does enforce it.
 5. Optional: components to OnPush, `strict` back on in `tsconfig.base.json`, the ~400 ESLint findings (`npm run lint`,
@@ -43,7 +43,7 @@ with test tokens**; use `ng serve`, whose environment points at the local API.
 ## Gotchas
 
 - `npm start` and `npm run build` go through `scripts/ng.js`, which raises the Node heap to 8 GB. There is no
-  `development` build configuration.
+  `development` build configuration. The dev server is now Vite-based; it prints `Local: http://localhost:4200/`.
 - Port 4200 may be taken by your own dev server (or a leftover of an earlier one: `netstat -ano | findstr :4200`); use
   `node scripts/ng.js serve --port 4300` and add that origin to the API's `Cors:AllowedOrigins`.
 - Do not write `package.json` with PowerShell 5.1 `Set-Content -Encoding utf8`: the BOM breaks webpack.

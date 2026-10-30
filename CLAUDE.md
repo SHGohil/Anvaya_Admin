@@ -105,8 +105,8 @@ CDK menu (`cdkMenuTriggerFor`, `.ui-menu`). ng-select is still used for multi-se
 - Dependency audit: 1 advisory after the Angular 22 upgrade — `xlsx` 0.18.5 (prototype pollution /
   ReDoS). The npm registry copy is abandoned; SheetJS publishes fixed builds only from their own CDN.
   It is the only finding in production dependencies.
-- Still on the deprecated webpack builder (`@angular-devkit/build-angular:browser`). Moving to
-  `@angular/build:application` is the next upgrade; run `ng update @angular/cli --name use-application-builder`.
+- The app uses the `@angular/build:application` builder (esbuild). `outputPath.browser` is `""` so the production build
+  still lands in `dist/cuba` rather than `dist/cuba/browser`.
 - TypeScript 6 turns `strict` on by default; `tsconfig.base.json` sets `"strict": false` to keep the
   app's existing behaviour. Angular 22 made OnPush the default, so the update pinned every existing
   component to `ChangeDetectionStrategy.Eager`. Moving components to OnPush is a separate piece of work.
