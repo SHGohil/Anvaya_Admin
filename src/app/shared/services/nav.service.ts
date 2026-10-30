@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Subject, BehaviorSubject, fromEvent } from "rxjs";
 import { takeUntil, debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { PermissionService } from "./permission.service";
 
 // Menu
 export interface Menu {
@@ -16,6 +17,8 @@ export interface Menu {
   active?: boolean;
   bookmark?: boolean;
   children?: Menu[];
+  /** Permission the signed-in user needs to see this item (see PermissionService). No value = everyone. */
+  permission?: string;
 }
 
 @Injectable({
@@ -54,7 +57,7 @@ export class NavService implements OnDestroy {
   public fullScreen: boolean = false;
   roleid: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private permissions: PermissionService) {
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
       .pipe(debounceTime(1000), takeUntil(this.unsubscriber))
@@ -69,6 +72,8 @@ export class NavService implements OnDestroy {
           this.megaMenuColapse = true;
         }
       });
+    this.items = new BehaviorSubject<Menu[]>(this.buildMenu());
+    this.followPermissions();
     if (window.innerWidth < 991) {
       // Detect Route change sidebar close
       this.router.events.subscribe((event) => {
@@ -79,6 +84,13 @@ export class NavService implements OnDestroy {
     }
 
   
+  }
+
+  /** Called from the constructor: keeps the menu in step with the user's permissions. */
+  private followPermissions(): void {
+    this.permissions.changes$
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe(() => this.items.next(this.buildMenu()));
   }
 
   ngOnDestroy() {
@@ -92,94 +104,45 @@ export class NavService implements OnDestroy {
 
 
 
-  // Section headers grouping the flat list below - a real, working feature
-  // of this menu template (sidebar-main-title / headTitle1) that had never
-  // actually been used by the live menu arrays until now: Daily Query/
-  // Today's Events/Daily Report/Confirmed Events/Calendar were previously
-  // embedded inside the dashboard's own tab-switcher, not sidebar links,
-  // so there was only ever one flat group. Now that they're real routes,
-  // "Bookings" is a genuine second section, not an invented one.
+  // The whole menu, once. Each item names the permission it needs, and the menu a person sees is
+  // this list filtered by what their role allows (from GET /api/me). There are no per-role copies,
+  // so a role built on the Roles screen gets the right menu with no code change.
   //
-  // All three role arrays get the same 5 new Bookings links: the
-  // dashboard's old tab-switcher had no role check at all, so every
-  // logged-in user could already reach all five screens that way - this
-  // preserves that same access level now that they're routed instead of
-  // embedded, rather than accidentally narrowing it.
-  private adminMenuItems: Menu[] = [
-    { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true  },
+  // Group headings carry no permission: they are shown only while at least one item under them is.
+  private readonly allMenuItems: Menu[] = [
+    { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true, permission: "dashboard.view" },
     { headTitle1: "Bookings" },
-    { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link" },
-    { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link" },
-    { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link" },
-    { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link" },
-    { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link" },
+    { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link", permission: "events.create" },
+    { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link", permission: "events.view" },
+    { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link", permission: "reports.view" },
+    { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link", permission: "events.view" },
+    { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link", permission: "calendar.view" },
     { headTitle1: "Admin" },
-    { path: "/settings/users", title: "Users", icon: "user", type: "link" },
-    { path: "/settings/approvals", title: "Change Requests", icon: "file", type: "link" },
-    { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
-    { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
- ];
-
- private salesManagerMenuItems: Menu[] = [
-  { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true },
-  { headTitle1: "Bookings" },
-  { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link" },
-  { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link" },
-  { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link" },
-  { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link" },
-  { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link" },
-  { headTitle1: "Admin" },
-  { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
-  { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
- ];
-
- private salesExecutiveMenuItems: Menu[] = [
-  { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active: true },
-  { headTitle1: "Bookings" },
-  { path: "/admin/daily-query", title: "Daily Query", icon: "edit", type: "link" },
-  { path: "/admin/todays-events", title: "Today's Events", icon: "clock", type: "link" },
-  { path: "/admin/daily-report", title: "Daily Report", icon: "bar-chart", type: "link" },
-  { path: "/admin/confirmed-events", title: "Confirmed Events", icon: "check-circle", type: "link" },
-  { path: "/admin/calendar", title: "Calendar", icon: "calender", type: "link" },
-  { headTitle1: "Admin" },
-  { path: "/admin/notification", title: "Notification", icon: "bell", type: "link" },
- ];
-  private getMenuItemsByRole(): Menu[] {
-    let user;
-    if (typeof window !== 'undefined' && window.localStorage) {
-      user = localStorage.getItem('user');
-    }
-    var userdata = JSON.parse(user);
-    if(userdata!=undefined){
-
-      this.roleid = userdata.userdata.roleId;
-    }
-     switch (this.roleid) {
-       case 1: // Admin
-         return this.adminMenuItems;
-       case 2: // Sales Manager
-         return this.salesManagerMenuItems;
-       case 3: // Sales Executive
-         return this.salesExecutiveMenuItems;
-       default:
-         return []; // Return an empty array or a default menu if roleId is not recognized
-     }
-  }
-
-  MENUITEMS: Menu[] = [
-    {
-      headTitle1: "Menu",
-    },
-    { path: "/admin/dashboard", title: "Dashboard", icon: "home", type: "link", active:true},
-   
-    { path: "/admin/notification", title: "Notification", icon: "bell", type: "link"},
-    { path: "/settings/users", title: "Users", icon: "user", type: "link" },
-    { path: "/settings/approvals", title: "Change Requests", icon: "file", type: "link" },
-    { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link" },
+    { path: "/settings/users", title: "Users", icon: "user", type: "link", permission: "users.view" },
+    { path: "/settings/roles", title: "Roles", icon: "shield", type: "link", permission: "roles.manage" },
+    { path: "/settings/approvals", title: "Change Requests", icon: "file", type: "link", permission: "changerequests.view" },
+    { path: "/settings/specials", title: "Special Dates", icon: "calender", type: "link", permission: "specialdates.view" },
+    { path: "/admin/notification", title: "Notification", icon: "bell", type: "link", permission: "notifications.view" },
   ];
 
-  // Array
-  // items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
- items = new BehaviorSubject<Menu[]>(this.getMenuItemsByRole());
+  /** The items the signed-in user may see, with headings dropped when nothing under them is visible. */
+  private buildMenu(): Menu[] {
+    const visible: Menu[] = [];
+    for (const item of this.allMenuItems) {
+      if (item.headTitle1 || !item.permission || this.permissions.has(item.permission)) {
+        visible.push(item);
+      }
+    }
+
+    return visible.filter((item, index) => {
+      if (!item.headTitle1) {
+        return true;
+      }
+      const next = visible[index + 1];
+      return next !== undefined && !next.headTitle1;
+    });
+  }
+
+  items: BehaviorSubject<Menu[]>;
 
 }

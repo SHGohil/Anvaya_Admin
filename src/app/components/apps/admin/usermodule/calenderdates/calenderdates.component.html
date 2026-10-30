@@ -296,7 +296,7 @@
       <h4 class="modal-title">Event Details <span class="text-danger">*</span></h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    @if (loginroleid!=3) {
+    @if (perm.canEditEvents) {
       <div class="modal-body">
         <form [formGroup]="eventform" class="row " style="padding:20px;">
           <div class="col-6 mt-3">
@@ -423,7 +423,7 @@
             </div>
           }
         </form>
-        @if (loginroleid != 3) {
+        @if (perm.canEditEvents) {
           <button
             [disabled]="eventStatusId == 2"
             (click)="Save()"
@@ -435,7 +435,7 @@
         }
       </div>
     }
-    @if (loginroleid==3) {
+    @if (!perm.canEditEvents) {
       <div class="modal-body" >
         <app-event-detail [details]="viewdails" [showStatus]="viewdails && viewdails.eventStatusId==2"></app-event-detail>
       </div>

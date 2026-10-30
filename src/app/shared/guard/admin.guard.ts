@@ -72,29 +72,3 @@ function isTokenExpired(token: string): boolean {
     return true;
   }
 }
-
-/**
- * Keeps non-admins off the admin-only screens (Users, Change Requests).
- *
- * The sidebar already hides those links, but a hidden link does not stop anyone typing
- * the address. The API enforces the role independently; this just stops the screen
- * opening and showing an empty or failing page.
- */
-@Injectable({
-  providedIn: "root",
-})
-export class AdminRoleGuard {
-  constructor(private router: Router) {}
-
-  canActivate(): boolean | UrlTree {
-    try {
-      const user = JSON.parse(localStorage.getItem("user") ?? "null");
-      if (user?.userdata?.roleId === 1) {
-        return true;
-      }
-    } catch {
-      // fall through: an unreadable user is not an admin
-    }
-    return this.router.createUrlTree(["/admin/dashboard"]);
-  }
-}

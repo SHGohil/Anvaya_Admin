@@ -161,11 +161,8 @@ postUser(val){
       
       error => {
          
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something Went Wrong.',
-        });
+        // The auth interceptor already shows the server's own explanation (for example "A user with that
+        // name or email already exists."), so no second, generic dialog here.
       
       })
   }
@@ -192,11 +189,8 @@ this.userservice.postusers(val.userId,obj).subscribe(apidata=>{
 },
 
 error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something Went Wrong.',
-        });
+        // The auth interceptor already shows the server's own explanation (for example "A user with that
+        // name or email already exists."), so no second, generic dialog here.
 })
   }
 }
@@ -222,11 +216,8 @@ delete(val){
     },
 
     error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something Went Wrong.',
-            });
+            // The auth interceptor already shows the server's own explanation (for example "A user with that
+        // name or email already exists."), so no second, generic dialog here.
     })
       
     }

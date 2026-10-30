@@ -36,15 +36,14 @@ Read this first, then `CLAUDE.md`. Delete this file once every item below is don
    `strict` back on in `tsconfig.base.json` and fix what it reports; the ~500 ESLint findings;
    Sass `@import` -> `@use` (deprecation warnings on every build); unused theme assets (~30 MB);
    `package.json` name is still `cuba`.
-6. Frontend side of the API security fixes: **done in the working tree (2026-10-30), uncommitted.**
-   `AdminGuard` now rejects an expired token; new `AdminRoleGuard` keeps non-admins off `/settings/users`
-   and `/settings/approvals`; `updateEvent` no longer sends `?roleId=`. Bugs found in manual testing,
-   fixed the same day: Edit User no longer demands a password (blank keeps it) and the user forms set
-   `autocomplete` so Chrome stops filling saved logins; the Excel export fills EventType and leaves
-   BumpIn/BumpOut blank instead of `1/0/00`; the Special Dates screen replaces its list on reload instead
-   of appending (the count doubled after a save); the calendar grid refreshes the displayed month after
-   a save. Still open: Special Dates loads `GET SpecialDates` (every year) but only lets you toggle the
-   current year, so old dates ride along on each save; the API now keeps each date's real year.
+6. Role-based access in the UI: **done in the working tree (2026-10-30)**, see "Roles and permissions in the UI"
+   in `CLAUDE.md`. `PermissionService` + `PermissionGuard` + a permission-driven menu replace the three
+   hardcoded role menus and every `loginroleid` check; new Roles screen. `AdminRoleGuard` is gone. Verified in a
+   browser against the real local database (custom "Front Desk" role gets exactly its menu; forbidden URLs
+   bounce to the dashboard). Also fixed the same day: Edit User no longer demands a password, the Excel export
+   fills EventType and leaves BumpIn/BumpOut blank, Special Dates replaces its list on reload, the calendar
+   grid refreshes after a save. Still open: Special Dates loads every year's dates but lets you toggle only the
+   current year (the API now keeps each date's real year); the Users screen has no role-change confirmation.
 
 ## What changed in the upgrade, in case something looks odd
 

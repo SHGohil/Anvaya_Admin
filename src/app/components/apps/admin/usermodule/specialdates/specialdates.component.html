@@ -1,6 +1,6 @@
 <div class="container-fluid pt-3">
   <app-page-header title="Special Dates" subtitle="Year {{currentYear}} &middot; {{selectedDates.length}} date{{selectedDates.length === 1 ? '' : 's'}} selected">
-    @if (loginroleid==1) {
+    @if (perm.has('specialdates.manage')) {
       <button class="btn btn-md btn-primary" (click)="post()">Save</button>
     }
   </app-page-header>
@@ -10,7 +10,7 @@
         <div class="card month-card">
           <div class="card-body">
             <p class="month-label"><strong>{{ item.month }}</strong></p>
-            @if (loginroleid==1) {
+            @if (perm.has('specialdates.manage')) {
               <div class="row">
                 @for (day of item.days; track day) {
 <div class="col-2 mt-2 mb-2 text-center day-chip" [ngClass]="{'bg-blue': isSelected(day.date, i),
@@ -28,7 +28,7 @@
                 }
               </div>
             }
-            @if (loginroleid!=1) {
+            @if (!perm.has('specialdates.manage')) {
               <div class="row">
                 @for (day of item.days; track day) {
 <div class="col-2 mt-2 mb-2 text-center day-chip static" [ngClass]="{'bg-blue': isSelected(day.date, i),

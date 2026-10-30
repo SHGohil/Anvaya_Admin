@@ -1,0 +1,134 @@
+<div class="container-fluid pt-3">
+  <app-page-header title="Roles" subtitle="{{ loading ? '' : roles.length + ' role' + (roles.length === 1 ? '' : 's') }}">
+    <button class="btn btn-sm btn-primary" (click)="newRole(editor)">New Role</button>
+  </app-page-header>
+
+  <div class="card">
+    <div class="card-body">
+      <p class="roles-help">
+        A role is a named set of permissions. Give each person a role on the Users screen. A change here applies to
+        everyone holding the role on their next action, with no need to sign in again.
+      </p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr class="border-bottom-primary">
+              <th scope="col">Role</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="text-center">People</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          @if (loading) {
+            <tbody>
+              @for (i of [1, 2, 3]; track i) {
+                <tr class="border-bottom-secondary">
+                  <th scope="row" colspan="4"><div class="skeleton" style="height: 18px; width: 100%;"></div></th>
+                </tr>
+              }
+            </tbody>
+          } @else {
+            <tbody>
+              @for (role of roles; track role.rolesId) {
+                <tr class="border-bottom-secondary">
+                  <th scope="row">
+                    {{ role.roleName }}
+                    @if (role.isSystem) {
+                      <span class="badge bg-light text-dark roles-badge" title="Always holds every permission and cannot be deleted">Built-in</span>
+                    }
+                  </th>
+                  <td>{{ role.description || '—' }}</td>
+                  <td class="text-center">{{ role.userCount }}</td>
+                  <td>
+                    <div ngbDropdown container="body" class="d-inline-block">
+                      <button class="btn btn-xs btn-outline-primary dropdown-toggle" type="button" ngbDropdownToggle>Options</button>
+                      <div class="dropdown-menu" ngbDropdownMenu>
+                        <h6 class="dropdown-header">Select Actions</h6>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="edit(role, editor)">
+                          {{ role.isSystem ? 'View' : 'Edit' }}
+                        </a>
+                        @if (!role.isSystem) {
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="delete(role)">Delete</a>
+                        }
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          }
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editor let-modal>
+  <div class="modal-header bg-primary">
+    <h6 class="modal-title">{{ draft.id === null ? 'New Role' : (draft.isSystem ? 'Role: ' + draft.roleName : 'Edit Role') }}</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body roles-editor-body">
+    @if (draft.isSystem) {
+      <div class="alert alert-info roles-note">
+        The built-in role always holds every permission, so it can never be locked out. It cannot be changed or deleted.
+      </div>
+    }
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="roleName">Name<span class="mandatory">*</span></label>
+        <input id="roleName" class="form-control" [(ngModel)]="draft.roleName" [disabled]="draft.isSystem" maxlength="100" autocomplete="off">
+      </div>
+      <div class="col-md-6">
+        <label for="roleDescription">Description</label>
+        <input id="roleDescription" class="form-control" [(ngModel)]="draft.description" [disabled]="draft.isSystem" maxlength="500" autocomplete="off">
+      </div>
+    </div>
+
+    <h6 class="mt-4">What this role can do <span class="roles-count">({{ grantCount() }} selected)</span></h6>
+
+    @for (group of groups; track group.name) {
+      <fieldset class="perm-group">
+        <legend>{{ group.name }}</legend>
+        @for (permission of group.items; track permission.key) {
+          <div class="perm-row">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [id]="'perm-' + permission.key"
+                [checked]="isGranted(permission.key)"
+                [disabled]="draft.isSystem"
+                (change)="toggle(permission, $any($event.target).checked)">
+              <label class="form-check-label" [for]="'perm-' + permission.key">{{ permission.description }}</label>
+            </div>
+            @if (permission.supportsScope && isGranted(permission.key)) {
+              <select
+                class="form-select form-select-sm perm-scope"
+                [attr.aria-label]="'Scope for ' + permission.description"
+                [disabled]="draft.isSystem"
+                [ngModel]="draft.grants[permission.key]"
+                (ngModelChange)="setScope(permission, $event)">
+                <option value="all">All records</option>
+                <option value="own">Only their own</option>
+              </select>
+            }
+          </div>
+        }
+      </fieldset>
+    }
+  </div>
+
+  <div class="modal-footer">
+    @if (!draft.isSystem) {
+      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="saving || !draft.roleName.trim()">
+        {{ saving ? 'Saving…' : 'Save' }}
+      </button>
+    }
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">{{ draft.isSystem ? 'Close' : 'Cancel' }}</button>
+  </div>
+</ng-template>

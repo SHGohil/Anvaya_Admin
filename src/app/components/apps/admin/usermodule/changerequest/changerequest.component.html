@@ -37,8 +37,10 @@
     <div class="modal-body cr-compare-modal">
 
       <div class="cr-compare-actions">
-        <button class="btn btn-sm btn-primary" (click)="post(1,changedetails)">Approve Request</button>
+        @if (perm.has('changerequests.decide')) {
+          <button class="btn btn-sm btn-primary" (click)="post(1,changedetails)">Approve Request</button>
         <button class="btn btn-sm btn-outline-danger" (click)="post(2,changedetails)">Decline Request</button>
+        }
       </div>
 
       @if (viewdails && changedetails) {

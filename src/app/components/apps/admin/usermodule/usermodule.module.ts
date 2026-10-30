@@ -9,6 +9,7 @@ import { EditeventComponent } from './editevent/editevent.component';
 import { SpecialdatesComponent } from './specialdates/specialdates.component';
 import { TodayseventsComponent } from './todaysevents/todaysevents.component';
 import {UsersComponent} from './users/users.component'
+import { RolesComponent } from './roles/roles.component';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +28,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     EditeventComponent,
     SpecialdatesComponent,
     TodayseventsComponent,
-    UsersComponent
+    UsersComponent,
+    RolesComponent
   ],
   imports: [
     CommonModule,ReactiveFormsModule,NgbModule,NgSelectModule,CarouselModule,NgApexchartsModule,

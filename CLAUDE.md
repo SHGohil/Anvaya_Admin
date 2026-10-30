@@ -55,6 +55,23 @@ constructed on first injection, which can happen before login, and
 `JSON.parse(localStorage.getItem('user')).token` throws when nothing is stored. Read it at
 call time instead.
 
+### Roles and permissions in the UI
+
+The API decides what each person may do; the UI only mirrors it. **Never check a role id in a template or
+guard.** Ask `PermissionService` (`shared/services/permission.service.ts`) instead:
+`perm.has('users.manage')`, `perm.scope('events.view')`, `perm.canEditEvents`.
+
+- It loads `GET /api/me` once at startup (`provideAppInitializer` in `AppModule`) and keeps a copy in
+  localStorage so the menu draws immediately; sign-out clears it.
+- **Menu:** `NavService` has one list; each item names its permission and the menu is that list filtered by
+  `PermissionService`. Headings with nothing visible under them are dropped. No per-role menus.
+- **Routes:** `{ canActivate: [PermissionGuard], data: { permission: 'users.view' } }` (an array means "any of").
+  Someone without it lands on the dashboard. This is a courtesy; the API enforces the same permission.
+- **Roles screen** (`/settings/roles`, needs `roles.manage`): create roles, tick permissions grouped by area,
+  choose All or Own where a permission supports it. Changes reach the people holding the role on their next
+  request. The built-in Admin role is shown read-only.
+- Adding a permission is an API change first (`Authorization/Permissions.cs`); the UI then just names it.
+
 ### Environments
 
 `src/environments/environment.ts` (dev) and `environment.prod.ts` both hold only

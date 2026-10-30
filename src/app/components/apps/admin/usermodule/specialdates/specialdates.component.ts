@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpecialdatesService } from 'src/app/shared/services/specialdates.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 
 @Component({
     selector: 'app-specialdates',
@@ -13,6 +14,9 @@ import Swal from 'sweetalert2';
     standalone: false
 })
 export class SpecialdatesComponent implements OnInit {
+  /** What the signed-in user may do. Drives which buttons and forms are shown. */
+  public perm = inject(PermissionService);
+
   loginid: any;
   calenderdata: any;
   currentYear: number;

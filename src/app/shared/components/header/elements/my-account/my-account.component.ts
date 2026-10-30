@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
+import { PermissionService } from "src/app/shared/services/permission.service";
 import { clippingParents } from "@popperjs/core";
 
 @Component({
@@ -15,7 +16,7 @@ export class MyAccountComponent implements OnInit {
   roleid: any;
   username: any;
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private permissions: PermissionService) {
 
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -35,6 +36,7 @@ export class MyAccountComponent implements OnInit {
     
   }
   logoutFunc() {
+    this.permissions.clear();
     localStorage.clear();
     localStorage.removeItem('user')
     this.router.navigateByUrl('auth/login');

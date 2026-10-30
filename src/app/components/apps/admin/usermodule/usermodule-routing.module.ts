@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { AdminRoleGuard } from '../../../../shared/guard/admin.guard';
+import { PermissionGuard } from '../../../../shared/guard/permission.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { UsermoduleModule } from './usermodule.module';
 import { UsersComponent } from './users/users.component';
 import { ChangerequestComponent } from './changerequest/changerequest.component';
 import { SpecialdatesComponent } from './specialdates/specialdates.component';
+import { RolesComponent } from './roles/roles.component';
 
 /**
  * Routing for the /settings/* screens, split out of UsermoduleModule itself.
@@ -24,9 +25,11 @@ import { SpecialdatesComponent } from './specialdates/specialdates.component';
  * means it's registered exactly once.
  */
 const routes: Routes = [
-  { path: 'users', component: UsersComponent, canActivate: [AdminRoleGuard] },
-  { path: 'approvals', component: ChangerequestComponent, canActivate: [AdminRoleGuard] },
-  { path: 'specials', component: SpecialdatesComponent },
+  // Each screen names the permission it needs; PermissionGuard sends anyone without it to the dashboard.
+  { path: 'users', component: UsersComponent, canActivate: [PermissionGuard], data: { permission: 'users.view' } },
+  { path: 'roles', component: RolesComponent, canActivate: [PermissionGuard], data: { permission: 'roles.manage' } },
+  { path: 'approvals', component: ChangerequestComponent, canActivate: [PermissionGuard], data: { permission: 'changerequests.view' } },
+  { path: 'specials', component: SpecialdatesComponent, canActivate: [PermissionGuard], data: { permission: 'specialdates.view' } },
 ];
 
 @NgModule({

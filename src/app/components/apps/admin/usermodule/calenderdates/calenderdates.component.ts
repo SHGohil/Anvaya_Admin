@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, of } from 'rxjs';
 import {CalenderService} from '../../../../../shared/services/calender.service'
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Modal } from 'bootstrap'; 
 import { ReportsService } from '../../../../../shared/services/reports.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 
 @Component({
     selector: 'app-calenderdates',
@@ -17,6 +18,9 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     standalone: false
 })
 export class CalenderdatesComponent implements OnInit {
+  /** What the signed-in user may do. Drives which buttons and forms are shown. */
+  public perm = inject(PermissionService);
+
   showedit =false;
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   currentMonthIndex = 0; // Default to January

@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import {ChangerequestService} from '../../../../../shared/services/changerequest.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 @Component({
     selector: 'app-changerequest',
     templateUrl: './changerequest.component.html',
@@ -13,6 +14,9 @@ import Swal from 'sweetalert2';
     standalone: false
 })
 export class ChangerequestComponent implements OnInit {
+  /** What the signed-in user may do. Drives which buttons and forms are shown. */
+  public perm = inject(PermissionService);
+
   /** The pending queue, not the whole { pending, approved, rejected } response. */
   changerequestdata: any[] = [];
   viewdails: any;

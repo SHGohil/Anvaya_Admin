@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, MinLengthValidator, type ValidatorFn, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalenderService } from 'src/app/shared/services/calender.service';
@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 @Component({
     selector: 'app-dailyreport',
     templateUrl: './dailyreport.component.html',
@@ -17,6 +18,9 @@ import * as FileSaver from 'file-saver';
     standalone: false
 })
 export class DailyreportComponent  implements OnInit {
+  /** What the signed-in user may do. Drives which buttons and forms are shown. */
+  public perm = inject(PermissionService);
+
   activeTab: string = 'all';
   reportdata: any[]=[];
   statusid: any;
