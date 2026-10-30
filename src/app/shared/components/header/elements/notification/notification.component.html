@@ -1,18 +1,26 @@
-<div class="notification-box"routerLink="admin/notification" (click)="toggleNotificationMobile()">
-  <app-svg-icon icon="bell"></app-svg-icon>
-  @if (notificationCount > 0) {
-    <span class="badge rounded-pill badge-secondary">{{notificationCount}}</span>
-  }
-</div>
-<div class="onhover-show-div notification-dropdown" style="overflow-y: scroll !important;" >
-  <h6 class="f-18 mb-0 dropdown-title">Notitications</h6>
-  <ul  >
-    @for (item of firstFourNotifications; track item) {
-      <li class="border-4" [ngClass]="{'b-l-warning': item.eventdetails?.eventStatusId === 1,'b-l-success': item.eventdetails?.eventStatusId === 2,'b-l-danger': item.eventdetails?.eventStatusId === 3}"    >
-        <p>{{item.action}}<span class="font-danger">Event Date: {{ item.eventdetails.eventDate | date:'yyyy-MM-dd' }}</span></p>
-      </li>
+<div class="ui-dd">
+  <button type="button" class="ui-btn ui-btn-ghost ui-btn-icon ui-bell" aria-label="Notifications">
+    <app-svg-icon icon="bell"></app-svg-icon>
+    @if (notificationCount > 0) {
+      <span class="ui-count">{{ notificationCount > 99 ? '99+' : notificationCount }}</span>
     }
-    <li><a class="f-w-700" routerLink="admin/notification" >Check all</a></li>
-  </ul>
-
+  </button>
+  <div class="ui-dd-panel ui-dd-wide">
+    <div class="ui-dd-title">Notifications</div>
+    @for (item of firstFourNotifications; track item) {
+      <div class="ui-dd-item">
+        <span class="ui-dot"
+          [class.ui-tentative]="item.eventdetails?.eventStatusId === 1"
+          [class.ui-confirmed]="item.eventdetails?.eventStatusId === 2"
+          [class.ui-lost]="item.eventdetails?.eventStatusId === 3"></span>
+        <div>
+          <div>{{ item.action }}</div>
+          <div class="ui-small ui-faint">Event date {{ item.eventdetails?.eventDate | date:'dd MMM yyyy' }}</div>
+        </div>
+      </div>
+    } @empty {
+      <div class="ui-dd-item ui-faint">Nothing new.</div>
+    }
+    <a class="ui-dd-item ui-dd-link" routerLink="/admin/notification">See all notifications</a>
+  </div>
 </div>

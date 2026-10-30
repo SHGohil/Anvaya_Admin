@@ -1,29 +1,11 @@
-<!-- page-wrapper Start-->
-<div [ngClass]="layout.config.settings.layout_type">
-  <div class="page-wrapper" id="canvas-bookmark" [ngClass]="layoutClass">
+<div class="ui-app" [class.ui-collapsed]="navServices.collapseSidebar" [class.ui-menu-open]="!navServices.collapseSidebar">
+  <app-sidebar></app-sidebar>
+  <div class="ui-scrim" (click)="navServices.collapseSidebar = true"></div>
+  <div class="ui-main">
     <app-header></app-header>
-    <!-- Page Body Start-->
-    <div class="page-body-wrapper">
-      <div class="sidebar-wrapper" [attr.icon]="layout.config.settings.icon" [class.close_icon]="navServices.collapseSidebar">
-        <app-sidebar></app-sidebar>
-      </div>
-      <div class="page-body">
-        <main>
-          <router-outlet></router-outlet>
-        </main>
-      </div>
-      <!-- footer start-->
-      <footer class="footer">
-        <app-footer></app-footer>
-      </footer>
-      <!-- footer End-->
-    </div>
-    <!-- Page Body End-->
+    <main class="ui-content">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>
-@if (!navServices.collapseSidebar) {
-  <div class="sidebar-backdrop" (click)="navServices.collapseSidebar = true"></div>
-}
 <app-toast-container></app-toast-container>
-<!-- <app-customizer></app-customizer> -->
-<!-- page-wrapper End-->

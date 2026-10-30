@@ -19,6 +19,10 @@ export class MyAccountComponent implements OnInit {
   roleid: any;
   username: any;
 
+  get initials(): string {
+    return (this.username || "?").toString().trim().slice(0, 2).toUpperCase();
+  }
+
   constructor(public router: Router, private permissions: PermissionService, private http: HttpClient) {
 
     let user;

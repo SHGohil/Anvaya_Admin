@@ -1,17 +1,10 @@
-<div class="media profile-media">
-  <!-- <img class="b-r-10" src="assets/images/dashboard/profile.png" alt=""> -->
-  <div class="media-body">
-    <p class="mb-0 font-roboto">{{username}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -2px; margin-left: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg></p>
+<div class="ui-dd">
+  <button type="button" class="ui-account" aria-label="Account menu">
+    <span class="ui-avatar">{{ initials }}</span>
+    <span class="ui-account-name">{{ username }}</span>
+  </button>
+  <div class="ui-dd-panel">
+    <button type="button" class="ui-dd-item ui-dd-link" (click)="changepassword()">Change password</button>
+    <button type="button" class="ui-dd-item ui-dd-link" (click)="logoutFunc()">Log out</button>
   </div>
 </div>
-<ul class="profile-dropdown onhover-show-div">
-  <!-- <li><a href="/user/profile"><app-feather-icons [icon]="'user'"></app-feather-icons><span>Account </span></a></li>
-  <li><a href="email"><app-feather-icons [icon]="'mail'"></app-feather-icons><span>Inbox</span></a></li>
-  <li><a href="/to-do"><app-feather-icons [icon]="'file-text'"></app-feather-icons><span>Taskboard</span></a></li>
-  <li><a href="/faq"><app-feather-icons [icon]="'settings'"></app-feather-icons><span>Settings</span></a></li> -->
-  <!-- <li (click)="redirect('/settings/users')"*ngIf="roleid==1"><app-feather-icons [icon]="'user'"></app-feather-icons><span>Users</span></li>
-  <li (click)="redirect('/settings/approvals')" *ngIf="roleid==1"><app-feather-icons [icon]="'file'"></app-feather-icons><span>Change Request</span></li>
-  <li (click)="redirect('/settings/specials')" *ngIf="roleid==1"><app-feather-icons [icon]="'calender'"></app-feather-icons><span>Important Dates</span></li> -->
-  <li (click)="changepassword()"><app-feather-icons [icon]="'lock'"></app-feather-icons><span>Change Password</span></li>
-  <li (click)="logoutFunc()"><app-feather-icons [icon]="'log-out'"></app-feather-icons><span>Log out</span></li>
-</ul>
