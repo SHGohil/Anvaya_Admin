@@ -1,75 +1,78 @@
-@import "../../../../../../assets/scss/tokens";
+:host { display: block; }
 
-// Capping form width instead of letting it stretch edge-to-edge on wide
-// monitors - a 3-per-row field grid on a 2000px+ viewport left huge dead
-// gutters and made the form feel sparse/unfinished rather than "modern".
+// Capped width: a 3-per-row grid on a very wide monitor leaves dead gutters.
 .aq-card {
-  max-width: 960px;
+  max-width: 980px;
 }
 
-// -- Sectioned form ---------------------------------------------------------
-// Guest Information / Event Details / Venue / Additional Information,
-// replacing one flat 7-field grid with no grouping. Same form, same
-// controls/validators - just visual structure.
-.form-section {
-  padding-bottom: 1.25rem;
-  margin-bottom: 1.25rem;
-  border-bottom: 1px solid $border-color;
+.aq-section {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.form-section-last {
+.aq-last {
   border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
 }
 
-.form-section-heading {
+.aq-heading {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
   margin-bottom: 1rem;
-}
 
-.form-section-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: $border-radius;
-  background: rgba($primary, 0.08);
-  color: $primary;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-
-  svg {
-    width: 15px;
-    height: 15px;
+  h3 {
+    font-size: 1rem;
+    margin: 0;
   }
 }
 
-.form-section-title {
-  font-size: $fs-section-title;
-  font-weight: $fw-section-title;
-  color: $body-color;
-  margin-bottom: 0;
+.aq-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  background: var(--primary-soft);
+  color: var(--primary);
+  display: grid;
+  place-items: center;
+  flex: none;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
-.form-actions {
+.aq-req {
+  color: var(--lost);
+}
+
+.aq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.aq-venue {
+  align-items: end;
+}
+
+.aq-actions {
+  display: flex;
+  justify-content: flex-end;
   gap: 0.5rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid $border-color;
+  padding: 1rem 1.5rem;
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
 }
 
-// -- "All venues" toggle -----------------------------------------------
-// Was a bare checkbox + text label sitting under the venue select with a
-// large empty gap beside it. Real switch control, aligned inline with the
-// select it modifies instead of stacked below it.
+// "All venues" switch
 .aq-toggle {
   display: flex;
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
-  margin-top: 1.9rem; // aligns the switch with the ng-select box beside it, under its own label row
+  height: 42px;
 
   input {
     position: absolute;
@@ -81,38 +84,36 @@
 
 .aq-toggle-track {
   position: relative;
-  width: 38px;
-  height: 22px;
-  background: $border-color;
-  border-radius: $border-radius-pill;
+  width: 40px;
+  height: 24px;
+  background: var(--border-strong);
+  border-radius: var(--r-pill);
   flex: none;
   transition: background-color 0.15s ease;
 }
 
 .aq-toggle-thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 3px;
+  left: 3px;
   width: 18px;
   height: 18px;
   background: #fff;
   border-radius: 50%;
-  box-shadow: $box-shadow-sm;
+  box-shadow: var(--shadow-1);
   transition: transform 0.15s ease;
 }
 
 .aq-toggle input:checked ~ .aq-toggle-track {
-  background: $primary;
+  background: var(--primary);
 }
 .aq-toggle input:checked ~ .aq-toggle-track .aq-toggle-thumb {
   transform: translateX(16px);
 }
 .aq-toggle input:focus-visible ~ .aq-toggle-track {
-  box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+  box-shadow: var(--focus);
 }
 
 .aq-toggle-label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: $body-color;
+  font-weight: 600;
 }

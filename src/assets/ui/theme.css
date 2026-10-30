@@ -248,3 +248,15 @@ td.ui-empty{display:table-cell;text-align:center;padding:2rem}
 .ui-pw{display:flex;gap:.4rem;align-items:center} .ui-pw .ui-input{flex:1}
 .ui-btn-block{width:100%;height:44px}
 @media(max-width:860px){.ui-login{grid-template-columns:1fr}.ui-login-art{display:none}.ui-login-card .ui-brand{display:flex}}
+
+/* ---------- Bridge: ng-select and the textarea ---------- */
+.ng-select .ng-select-container{background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:var(--r-sm);min-height:42px}
+.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container{border-color:var(--primary);box-shadow:var(--focus)}
+.ng-select .ng-value-container .ng-placeholder{color:var(--text-3)}
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value{background:var(--primary-soft);color:var(--primary);border-radius:var(--r-sm)}
+.ng-dropdown-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-2);overflow:hidden}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{background:var(--surface);color:var(--text)}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked,.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected{background:var(--surface-2);color:var(--text)}
+.ui-select{appearance:auto}
+.ng-select.ng-select-opened>.ng-select-container{background:var(--surface);border-color:var(--primary)}
+.ng-select .ng-select-container .ng-value-container .ng-input>input{color:var(--text)}
