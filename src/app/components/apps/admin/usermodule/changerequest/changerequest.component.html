@@ -1,131 +1,123 @@
-<div class="container-fluid pt-3 pb-0">
+<div class="ui-stack-lg">
   <app-page-header title="Change Requests" subtitle="{{ changerequestLoading ? '' : changerequestdata.length + ' pending request' + (changerequestdata.length === 1 ? '' : 's') }}"></app-page-header>
-</div>
-@if (changerequestLoading) {
-  <div class="container-fluid pt-1">
-    <div class="row mt-5">
-      @for (i of [1,2,3]; track i) {
-        <div class="col-lg-4">
-          <div class="skeleton" style="height: 210px; border-radius: 20px;"></div>
-        </div>
-      }
-    </div>
-  </div>
-}
-@if (!changerequestLoading && !changerequestdata?.length) {
-  <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
-    <img src="../../../../../../assets/images/no data.gif" alt="No Data" height="300" width="300" class="img-fluid">
-  </div>
-}
-@if (changerequestdata?.length) {
-  <div class="container-fluid pt-1">
-    <div class="row mt-5" >
-      @for (item of changerequestdata; track item) {
-        <div class="col-lg-4">
-          <app-event-card-compact [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-compact>
-        </div>
-      }
-    </div>
-  </div>
-}
-<div class="card-body">
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Event Details</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body cr-compare-modal">
 
-      <div class="cr-compare-actions">
-        @if (perm.has('changerequests.decide')) {
-          <button class="btn btn-sm btn-primary" (click)="post(1,changedetails)">Approve Request</button>
-        <button class="btn btn-sm btn-outline-danger" (click)="post(2,changedetails)">Decline Request</button>
+  @if (changerequestLoading) {
+    <div class="ui-grid ui-cols">
+      @for (i of [1,2,3]; track i) {
+        <div class="ui-skeleton" style="height: 150px; border-radius: var(--r-lg);"></div>
+      }
+    </div>
+  }
+  @if (!changerequestLoading && !changerequestdata?.length) {
+    <div class="ui-card ui-empty">
+      <strong>No pending requests</strong>
+      <p class="ui-small">Requests to change a booking will appear here for approval.</p>
+    </div>
+  }
+  @if (changerequestdata?.length) {
+    <div class="ui-grid ui-cols">
+      @for (item of changerequestdata; track item) {
+        <app-event-card-compact [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-compact>
+      }
+    </div>
+  }
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body cr-compare-modal">
+
+    <div class="cr-compare-actions">
+      @if (perm.has('changerequests.decide')) {
+        <button class="ui-btn ui-btn-primary" (click)="post(1,changedetails)">Approve request</button>
+        <button class="ui-btn ui-btn-danger" (click)="post(2,changedetails)">Decline request</button>
+      }
+    </div>
+
+    @if (viewdails && changedetails) {
+      <div class="cr-compare">
+        <div class="cr-compare-header">
+          <span class="cr-compare-field"></span>
+          <span class="cr-compare-col-label">Original</span>
+          <span class="cr-compare-col-label">Requested</span>
+        </div>
+        <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.personName, changedetails.personName)">
+          <span class="cr-compare-field">Person Name</span>
+          <span class="cr-compare-val">{{viewdails.personName}}</span>
+          <span class="cr-compare-val cr-compare-val-new">{{changedetails.personName}}</span>
+        </div>
+        <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.createdDate, changedetails.createdDate)">
+          <span class="cr-compare-field">Entry Date</span>
+          <span class="cr-compare-val">{{viewdails.createdDate|date:"dd-MM-yyyy"}}</span>
+          <span class="cr-compare-val cr-compare-val-new">{{changedetails.createdDate|date:"dd-MM-yyyy"}}</span>
+        </div>
+        <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventDate, changedetails.eventDate)">
+          <span class="cr-compare-field">Event Date</span>
+          <span class="cr-compare-val">{{viewdails.eventDate|date:"dd-MM-yyyy"}}</span>
+          <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventDate|date:"dd-MM-yyyy"}}</span>
+        </div>
+        <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.guestName, changedetails.guestName)">
+          <span class="cr-compare-field">Guest Name</span>
+          <span class="cr-compare-val">{{viewdails.guestName}}</span>
+          <span class="cr-compare-val cr-compare-val-new">{{changedetails.guestName}}</span>
+        </div>
+        <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventType?.eventTypeName, changedetails.eventType?.eventTypeName)">
+          <span class="cr-compare-field">Type of Event</span>
+          <span class="cr-compare-val">{{viewdails.eventType?.eventTypeName}}</span>
+          <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventType?.eventTypeName}}</span>
+        </div>
+        <div class="cr-compare-row cr-compare-row-chips" [class.cr-changed]="listChanged(viewdails.venuelist, changedetails.venuelist, 'venueName')">
+          <span class="cr-compare-field">Venue</span>
+          <span class="cr-compare-val">
+            @for (item of viewdails.venuelist; track item) {
+              <span class="badge cr-chip">{{item.venueName}}</span>
+            }
+          </span>
+          <span class="cr-compare-val cr-compare-val-new">
+            @for (item of changedetails.venuelist; track item) {
+              <span class="badge cr-chip">{{item.venueName}}</span>
+            }
+          </span>
+        </div>
+        <div class="cr-compare-row cr-compare-row-chips" [class.cr-changed]="listChanged(viewdails.eventTimeIdslist, changedetails.eventTimeIdslist, 'eventTimeName')">
+          <span class="cr-compare-field">Time of Event</span>
+          <span class="cr-compare-val">
+            @for (item of viewdails.eventTimeIdslist; track item) {
+              <span class="badge cr-chip">{{item.eventTimeName}}</span>
+            }
+          </span>
+          <span class="cr-compare-val cr-compare-val-new">
+            @for (item of changedetails.eventTimeIdslist; track item) {
+              <span class="badge cr-chip">{{item.eventTimeName}}</span>
+            }
+          </span>
+        </div>
+        @if (activeTab!='all') {
+          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventStatusName, changedetails.eventStatusName)">
+            <span class="cr-compare-field">Event Status</span>
+            <span class="cr-compare-val">{{viewdails.eventStatusName}}</span>
+            <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventStatusName}}</span>
+          </div>
+          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.bumpIN, changedetails.bumpIN)">
+            <span class="cr-compare-field">Bump In</span>
+            <span class="cr-compare-val">{{convertToIST(viewdails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</span>
+            <span class="cr-compare-val cr-compare-val-new">{{convertToIST(changedetails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</span>
+          </div>
+          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.bumpOUT, changedetails.bumpOUT)">
+            <span class="cr-compare-field">Bump Out</span>
+            <span class="cr-compare-val">{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</span>
+            <span class="cr-compare-val cr-compare-val-new">{{convertToIST(changedetails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</span>
+          </div>
+          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.comment, changedetails.comment)">
+            <span class="cr-compare-field">Comment</span>
+            <span class="cr-compare-val">{{viewdails.comment}}</span>
+            <span class="cr-compare-val cr-compare-val-new">{{changedetails.comment}}</span>
+          </div>
         }
       </div>
-
-      @if (viewdails && changedetails) {
-        <div class="cr-compare">
-          <div class="cr-compare-header">
-            <span class="cr-compare-field"></span>
-            <span class="cr-compare-col-label">Original</span>
-            <span class="cr-compare-col-label">Requested</span>
-          </div>
-          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.personName, changedetails.personName)">
-            <span class="cr-compare-field">Person Name</span>
-            <span class="cr-compare-val">{{viewdails.personName}}</span>
-            <span class="cr-compare-val cr-compare-val-new">{{changedetails.personName}}</span>
-          </div>
-          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.createdDate, changedetails.createdDate)">
-            <span class="cr-compare-field">Entry Date</span>
-            <span class="cr-compare-val">{{viewdails.createdDate|date:"dd-MM-yyyy"}}</span>
-            <span class="cr-compare-val cr-compare-val-new">{{changedetails.createdDate|date:"dd-MM-yyyy"}}</span>
-          </div>
-          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventDate, changedetails.eventDate)">
-            <span class="cr-compare-field">Event Date</span>
-            <span class="cr-compare-val">{{viewdails.eventDate|date:"dd-MM-yyyy"}}</span>
-            <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventDate|date:"dd-MM-yyyy"}}</span>
-          </div>
-          <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.guestName, changedetails.guestName)">
-            <span class="cr-compare-field">Guest Name</span>
-            <span class="cr-compare-val">{{viewdails.guestName}}</span>
-            <span class="cr-compare-val cr-compare-val-new">{{changedetails.guestName}}</span>
-          </div>
-          <div class="cr-compare-row" [class.cr-changed]="fieldChanged($safeNavigationMigration(viewdails.eventType?.eventTypeName), $safeNavigationMigration(changedetails.eventType?.eventTypeName))">
-            <span class="cr-compare-field">Type of Event</span>
-            <span class="cr-compare-val">{{viewdails.eventType?.eventTypeName}}</span>
-            <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventType?.eventTypeName}}</span>
-          </div>
-          <div class="cr-compare-row cr-compare-row-chips" [class.cr-changed]="listChanged(viewdails.venuelist, changedetails.venuelist, 'venueName')">
-            <span class="cr-compare-field">Venue</span>
-            <span class="cr-compare-val">
-              @for (item of viewdails.venuelist; track item) {
-                <span class="badge cr-chip">{{item.venueName}}</span>
-              }
-            </span>
-            <span class="cr-compare-val cr-compare-val-new">
-              @for (item of changedetails.venuelist; track item) {
-                <span class="badge cr-chip">{{item.venueName}}</span>
-              }
-            </span>
-          </div>
-          <div class="cr-compare-row cr-compare-row-chips" [class.cr-changed]="listChanged(viewdails.eventTimeIdslist, changedetails.eventTimeIdslist, 'eventTimeName')">
-            <span class="cr-compare-field">Time of Event</span>
-            <span class="cr-compare-val">
-              @for (item of viewdails.eventTimeIdslist; track item) {
-                <span class="badge cr-chip">{{item.eventTimeName}}</span>
-              }
-            </span>
-            <span class="cr-compare-val cr-compare-val-new">
-              @for (item of changedetails.eventTimeIdslist; track item) {
-                <span class="badge cr-chip">{{item.eventTimeName}}</span>
-              }
-            </span>
-          </div>
-          @if (activeTab!='all') {
-            <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.eventStatusName, changedetails.eventStatusName)">
-              <span class="cr-compare-field">Event Status</span>
-              <span class="cr-compare-val">{{viewdails.eventStatusName}}</span>
-              <span class="cr-compare-val cr-compare-val-new">{{changedetails.eventStatusName}}</span>
-            </div>
-            <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.bumpIN, changedetails.bumpIN)">
-              <span class="cr-compare-field">Bump In</span>
-              <span class="cr-compare-val">{{convertToIST(viewdails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</span>
-              <span class="cr-compare-val cr-compare-val-new">{{convertToIST(changedetails.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</span>
-            </div>
-            <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.bumpOUT, changedetails.bumpOUT)">
-              <span class="cr-compare-field">Bump Out</span>
-              <span class="cr-compare-val">{{convertToIST(viewdails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</span>
-              <span class="cr-compare-val cr-compare-val-new">{{convertToIST(changedetails.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</span>
-            </div>
-            <div class="cr-compare-row" [class.cr-changed]="fieldChanged(viewdails.comment, changedetails.comment)">
-              <span class="cr-compare-field">Comment</span>
-              <span class="cr-compare-val">{{viewdails.comment}}</span>
-              <span class="cr-compare-val cr-compare-val-new">{{changedetails.comment}}</span>
-            </div>
-          }
-        </div>
-      }
-    </div>
-  </ng-template>
-
-</div>
+    }
+  </div>
+</ng-template>

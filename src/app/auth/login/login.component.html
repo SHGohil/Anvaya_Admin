@@ -1,48 +1,39 @@
-<div class="container-fluid p-0">
-  <!-- <div class="window">
-  <div class="loading"></div>
-</div> -->
-<div class="row">
-  <div class="col-12">
-    <div class="login-card login-dark">
-      <div>
-        <div>
-          <a class="logo brand-wordmark brand-wordmark-lg" routerLink="/">Venexa</a>
-        </div>
-        <div class="login-main">
-          <form class="theme-form" [formGroup]="loginForm">
-            <h4>Sign in to your account</h4>
-            <p>Enter your email &amp; password to login</p>
-            <div class="form-group">
-              <label for="email" class="col-form-label">Email address</label>
-              <input id="email" class="form-control" type="email" required="" placeholder="Enter your email address" formControlName="email" />
-              @if (loginForm.controls.email.touched && loginForm.controls.email.errors?.required) {
-                <div class="text text-danger mt-1">Email address is required</div>
-              }
-              <!-- <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.email" class="text text-danger mt-1">Invalid Email</div> -->
-            </div>
-            <div class="form-group">
-              <label for="password" class="col-form-label">Password</label>
-              <input id="password" class="form-control" [type]="show ? 'text' : 'password'" formControlName="password" required="" placeholder="*********" />
-              @if (!show) {
-                <div class="show-hide" (click)="showPassword()"><span class="show"></span></div>
-              }
-              @if (show) {
-                <div class="show-hide" (click)="showPassword()"><span class="Hide"></span></div>
-              }
-              @if (loginForm.controls.password.touched && loginForm.controls.password.errors?.required) {
-                <div class="text text-danger mt-1">Password is required</div>
-              }
-            </div>
-
-            <div class="text-end mt-3">
-              <button class="btn btn-primary d-block w-100" [disabled]="!loginForm.valid" (click)="login()" type="button"><span>Sign in</span></button>
-            </div>
-
-          </form>
-        </div>
-      </div>
+<div class="ui-login">
+  <aside class="ui-login-art" aria-hidden="true">
+    <div class="ui-brand"><span class="ui-brand-mark">A</span><span>Anvaya</span></div>
+    <div>
+      <h2>Venue and event bookings, in one place.</h2>
+      <p>Track every query from first call to confirmed booking, with the whole team looking at the same calendar.</p>
     </div>
-  </div>
-</div>
+    <small>Anvaya Convention</small>
+  </aside>
+
+  <main class="ui-login-form">
+    <form class="ui-login-card" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && login()">
+      <div class="ui-brand ui-login-brand"><span class="ui-brand-mark">A</span><span>Anvaya</span></div>
+      <h1>Sign in</h1>
+      <p class="ui-muted">Enter your email and password to continue.</p>
+
+      <div class="ui-field">
+        <label for="email">Email address</label>
+        <input id="email" class="ui-input" type="email" placeholder="you@company.com" formControlName="email" autocomplete="username" />
+        @if (loginForm.controls.email.touched && loginForm.controls.email.errors?.required) {
+          <span class="ui-err">Email address is required</span>
+        }
+      </div>
+
+      <div class="ui-field">
+        <label for="password">Password</label>
+        <div class="ui-pw">
+          <input id="password" class="ui-input" [type]="show ? 'text' : 'password'" formControlName="password" placeholder="Your password" autocomplete="current-password" />
+          <button type="button" class="ui-btn ui-btn-ghost ui-btn-sm" (click)="showPassword()">{{ show ? 'Hide' : 'Show' }}</button>
+        </div>
+        @if (loginForm.controls.password.touched && loginForm.controls.password.errors?.required) {
+          <span class="ui-err">Password is required</span>
+        }
+      </div>
+
+      <button class="ui-btn ui-btn-primary ui-btn-block" [disabled]="!loginForm.valid" type="submit">Sign in</button>
+    </form>
+  </main>
 </div>
