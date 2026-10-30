@@ -1,16 +1,1 @@
-@import "../../../../../../assets/scss/tokens";
-
-.mandatory {
-    color: red;
-    margin-left: 4px;
-  }
-
-.users-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0.85rem;
-}
-
-.users-search {
-  max-width: 320px;
-}
+:host { display: block; }

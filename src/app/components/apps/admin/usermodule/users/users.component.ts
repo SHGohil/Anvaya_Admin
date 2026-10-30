@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import {UsersService} from '../../../../../shared/services/users.service'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
@@ -47,7 +47,7 @@ userdata: any[];
   tableItem$: any;
   total$: any;
 
-constructor(private userservice : UsersService, private modalService:NgbModal, private fb : FormBuilder, private toast: ToastService){
+constructor(private userservice : UsersService, private modalService:ModalService, private fb : FormBuilder, private toast: ToastService){
   let user;
   if (typeof window !== 'undefined' && window.localStorage) {
    user = localStorage.getItem('user');

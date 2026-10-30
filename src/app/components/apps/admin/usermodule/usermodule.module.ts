@@ -10,11 +10,10 @@ import { SpecialdatesComponent } from './specialdates/specialdates.component';
 import { TodayseventsComponent } from './todaysevents/todaysevents.component';
 import {UsersComponent} from './users/users.component'
 import { RolesComponent } from './roles/roles.component';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CdkMenuModule } from '@angular/cdk/menu';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -32,7 +31,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     RolesComponent
   ],
   imports: [
-    CommonModule,ReactiveFormsModule,NgbModule,NgSelectModule,CarouselModule,NgApexchartsModule,
+    CommonModule,ReactiveFormsModule,CdkMenuModule,NgSelectModule,NgApexchartsModule,
     FormsModule,SharedModule
   ],
   exports:[
@@ -46,7 +45,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TodayseventsComponent
   ],
   providers:[
-    NgbModal,
  UsersService,
 
   ]

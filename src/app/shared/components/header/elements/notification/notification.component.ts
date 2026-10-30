@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import {YourServiceName} from '../../../../../shared/services/notification.service'
 @Component({
     selector: 'app-notification',
@@ -17,7 +17,7 @@ export class NotificationComponent {
   firstFourNotifications: any;
 
 
-  constructor( private modalService: NgbModal,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private notification: YourServiceName) {}
+  constructor( private modalService: ModalService,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private notification: YourServiceName) {}
 
 
   ngOnInit() {

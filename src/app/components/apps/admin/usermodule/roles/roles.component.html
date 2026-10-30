@@ -37,17 +37,15 @@
                 <td data-label="Description">{{ role.description || '—' }}</td>
                 <td data-label="People">{{ role.userCount }}</td>
                 <td>
-                  <div ngbDropdown container="body" class="d-inline-block">
-                    <button class="ui-btn ui-btn-sm" type="button" ngbDropdownToggle>Options</button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                      <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="edit(role, editor)">
-                        {{ role.isSystem ? 'View' : 'Edit' }}
-                      </a>
+                  <button class="ui-btn ui-btn-sm" type="button" [cdkMenuTriggerFor]="roleMenu">Options</button>
+                  <ng-template #roleMenu>
+                    <div class="ui-menu" cdkMenu>
+                      <button type="button" class="ui-menu-item" cdkMenuItem (cdkMenuItemTriggered)="edit(role, editor)">{{ role.isSystem ? "View" : "Edit" }}</button>
                       @if (!role.isSystem) {
-                        <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="delete(role)">Delete</a>
+                        <button type="button" class="ui-menu-item" cdkMenuItem (cdkMenuItemTriggered)="delete(role)">Delete</button>
                       }
                     </div>
-                  </div>
+                  </ng-template>
                 </td>
               </tr>
             }
@@ -59,49 +57,49 @@
 </div>
 
 <ng-template #editor let-modal>
-  <div class="modal-header">
-    <h6 class="modal-title">{{ draft.id === null ? 'New role' : (draft.isSystem ? 'Role: ' + draft.roleName : 'Edit role') }}</h6>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="ui-modal-head">
+    <h6 class="ui-modal-title">{{ draft.id === null ? 'New role' : (draft.isSystem ? 'Role: ' + draft.roleName : 'Edit role') }}</h6>
+    <button type="button" class="ui-modal-x" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
 
-  <div class="modal-body roles-editor-body">
+  <div class="ui-modal-body roles-editor-body">
     @if (draft.isSystem) {
       <div class="roles-note">
         The built-in role always holds every permission, so it can never be locked out. It cannot be changed or deleted.
       </div>
     }
 
-    <div class="row mb-3">
-      <div class="col-md-6">
+    <div class="ui-formgrid roles-top">
+      <div class="ui-field">
         <label for="roleName">Name<span class="mandatory">*</span></label>
-        <input id="roleName" class="form-control" [(ngModel)]="draft.roleName" [disabled]="draft.isSystem" maxlength="100" autocomplete="off">
+        <input id="roleName" class="ui-input" [(ngModel)]="draft.roleName" [disabled]="draft.isSystem" maxlength="100" autocomplete="off">
       </div>
-      <div class="col-md-6">
+      <div class="ui-field">
         <label for="roleDescription">Description</label>
-        <input id="roleDescription" class="form-control" [(ngModel)]="draft.description" [disabled]="draft.isSystem" maxlength="500" autocomplete="off">
+        <input id="roleDescription" class="ui-input" [(ngModel)]="draft.description" [disabled]="draft.isSystem" maxlength="500" autocomplete="off">
       </div>
     </div>
 
-    <h6 class="mt-4">What this role can do <span class="roles-count">({{ grantCount() }} selected)</span></h6>
+    <h6 class="roles-heading">What this role can do <span class="roles-count">({{ grantCount() }} selected)</span></h6>
 
     @for (group of groups; track group.name) {
       <fieldset class="perm-group">
         <legend>{{ group.name }}</legend>
         @for (permission of group.items; track permission.key) {
           <div class="perm-row">
-            <div class="form-check">
+            <div class="ui-check">
               <input
-                class="form-check-input"
+                class="ui-check-input"
                 type="checkbox"
                 [id]="'perm-' + permission.key"
                 [checked]="isGranted(permission.key)"
                 [disabled]="draft.isSystem"
                 (change)="toggle(permission, $any($event.target).checked)">
-              <label class="form-check-label" [for]="'perm-' + permission.key">{{ permission.description }}</label>
+              <label class="ui-check-label" [for]="'perm-' + permission.key">{{ permission.description }}</label>
             </div>
             @if (permission.supportsScope && isGranted(permission.key)) {
               <select
-                class="form-select form-select-sm perm-scope"
+                class="ui-select ui-select-sm perm-scope"
                 [attr.aria-label]="'Scope for ' + permission.description"
                 [disabled]="draft.isSystem"
                 [ngModel]="draft.grants[permission.key]"
@@ -116,7 +114,7 @@
     }
   </div>
 
-  <div class="modal-footer">
+  <div class="ui-modal-foot">
     <button type="button" class="ui-btn" (click)="modal.dismiss('cancel')">{{ draft.isSystem ? 'Close' : 'Cancel' }}</button>
     @if (!draft.isSystem) {
       <button type="button" class="ui-btn ui-btn-primary" (click)="save()" [disabled]="saving || !draft.roleName.trim()">

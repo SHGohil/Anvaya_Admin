@@ -4,7 +4,6 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { readRefreshToken } from "src/app/shared/services/auth-token";
 import { PermissionService } from "src/app/shared/services/permission.service";
-import { clippingParents } from "@popperjs/core";
 
 @Component({
     selector: "app-my-account",

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { SpecialdatesService } from 'src/app/shared/services/specialdates.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import Swal from 'sweetalert2';
@@ -23,7 +23,7 @@ export class SpecialdatesComponent implements OnInit {
   selectedDates: any[] = []; // Combined array for selected and special dates
   loginroleid: any;
 
-  constructor(private service: SpecialdatesService, private modalService: NgbModal, private fb: FormBuilder, private toast: ToastService) {
+  constructor(private service: SpecialdatesService, private modalService: ModalService, private fb: FormBuilder, private toast: ToastService) {
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
       user = localStorage.getItem('user');

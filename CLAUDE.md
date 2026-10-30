@@ -88,13 +88,17 @@ means `ng serve` creates and approves real bookings.
 
 ### Styling
 
-`src/assets/scss/_tokens.scss` overrides Bootstrap 5's SCSS variables (brand colour, radius,
-shadow, type) before `src/styles.scss` imports `bootstrap/scss/bootstrap`, so the grid,
-`card`, `btn`, `badge`, `form-control` etc. inherit the app's look without any template
-changes. `_app.scss` defines the ~12 classes the real screens use that aren't stock
-Bootstrap (`eventvenuename`, `chart-block`, `formg`, `errors`, `badge-xs`, …). `_icofont.scss`
-carries only the two glyphs `calenderdates` actually uses, not the theme's full ~8,500-line
-icon set.
+There is no Bootstrap any more. The whole design system is one file, `src/assets/ui/theme.css` (loaded after `styles.scss`
+in `angular.json`): colour tokens as CSS variables with light and dark values (`<html data-theme>`, falling back to the OS
+setting; the header button stores the choice in localStorage), a small base reset, the app shell, and every component class.
+All classes are prefixed `ui-`. Use them instead of inventing new ones; status colours are `--open`, `--tentative`,
+`--confirmed` and `--lost`. Per-screen `.scss` files should use the variables (`var(--border)`), never hex colours, so dark
+mode keeps working. Brand artwork is `src/assets/brand/` (a placeholder mark and favicon).
+
+Pop-ups go through `ModalService` (`shared/services/modal.service.ts`, on the Angular CDK dialog): `open(template, {size})`,
+`dismissAll()`, and the template receives the handle as `let-modal` (`modal.dismiss()`, `modal.close()`). Row menus use the
+CDK menu (`cdkMenuTriggerFor`, `.ui-menu`). ng-select is still used for multi-selects and is themed in `theme.css`.
+`theme.css` also has a preview page at `/assets/ui/preview.html`.
 
 ### Known issues, not yet fixed
 
@@ -108,9 +112,5 @@ icon set.
   component to `ChangeDetectionStrategy.Eager`. Moving components to OnPush is a separate piece of work.
 - `@ngx-translate` 18 has no `TranslateModule`: the pipe is imported directly in `SharedModule`, and
   `provideTranslateService` / `provideTranslateHttpLoader` are registered in `AppModule`.
-- `src/assets/images`, `src/assets/fonts` and `src/assets/video` still hold theme demo assets
-  (~30 MB) that weren't audited for use — the re-skin only touched SCSS and components.
 - ESLint reports ~486 findings, almost all pre-existing style debt (`no-var`,
   `@angular-eslint/prefer-inject`) unrelated to the re-skin.
-- `calenderdates` and `dailyreport` still carry their original styling; they're flagged as
-  the most work in the re-skin plan and haven't been restyled yet.

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
+import { ModalService, ModalRef } from 'src/app/shared/services/modal.service';
 import Swal from 'sweetalert2';
 import { PermissionGrant, PermissionInfo, RoleSummary, RolesService } from 'src/app/shared/services/roles.service';
 import { PermissionService } from 'src/app/shared/services/permission.service';
@@ -36,11 +36,11 @@ export class RolesComponent implements OnInit {
   loading = true;
   saving = false;
   draft: RoleDraft = this.blankDraft();
-  private modalRef?: NgbModalRef;
+  private modalRef?: ModalRef;
 
   constructor(
     private api: RolesService,
-    private modalService: NgbModal,
+    private modalService: ModalService,
     private toast: ToastService,
     private permissions: PermissionService
   ) {}
@@ -71,12 +71,12 @@ export class RolesComponent implements OnInit {
     });
   }
 
-  newRole(content: unknown): void {
+  newRole(content: TemplateRef<unknown>): void {
     this.draft = this.blankDraft();
     this.modalRef = this.modalService.open(content, { size: 'lg' });
   }
 
-  edit(role: RoleSummary, content: unknown): void {
+  edit(role: RoleSummary, content: TemplateRef<unknown>): void {
     this.api.get(role.rolesId).subscribe(detail => {
       const grants: Record<string, 'all' | 'own'> = {};
       for (const grant of detail.permissions) {

@@ -22,11 +22,11 @@
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Event Details</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="ui-modal-head">
+    <h4 class="ui-modal-title">Event Details</h4>
+    <button type="button" class="ui-modal-x" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <div class="modal-body">
+  <div class="ui-modal-body">
     <app-event-detail [details]="viewdetails" [showStatus]="true"></app-event-detail>
   </div>
 </ng-template>

@@ -81,12 +81,12 @@
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Event Details</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="ui-modal-head">
+    <h4 class="ui-modal-title">Event Details</h4>
+    <button type="button" class="ui-modal-x" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
 
-  <div class="modal-body" *ngIf="perm.canEditEvents">
+  <div class="ui-modal-body" *ngIf="perm.canEditEvents">
     <form [formGroup]="eventform" class="dr-form">
       <div class="ui-field">
         <label for="personName">Attending sales executive <span class="dr-req">*</span></label>
@@ -175,12 +175,12 @@
     </form>
   </div>
 
-  <div class="modal-footer" *ngIf="perm.canEditEvents">
+  <div class="ui-modal-foot" *ngIf="perm.canEditEvents">
     <button type="button" class="ui-btn" (click)="modal.dismiss('cancel')">Cancel</button>
     <button type="button" class="ui-btn ui-btn-primary" [disabled]="eventStatusId == 2" (click)="Save()">Save</button>
   </div>
 
-  <div class="modal-body" *ngIf="!perm.canEditEvents">
+  <div class="ui-modal-body" *ngIf="!perm.canEditEvents">
     <app-event-detail [details]="viewdails" [showStatus]="activeTab!='all' && viewdails && viewdails.eventStatusId==2"></app-event-detail>
   </div>
 </ng-template>

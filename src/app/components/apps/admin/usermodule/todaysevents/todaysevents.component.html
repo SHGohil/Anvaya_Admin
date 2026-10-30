@@ -11,13 +11,13 @@
         }
       </div>
     }
-    @if (!todaysLoading && todaysqueriesdata == null) {
+    @if (!todaysLoading && !todaysqueriesdata?.length) {
       <div class="ui-card ui-empty">
         <strong>No events today</strong>
         <p class="ui-small">Bookings for today will appear here.</p>
       </div>
     }
-    @if (!todaysLoading && todaysqueriesdata) {
+    @if (!todaysLoading && todaysqueriesdata?.length) {
       <div>
         @for (item of todaysqueriesdata; track item) {
           <app-event-card-detailed [item]="item" (cardClick)="onviewdeails(item, content)"></app-event-card-detailed>
@@ -28,11 +28,11 @@
 }
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Event Details</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="ui-modal-head">
+    <h4 class="ui-modal-title">Event Details</h4>
+    <button type="button" class="ui-modal-x" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <div class="modal-body">
+  <div class="ui-modal-body">
     <app-event-detail [details]="viewdails" [showStatus]="true"></app-event-detail>
   </div>
 </ng-template>

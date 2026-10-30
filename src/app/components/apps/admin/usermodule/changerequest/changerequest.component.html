@@ -24,11 +24,11 @@
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Event Details</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="ui-modal-head">
+    <h4 class="ui-modal-title">Event Details</h4>
+    <button type="button" class="ui-modal-x" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <div class="modal-body cr-compare-modal">
+  <div class="ui-modal-body cr-compare-modal">
 
     <div class="cr-compare-actions">
       @if (perm.has('changerequests.decide')) {
@@ -73,12 +73,12 @@
           <span class="cr-compare-field">Venue</span>
           <span class="cr-compare-val">
             @for (item of viewdails.venuelist; track item) {
-              <span class="badge cr-chip">{{item.venueName}}</span>
+              <span class="cr-chip">{{item.venueName}}</span>
             }
           </span>
           <span class="cr-compare-val cr-compare-val-new">
             @for (item of changedetails.venuelist; track item) {
-              <span class="badge cr-chip">{{item.venueName}}</span>
+              <span class="cr-chip">{{item.venueName}}</span>
             }
           </span>
         </div>
@@ -86,12 +86,12 @@
           <span class="cr-compare-field">Time of Event</span>
           <span class="cr-compare-val">
             @for (item of viewdails.eventTimeIdslist; track item) {
-              <span class="badge cr-chip">{{item.eventTimeName}}</span>
+              <span class="cr-chip">{{item.eventTimeName}}</span>
             }
           </span>
           <span class="cr-compare-val cr-compare-val-new">
             @for (item of changedetails.eventTimeIdslist; track item) {
-              <span class="badge cr-chip">{{item.eventTimeName}}</span>
+              <span class="cr-chip">{{item.eventTimeName}}</span>
             }
           </span>
         </div>

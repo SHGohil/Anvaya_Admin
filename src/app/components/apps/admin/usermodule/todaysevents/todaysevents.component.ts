@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {TodaysqueryService} from './../../../../../shared/services/todaysquery.service'
 import { ReportsService } from 'src/app/shared/services/reports.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 @Component({
     selector: 'app-todaysevents',
     templateUrl: './todaysevents.component.html',
@@ -17,7 +17,7 @@ export class TodayseventsComponent implements OnInit {
   showtab:boolean=true;
   todaysLoading = true;
   
-  constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private modalService: NgbModal,) {
+  constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private modalService: ModalService,) {
     
   }
   

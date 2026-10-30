@@ -146,3 +146,9 @@
     flex-basis: 100%;
   }
 }
+
+.cr-chip {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--r-sm);
+}

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 @Component({
     selector: 'app-confirmedevents',
@@ -15,7 +15,7 @@ export class ConfirmedeventsComponent implements OnInit {
   page = 1;
   loadingMore = false;
   readonly pageSize = 50;
-  constructor(public service : ReportsService,private cdr: ChangeDetectorRef ,private modalService: NgbModal,)
+  constructor(public service : ReportsService,private cdr: ChangeDetectorRef ,private modalService: ModalService,)
   {
  
   }

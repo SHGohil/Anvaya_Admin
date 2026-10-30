@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import {ChangerequestService} from '../../../../../shared/services/changerequest.service'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { FormBuilder } from '@angular/forms';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -29,7 +29,7 @@ export class ChangerequestComponent implements OnInit {
   changerequestLoading = true;
 
 
-  constructor(public rservice : ReportsService,private service:ChangerequestService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef, private toast: ToastService){
+  constructor(public rservice : ReportsService,private service:ChangerequestService,private modalService: ModalService, private fb: FormBuilder , private cdr: ChangeDetectorRef, private toast: ToastService){
 
   }
 

@@ -110,12 +110,12 @@
 </ng-template>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Event Details</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  <div class="ui-modal-head">
+    <h4 class="ui-modal-title">Event Details</h4>
+    <button type="button" class="ui-modal-x" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   @if (perm.canEditEvents) {
-    <div class="modal-body">
+    <div class="ui-modal-body">
       <form [formGroup]="eventform" class="cal-form">
         <div class="ui-field">
           <label for="personName">Attending sales executive <span class="cal-req">*</span></label>
@@ -213,13 +213,13 @@
         }
       </form>
     </div>
-    <div class="modal-footer">
+    <div class="ui-modal-foot">
       <button type="button" class="ui-btn" (click)="modal.dismiss('cancel')">Cancel</button>
       <button type="button" class="ui-btn ui-btn-primary" [disabled]="eventStatusId == 2" (click)="Save()">Save</button>
     </div>
   }
   @if (!perm.canEditEvents) {
-    <div class="modal-body">
+    <div class="ui-modal-body">
       <app-event-detail [details]="viewdails" [showStatus]="viewdails && viewdails.eventStatusId==2"></app-event-detail>
     </div>
   }

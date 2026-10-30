@@ -8,8 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from './app-routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxPaginationModule } from 'ngx-pagination';
 // // for HttpClient import:
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 // // for Router import:
@@ -32,11 +30,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule, NgxPaginationModule,
+        BrowserAnimationsModule,
         OverlayModule,
         SharedModule,
         AppRoutingModule,
-        NgbModule,
         // for HttpClient use:
         LoadingBarHttpClientModule,
         // for Router use:

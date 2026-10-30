@@ -1,32 +1,4 @@
-/* Global styles. See src/assets/scss/_tokens.scss for the design tokens
-   that drive Bootstrap's look, and _app.scss for the app's own classes. */
-@import "assets/scss/tokens";
-@import "bootstrap/scss/bootstrap";
-@import "assets/scss/app";
-
-/* Vendor CSS for the libraries the real screens use.
-   ngx-owl-carousel-o's prebuilt theme ships as plain CSS and is loaded
-   directly via angular.json's "styles" array instead - @import-ing it
-   here as well would double it up. */
+/* Global styles. The design system (tokens, reset, components) is src/assets/ui/theme.css,
+   which angular.json loads after this file. Only third-party vendor CSS is imported here. */
 @import "@angular/cdk/overlay-prebuilt.css";
 @import "@ng-select/ng-select/themes/default.theme.css";
-
-body {
-  font-family: $font-family-sans-serif;
-}
-
-.router-wrapper {
-  position: relative;
-  overflow: hidden;
-  width: 100vw;
-  height: calc(100% - 47px);
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
-
-:host {
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}

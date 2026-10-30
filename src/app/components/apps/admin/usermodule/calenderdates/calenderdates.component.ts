@@ -3,9 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, of } from 'rxjs';
 import {CalenderService} from '../../../../../shared/services/calender.service'
 import {EventDataService} from '../../../../../shared/services/event-data.service'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import Swal from 'sweetalert2';
-import { Modal } from 'bootstrap'; 
 import { ReportsService } from '../../../../../shared/services/reports.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { PermissionService } from 'src/app/shared/services/permission.service';
@@ -109,14 +108,13 @@ export class CalenderdatesComponent implements OnInit {
   loginid: any;
   roleid: any;   
   bootstrap: any;
-  @ViewChild('exampleModal') modalElement: ElementRef;
   currentStatus: any;
 
   onecalendarData: Object;
   eventdatedata: any=[];
   currentdateselected: any;
   years: number[] = [];
-  constructor(private fb:FormBuilder,public service : ReportsService, private calendarService: CalenderService,private modalService: NgbModal,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private eventsdata :EventDataService,private toast: ToastService) 
+  constructor(private fb:FormBuilder,public service : ReportsService, private calendarService: CalenderService,private modalService: ModalService,private cdr: ChangeDetectorRef,private formBuilder : FormBuilder,private eventsdata :EventDataService,private toast: ToastService) 
   {
     const currentYear = new Date().getFullYear();
     for (let i = currentYear; i <= currentYear + 5; i++) {
@@ -649,11 +647,6 @@ const currentDateTimeISO = currentDateTime.toISOString();
     const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th';
     return `${formattedDay}`;
   }
-  closeModal() {
-   
-    const modalInstance = new Modal(this.modalElement?.nativeElement);
-    modalInstance.close();
- } 
 
  updateEventStatus(newStatusId: number) {
   

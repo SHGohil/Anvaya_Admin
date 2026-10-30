@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, MinLengthValidator, type ValidatorFn, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { CalenderService } from 'src/app/shared/services/calender.service';
 import { EventDataService } from 'src/app/shared/services/event-data.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
@@ -88,7 +88,7 @@ total: any;
 startDate:any;
 endDate:any;
 seleted_value: string = '';
- constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private calendarService: CalenderService,private eventsdata :EventDataService,private modalService: NgbModal, private fb: FormBuilder , private cdr: ChangeDetectorRef , private toast: ToastService)
+ constructor(public todaysservice : TodaysqueryService,public service : ReportsService,private calendarService: CalenderService,private eventsdata :EventDataService,private modalService: ModalService, private fb: FormBuilder , private cdr: ChangeDetectorRef , private toast: ToastService)
  {
   const currentYear = new Date().getFullYear();
   for (let i = currentYear; i <= currentYear + 5; i++) {

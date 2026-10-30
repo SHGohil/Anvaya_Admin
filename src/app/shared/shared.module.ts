@@ -2,12 +2,10 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 // import { DragulaModule } from "ng2-dragula";
 import { TranslatePipe } from "@ngx-translate/core";
 // Components
 import { FeatherIconsComponent } from "./components/feather-icons/feather-icons.component";
-import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { ContentComponent } from "./components/layout/content/content.component";
 import { FullComponent } from "./components/layout/full/full.component";
@@ -25,10 +23,8 @@ import { ShowOptionsDirective } from "./directives/show-options.directive";
 // Services
 import { LayoutService } from "./services/layout.service";
 import { NavService } from "./services/nav.service";
-import { NgbdSortableHeader } from "./directives/NgbdSortableHeader";
 import { DecimalPipe } from "@angular/common";
 import { SvgIconComponent } from "./components/svg-icon/svg-icon.component";
-import { CarouselModule } from "ngx-owl-carousel-o";
 import { StatusBadgeComponent } from "./components/status-badge/status-badge.component";
 import { PageHeaderComponent } from "./components/page-header/page-header.component";
 import { EventCardCompactComponent } from "./components/event-card-compact/event-card-compact.component";
@@ -39,7 +35,6 @@ import { ToastContainerComponent } from "./components/toast-container/toast-cont
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent,
     SidebarComponent,
     ContentComponent,
     FeatherIconsComponent,
@@ -52,7 +47,6 @@ import { ToastContainerComponent } from "./components/toast-container/toast-cont
     TapToTopComponent,
     NotificationComponent,
     MyAccountComponent,
-    NgbdSortableHeader,
     SvgIconComponent,
     StatusBadgeComponent,
     PageHeaderComponent,
@@ -66,13 +60,11 @@ import { ToastContainerComponent } from "./components/toast-container/toast-cont
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
     // DragulaModule.forRoot(),
-    TranslatePipe,
-    CarouselModule],
+    TranslatePipe],
   providers: [NavService, LayoutService, DecimalPipe],
-  exports: [NgbModule, FormsModule, ReactiveFormsModule,
+  exports: [FormsModule, ReactiveFormsModule,
     TranslatePipe,
-    LoaderComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent, EventDetailComponent, ToastContainerComponent],
+    LoaderComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent, EventDetailComponent, ToastContainerComponent],
 })
 export class SharedModule {}
