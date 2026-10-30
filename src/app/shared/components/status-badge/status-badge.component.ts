@@ -25,10 +25,10 @@ export class StatusBadgeComponent {
 
   get variant(): string {
     switch (this.eventStatusId) {
-      case 2: return 'good';
-      case 1: return 'warn';
-      case 3: return 'critical';
-      default: return 'info';
+      case 2: return 'confirmed';
+      case 1: return 'tentative';
+      case 3: return 'lost';
+      default: return 'open';
     }
   }
 }

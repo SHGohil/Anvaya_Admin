@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
         chart: { type: 'donut', height: 190, sparkline: { enabled: true } },
         series: [apidata.open, apidata.tentative, apidata.confirmed, apidata.lost],
         labels: ['Open', 'Tentative', 'Confirmed', 'Lost'],
-        colors: ['#2e90fa', '#f79009', '#12b76a', '#f04438'],
+        colors: ['#6366f1', '#d97706', '#059669', '#e11d48'],
         stroke: { width: 0 },
         dataLabels: { enabled: false },
         legend: { show: false },

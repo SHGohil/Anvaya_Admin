@@ -1,70 +1,31 @@
-<div class="card" style="border: 1px solid #E1E6EF; cursor: pointer;" (click)="cardClick.emit()">
-  <div class="card-header"
-    style="padding: 8px; border-top-right-radius: 20px; border-top-left-radius: 20px;padding:0%;margin: 1%;">
-    <div class="row" style="line-height: 1;">
-      <div class="col-3 text-left">
-        <p class="eventvenuename" ><strong>{{item.createdByName}}</strong> </p>
-      </div>
-      <div class="col-3 text-left">
-        @if (item.eventStatusId==2) {
-          <p class="eventvenuename">BumpIn: <strong>{{convertToIST(item.bumpIN)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
-        }
-      </div>
-      <div class="col-3 text-left">
-        @if (item.eventStatusId==2) {
-          <p class="eventvenuename">BumpOut: <strong>{{convertToIST(item.bumpOUT)|date:'dd-MM-yyyy hh:mm a'}}</strong> </p>
-        }
-      </div>
-      @if (item.eventTimeIdslist!=null) {
-        <div class="col-3 text-end">
-          <span class="badge" style="background-color: #0162DD;">{{item.eventTimeIdslist[0].eventTimeName}}</span>
-          @if (item.eventTimeIdslist.length >1 ) {
-            <span class="badge" style="background-color: #d2e1f4 ; color:#0162DD ;" >+{{ item?.eventTimeIdslist?.length-1 }}</span>
-          }
-          <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
-        </div>
+<article class="ui-card ui-ecard" (click)="cardClick.emit()" tabindex="0" (keydown.enter)="cardClick.emit()">
+  <div class="ui-ecard-top">
+    <div class="ui-date-tile">
+      <b>{{ item.eventDate | date:'dd' }}</b>
+      <small>{{ item.eventDate | date:'MMM' }}</small>
+    </div>
+    <div class="ui-ecard-title">
+      <strong>{{ item.guestName || '(no guest name)' }}</strong>
+      <span class="ui-muted ui-small">{{ item.eventType?.eventTypeName }}@if (item.createdByName) { &middot; booked by {{ item.createdByName }}}</span>
+    </div>
+    <div class="ui-ecard-badges">
+      @if (item.eventTimeIdslist?.length) {
+        <span class="ui-chip">{{ item.eventTimeIdslist[0].eventTimeName }}@if (item.eventTimeIdslist.length > 1) { +{{ item.eventTimeIdslist.length - 1 }}}</span>
       }
+      <app-status-badge [eventStatusId]="item.eventStatusId"></app-status-badge>
     </div>
   </div>
-  <div class="card-body bg-white"
-    style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;padding:0%;margin: 1%;">
-    <div class="row">
-      <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-        <h6 style="color: #1D243365;">Sales Exec Name</h6>
-        <p style="font-size: 14px ; line-height: 22px;"> {{ item.personName && item.personName.length > 10 ? (item.personName| slice:0:10) + '...' : item.personName}}</p>
-      </div>
-      <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-        <h6 style="color: #1D243365;">EVENT DATE</h6>
-        <p style="font-size: 14px ; line-height: 22px;"> {{item.eventDate|date:'dd-MM-yyyy'}}</p>
-      </div>
-      <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-        <h6 style="color: #1D243365;">ENTRY DATE</h6>
-        <p style="font-size: 14px ; line-height: 22px;"> {{item.createdDate|date:'dd-MM-yyyy'}}</p>
-      </div>
-      <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-        <h6 style="color: #1D243365;">GUEST NAME</h6>
-        <p style="font-size: 14px ; line-height: 22px;"> {{ item.guestName && item.guestName.length > 10 ? (item.guestName| slice:0:10) + '...' : item.guestName }}</p>
-      </div>
-      <div class="col-2" style="border-right: 2px solid #E1E6EF ;">
-        <h6 style="color: #1D243365;">EVENT TYPE</h6>
-        <p style="font-size: 14px ; line-height: 22px;"> {{ item.eventType && item.eventType.eventTypeName && item.eventType.eventTypeName.length > 10 ? (item.eventType.eventTypeName | slice:0:10) + '...' : item.eventType.eventTypeName }}</p>
-      </div>
-
-      <div class="col-2 ">
-        <h6 style="color: #1D243365;">VENUES</h6>
-
-        <p>
-          @for (item1 of item.venuelist | slice:0:1; track item1) {
-            <span class="badge" style="background-color: #EEF2FF; color:#4F46E5;">{{item1.venueName}}</span>
-          }
-          @if (item.venuelist.length > 1) {
-            <span>,</span>
-            } @if (item.venuelist.length > 1) {
-            <span class="badge" style="background-color: #EEF2FF; color:#4F46E5;"> +{{item.venuelist.length - 1}}</span>
-          }
-        </p>
-
-      </div>
-    </div>
-  </div>
-</div>
+  <dl class="ui-ecard-facts">
+    <div><dt>Sales exec</dt><dd>{{ item.personName || '-' }}</dd></div>
+    <div><dt>Entry date</dt><dd>{{ item.createdDate | date:'dd MMM yyyy' }}</dd></div>
+    <div><dt>Venues</dt><dd>
+      @for (v of item.venuelist; track v.venueId) {<span class="ui-tag">{{ v.venueName }}</span>}
+    </dd></div>
+    @if (item.eventStatusId == 2 && item.bumpIN) {
+      <div><dt>Bump in</dt><dd>{{ convertToIST(item.bumpIN) | date:'dd MMM, hh:mm a' }}</dd></div>
+    }
+    @if (item.eventStatusId == 2 && item.bumpOUT) {
+      <div><dt>Bump out</dt><dd>{{ convertToIST(item.bumpOUT) | date:'dd MMM, hh:mm a' }}</dd></div>
+    }
+  </dl>
+</article>
