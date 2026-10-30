@@ -15,7 +15,6 @@ import { clippingParents } from "@popperjs/core";
 })
 export class MyAccountComponent implements OnInit {
   public userName: string;
-  public profileImg: "assets/images/dashboard/profile.jpg";
   roleid: any;
   username: any;
 

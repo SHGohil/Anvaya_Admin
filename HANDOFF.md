@@ -38,3 +38,11 @@ and folder names, and `package.json`. The browser-tab icon (`assets/images/sLogo
   `development` build configuration.
 - Port 4200 may be taken by your own dev server; use `node scripts/ng.js serve --port 4300`.
 - Do not write `package.json` with PowerShell 5.1 `Set-Content -Encoding utf8`: the BOM breaks webpack.
+
+## New brand artwork and login (2026-10-30)
+
+All the old theme images, fonts, videos and the icon sprite (about 24 MB, none of it displayed any more) were deleted from
+`src/assets`. The only artwork now is `src/assets/brand/` (`venexa-mark.svg`, `favicon.svg`): a placeholder Venexa mark
+drawn for this project. Replace those two files with the final logo when it exists; the sidebar, login page and browser tab
+all read them from there. The login page was redesigned (centered card on a soft grid background, icons in the fields,
+show/hide eye, light and dark).

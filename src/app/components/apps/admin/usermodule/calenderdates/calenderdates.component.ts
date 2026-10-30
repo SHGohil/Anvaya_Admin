@@ -783,26 +783,6 @@ const currentDateTimeISO = currentDateTime.toISOString();
     return item.eventsId;
   }
 
-  owlcarousel1 = [
-    { id: 1, img: "assets/images/slider/1.jpg" },
-    { id: 2, img: "assets/images/slider/2.jpg" },
-    { id: 3, img: "assets/images/slider/3.jpg" },
-    { id: 4, img: "assets/images/slider/4.jpg" },
-    { id: 5, img: "assets/images/slider/5.jpg" },
-    { id: 2, img: "assets/images/slider/6.jpg" },
-    { id: 3, img: "assets/images/slider/7.jpg" },
-    { id: 4, img: "assets/images/slider/8.jpg" },
-    { id: 5, img: "assets/images/slider/9.jpg" },
-    { id: 6, img: "assets/images/slider/10.jpg" },
-    { id: 7, img: "assets/images/slider/1.jpg" },
-    { id: 8, img: "assets/images/slider/2.jpg" },
-    { id: 9, img: "assets/images/slider/3.jpg" },
-    { id: 10, img: "assets/images/slider/4.jpg" },
-    { id: 11, img: "assets/images/slider/5.jpg" },
-    { id: 12, img: "assets/images/slider/6.jpg" },
-
-  ];
-
   //Options
   // owlcarousel1Options = {
   //   loop: true,

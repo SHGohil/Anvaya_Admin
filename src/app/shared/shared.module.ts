@@ -6,7 +6,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 // import { DragulaModule } from "ng2-dragula";
 import { TranslatePipe } from "@ngx-translate/core";
 // Components
-import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { FeatherIconsComponent } from "./components/feather-icons/feather-icons.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
@@ -43,7 +42,6 @@ import { ToastContainerComponent } from "./components/toast-container/toast-cont
     FooterComponent,
     SidebarComponent,
     ContentComponent,
-    BreadcrumbComponent,
     FeatherIconsComponent,
     FullComponent,
     ShowOptionsDirective,
@@ -75,6 +73,6 @@ import { ToastContainerComponent } from "./components/toast-container/toast-cont
   providers: [NavService, LayoutService, DecimalPipe],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslatePipe,
-    LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent, EventDetailComponent, ToastContainerComponent],
+    LoaderComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent, EventDetailComponent, ToastContainerComponent],
 })
 export class SharedModule {}
