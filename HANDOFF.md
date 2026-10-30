@@ -4,20 +4,21 @@ Read `CLAUDE.md` first.
 
 ## State
 
-- Branch `upgrade/angular-22` holds the Angular 20 -> 22 upgrade, the role-based UI (permission-driven menu,
-  guards, Roles screen), session renewal with refresh tokens, paged Confirmed Events, row-version-aware edit
-  forms and the bug fixes found while testing. **Nothing is pushed.** `main` is untouched.
+- **Everything is on `main` and pushed** (`SHGohil/Anvaya_Admin`, last commit `5be913a`). The old
+  `upgrade/angular-22` branch was merged (fast-forward) and deleted. It covers the Angular 20 -> 22 upgrade, the
+  role-based UI (permission-driven menu, guards, Roles screen), session renewal with refresh tokens, paged Confirmed
+  Events, row-version-aware edit forms and the bug fixes found while testing.
 - `npx ng build --configuration production` passes. There are no unit tests worth running (see `CLAUDE.md`).
 - Checked in a browser against the real local API: login, token renewal after a 401, sign-out revoking the
   refresh token, Confirmed Events "Load more", and the role-based menu. **Not clicked through:** the role-change
   confirmation on Users, a real edit hitting the 409 "changed by someone else" message, the Excel export after
   the latest changes.
-- Needs the API branch `upgrade/net10` (`Anvaya_API`): the app calls `/api/me`, `Login/refresh`,
-  `Login/logout`, and the paged `Events/{status}/status`.
+- **Not deployed anywhere yet.** It needs the current API `main` (`Anvaya_API`): the app calls `/api/me`,
+  `Login/refresh`, `Login/logout`, and the paged `Events/{status}/status`. Deploy the API (and its migrations) first.
 
 ## Still to do
 
-1. Decide how to ship (push / pull request / merge to `main`); deploy after the API.
+1. Deploy after the API (see `Anvaya_API/HANDOFF.md` for the order and the database checks).
 2. `xlsx` 0.18.5 has two advisories; the fixed build is only on SheetJS's own CDN
    (`https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz`). Replacing it is a non-registry dependency, so confirm first.
 3. Move to the non-deprecated builder: `ng update @angular/cli --name use-application-builder`.
