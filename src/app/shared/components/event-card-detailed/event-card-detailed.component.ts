@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 
 // Confirmed Events and Today's Events hand-duplicated this exact card
 // markup byte-for-byte (4-column header: name/BumpIn/BumpOut/status,
@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     selector: 'app-event-card-detailed',
     templateUrl: './event-card-detailed.component.html',
     styleUrls: ['./event-card-detailed.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventCardDetailedComponent {

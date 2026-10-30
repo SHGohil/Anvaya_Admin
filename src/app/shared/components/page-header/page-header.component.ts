@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 // One page-title pattern instead of every screen inventing its own heading
 // markup (a bare <h4>, an <h5> stuffed inside a card-header, an invalid-case
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
     selector: 'app-page-header',
     templateUrl: './page-header.component.html',
     styleUrls: ['./page-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PageHeaderComponent {

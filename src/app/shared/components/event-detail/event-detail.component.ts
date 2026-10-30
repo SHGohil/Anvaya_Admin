@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 // calenderdates (read-only branch), confirmedevents, todaysevents,
 // usernotification and dailyreport each hand-duplicated this exact
@@ -12,6 +12,7 @@ import { Component, Input } from '@angular/core';
     selector: 'app-event-detail',
     templateUrl: './event-detail.component.html',
     styleUrls: ['./event-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventDetailComponent {

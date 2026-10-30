@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AdminRoleGuard } from '../../../../shared/guard/admin.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { UsermoduleModule } from './usermodule.module';
 import { UsersComponent } from './users/users.component';
@@ -23,8 +24,8 @@ import { SpecialdatesComponent } from './specialdates/specialdates.component';
  * means it's registered exactly once.
  */
 const routes: Routes = [
-  { path: 'users', component: UsersComponent },
-  { path: 'approvals', component: ChangerequestComponent },
+  { path: 'users', component: UsersComponent, canActivate: [AdminRoleGuard] },
+  { path: 'approvals', component: ChangerequestComponent, canActivate: [AdminRoleGuard] },
   { path: 'specials', component: SpecialdatesComponent },
 ];
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 // One status language for the four event states, used everywhere a booking's
 // status is shown - replaces the icon-only verify.svg/danger.svg/Close_MD.svg
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
     selector: 'app-status-badge',
     templateUrl: './status-badge.component.html',
     styleUrls: ['./status-badge.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class StatusBadgeComponent {

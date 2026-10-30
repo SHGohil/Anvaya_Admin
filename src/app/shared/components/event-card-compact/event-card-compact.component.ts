@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 
 // Change Requests and Notification hand-duplicated this exact card markup
 // (2-column header with a Venue/Event Date line under it, 2-column body).
@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     selector: 'app-event-card-compact',
     templateUrl: './event-card-compact.component.html',
     styleUrls: ['./event-card-compact.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventCardCompactComponent {

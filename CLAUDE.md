@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+> **Unfinished work: read `HANDOFF.md` in this folder first.** It lists the pending Angular 22 branch and
+> what still needs testing, in order.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Standing authorization
@@ -14,7 +17,7 @@ abandoned Azure DevOps copy (see below). Ask before any of those.
 
 ## Project
 
-Angular 20 admin front end for the Anvaya Convention API (event and venue booking for a
+Angular 22 admin front end for the Anvaya Convention API (event and venue booking for a
 convention centre). Originally built on a purchased admin theme ("cuba"); as of the UI
 re-skin (2026-08) the unused ~95% of that theme — blog, e-commerce, email, chat, job-search,
 gallery, the 68-component demo dashboard, and 91k lines of theme SCSS — has been deleted.
@@ -70,10 +73,16 @@ icon set.
 
 ### Known issues, not yet fixed
 
-- Dependency audit: 8 advisories (0 critical) as of the last pass — down from 47. The
-  remainder is `xlsx` (prototype pollution / ReDoS, no upstream fix) and `uuid` (pulled in
-  transitively by `webpack-dev-server`, dev-only). Fixing either needs a package swap or an
-  Angular major bump, not attempted here.
+- Dependency audit: 1 advisory after the Angular 22 upgrade — `xlsx` 0.18.5 (prototype pollution /
+  ReDoS). The npm registry copy is abandoned; SheetJS publishes fixed builds only from their own CDN.
+  It is the only finding in production dependencies.
+- Still on the deprecated webpack builder (`@angular-devkit/build-angular:browser`). Moving to
+  `@angular/build:application` is the next upgrade; run `ng update @angular/cli --name use-application-builder`.
+- TypeScript 6 turns `strict` on by default; `tsconfig.base.json` sets `"strict": false` to keep the
+  app's existing behaviour. Angular 22 made OnPush the default, so the update pinned every existing
+  component to `ChangeDetectionStrategy.Eager`. Moving components to OnPush is a separate piece of work.
+- `@ngx-translate` 18 has no `TranslateModule`: the pipe is imported directly in `SharedModule`, and
+  `provideTranslateService` / `provideTranslateHttpLoader` are registered in `AppModule`.
 - `src/assets/images`, `src/assets/fonts` and `src/assets/video` still hold theme demo assets
   (~30 MB) that weren't audited for use — the re-skin only touched SCSS and components.
 - ESLint reports ~486 findings, almost all pre-existing style debt (`no-var`,

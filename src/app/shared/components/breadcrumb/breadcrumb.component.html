@@ -13,7 +13,9 @@
               </svg>
             </a>
           </li>
-          <li class="breadcrumb-item" *ngFor="let item of items">{{ item }}</li>
+          @for (item of items; track item) {
+            <li class="breadcrumb-item">{{ item }}</li>
+          }
           <li class="breadcrumb-item active">{{ active_item }}</li>
         </ol>
       </div>

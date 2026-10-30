@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,11 +10,12 @@ import Swal from 'sweetalert2';
     selector: 'app-addquery',
     templateUrl: './addquery.component.html',
     styleUrls: ['./addquery.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AddqueryComponent implements OnInit {
   venueData$:any;
-  typedata: Object;
+  typedata: any[];
   timedata: any;
   form: any;
   isAllVenueSelected:boolean=false;
@@ -110,7 +111,7 @@ getvenues(){
 
 gettype(){
   this.service.gettype().subscribe(apidata=>{
-    this.typedata = apidata;
+    this.typedata = apidata as any[];
   })
 }
 

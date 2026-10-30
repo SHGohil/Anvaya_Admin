@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
 import { clippingParents } from "@popperjs/core";
 
@@ -6,6 +6,7 @@ import { clippingParents } from "@popperjs/core";
     selector: "app-my-account",
     templateUrl: "./my-account.component.html",
     styleUrls: ["./my-account.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MyAccountComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import * as feather from 'feather-icons';
 import { LayoutService } from '../../../services/layout.service';
@@ -8,6 +8,7 @@ import { NavService } from '../../../services/nav.service';
     selector: 'app-content',
     templateUrl: './content.component.html',
     styleUrls: ['./content.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ContentComponent implements OnInit, AfterViewInit {

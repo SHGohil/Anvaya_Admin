@@ -34,90 +34,141 @@
                   </div>
                 </li>
 
-                <li [class]="menuItem.headTitle1 ? 'sidebar-main-title' : 'sidebar-list'" *ngFor="let menuItem of menuItems" [ngClass]="{ active: menuItem.active }">
-                  <div *ngIf="menuItem.headTitle1">
-                    <h6 class="lan-1">{{ menuItem.headTitle1 | translate }}</h6>
-                  </div>
-
-                  <label class="badge badge-{{ menuItem.badgeType }}" *ngIf="menuItem.badgeType && menuItem.badgeValue">{{ menuItem.badgeValue }}</label>
-                  <!-- Sub -->
-                  <a href="javascript:void(0)" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'sub'" (click)="toggletNavActive(menuItem)">
-                    <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
-                    <span>{{ menuItem.title | translate }}</span>
-                    <div class="according-menu">
-                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </div>
-                  </a>
-                  <!-- Link -->
-                  <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'link'">
-                    <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
-                    <span>{{ menuItem.title | translate }}</span>
-                    <div class="according-menu">
-                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </div>
-                  </a>
-                  <!-- External Link -->
-                  <a href="{{ !menuItem.type ? null : menuItem.path }}" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'extLink'">
-                    <app-svg-icon [icon]="menuItem.icon"></app-svg-icon><span>{{ menuItem.title | translate }}</span>
-                    <div class="according-menu">
-                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </div>
-                  </a>
-                  <!-- External Tab Link -->
-                  <a href="{{ !menuItem.type ? null : menuItem.path }}" target="_blank" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'extTabLink'">
-                    <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
-                    <span>{{ menuItem.title }}</span>
-                    <div class="according-menu">
-                      <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="menuItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </div>
-                  </a>
-                  <!-- 2nd Level Menu -->
-                  <ul class="sidebar-submenu" [ngClass]="{ active: menuItem.active }" [ngClass]="{ 'menu-open': menuItem.active, 'menu-close': !menuItem.active }" *ngIf="menuItem.children" [style.display]="menuItem.active ? 'block' : 'none'">
-                    <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{ active: childrenItem.active }">
-                      <!-- Sub -->
-                      <a class="submenu-title" href="javascript:void(0)" *ngIf="childrenItem.type === 'sub'" (click)="toggletNavActive(childrenItem)">
-                        <span> {{ childrenItem.title | translate }}</span>
+                @for (menuItem of menuItems; track menuItem) {
+                  <li [class]="menuItem.headTitle1 ? 'sidebar-main-title' : 'sidebar-list'" [ngClass]="{ active: menuItem.active }">
+                    @if (menuItem.headTitle1) {
+                      <div>
+                        <h6 class="lan-1">{{ menuItem.headTitle1 | translate }}</h6>
+                      </div>
+                    }
+                    @if (menuItem.badgeType && menuItem.badgeValue) {
+                      <label class="badge badge-{{ menuItem.badgeType }}">{{ menuItem.badgeValue }}</label>
+                    }
+                    <!-- Sub -->
+                    @if (menuItem.type === 'sub') {
+                      <a href="javascript:void(0)" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" (click)="toggletNavActive(menuItem)">
+                        <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
+                        <span>{{ menuItem.title | translate }}</span>
                         <div class="according-menu">
-                          <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="childrenItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          @if (menuItem.children) {
+                            <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          }
                         </div>
                       </a>
-                      <!-- Link -->
-                      <a class="submenu-title" [routerLink]="!childrenItem.type ? null : [childrenItem.path]" *ngIf="childrenItem.type === 'link'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        {{ childrenItem.title | translate }}
-                        <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    }
+                    <!-- Link -->
+                    @if (menuItem.type === 'link') {
+                      <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }">
+                        <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
+                        <span>{{ menuItem.title | translate }}</span>
+                        <div class="according-menu">
+                          @if (menuItem.children) {
+                            <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          }
+                        </div>
                       </a>
-                      <!-- External Link -->
-                      <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" *ngIf="childrenItem.type === 'extLink'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        {{ childrenItem.title | translate }}
-                        <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    }
+                    <!-- External Link -->
+                    @if (menuItem.type === 'extLink') {
+                      <a href="{{ !menuItem.type ? null : menuItem.path }}" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }">
+                        <app-svg-icon [icon]="menuItem.icon"></app-svg-icon><span>{{ menuItem.title | translate }}</span>
+                        <div class="according-menu">
+                          @if (menuItem.children) {
+                            <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          }
+                        </div>
                       </a>
-                      <!-- External Tab Link -->
-                      <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" target="_blank" *ngIf="childrenItem.type === 'extTabLink'">
-                        <span>{{ childrenItem.title | translate }}</span>
-                        <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" *ngIf="childrenItem.children"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    }
+                    <!-- External Tab Link -->
+                    @if (menuItem.type === 'extTabLink') {
+                      <a href="{{ !menuItem.type ? null : menuItem.path }}" target="_blank" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }">
+                        <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
+                        <span>{{ menuItem.title }}</span>
+                        <div class="according-menu">
+                          @if (menuItem.children) {
+                            <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="menuItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          }
+                        </div>
                       </a>
-                      <!-- 3rd Level Menu -->
-                      <ul class="nav-sub-childmenu submenu-content" *ngIf="childrenItem.children" [ngClass]="{ active: childrenItem.active }" [ngClass]="{ 'menu-open': childrenItem.active, 'menu-close': !childrenItem.active }" [style.display]="childrenItem.active ? 'block' : 'none'">
-                        <li *ngFor="let childrenSubItem of childrenItem.children" [ngClass]="{ active: childrenSubItem.active }">
-                          <!-- Link -->
-                          <a [routerLink]="!childrenSubItem.type ? null : [childrenSubItem.path]" *ngIf="childrenSubItem.type === 'link'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                            {{ childrenSubItem.title | translate }}
-                          </a>
-                          <!-- External Link -->
-                          <a href="{{ !childrenSubItem.type ? null : childrenSubItem.path }}" *ngIf="childrenSubItem.type === 'extLink'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                            {{ childrenSubItem.title | translate }}
-                          </a>
-                          <!-- External Tab Link -->
-                          <a href="{{ !childrenSubItem.type ? null : childrenSubItem.path }}" target="_blank" *ngIf="childrenSubItem.type === 'extTabLink'">
-                            {{ childrenSubItem.title | translate }}
-                          </a>
-                        </li>
+                    }
+                    <!-- 2nd Level Menu -->
+                    @if (menuItem.children) {
+                      <ul class="sidebar-submenu" [ngClass]="{ active: menuItem.active }" [ngClass]="{ 'menu-open': menuItem.active, 'menu-close': !menuItem.active }" [style.display]="menuItem.active ? 'block' : 'none'">
+                        @for (childrenItem of menuItem.children; track childrenItem) {
+                          <li [ngClass]="{ active: childrenItem.active }">
+                            <!-- Sub -->
+                            @if (childrenItem.type === 'sub') {
+                              <a class="submenu-title" href="javascript:void(0)" (click)="toggletNavActive(childrenItem)">
+                                <span> {{ childrenItem.title | translate }}</span>
+                                <div class="according-menu">
+                                  @if (childrenItem.children) {
+                                    <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" [style.transform]="childrenItem.active ? 'rotate(0deg)' : 'rotate(-90deg)'"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                  }
+                                </div>
+                              </a>
+                            }
+                            <!-- Link -->
+                            @if (childrenItem.type === 'link') {
+                              <a class="submenu-title" [routerLink]="!childrenItem.type ? null : [childrenItem.path]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                                {{ childrenItem.title | translate }}
+                                @if (childrenItem.children) {
+                                  <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                }
+                              </a>
+                            }
+                            <!-- External Link -->
+                            @if (childrenItem.type === 'extLink') {
+                              <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                                {{ childrenItem.title | translate }}
+                                @if (childrenItem.children) {
+                                  <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                }
+                              </a>
+                            }
+                            <!-- External Tab Link -->
+                            @if (childrenItem.type === 'extTabLink') {
+                              <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" target="_blank">
+                                <span>{{ childrenItem.title | translate }}</span>
+                                @if (childrenItem.children) {
+                                  <svg class="pull-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                }
+                              </a>
+                            }
+                            <!-- 3rd Level Menu -->
+                            @if (childrenItem.children) {
+                              <ul class="nav-sub-childmenu submenu-content" [ngClass]="{ active: childrenItem.active }" [ngClass]="{ 'menu-open': childrenItem.active, 'menu-close': !childrenItem.active }" [style.display]="childrenItem.active ? 'block' : 'none'">
+                                @for (childrenSubItem of childrenItem.children; track childrenSubItem) {
+                                  <li [ngClass]="{ active: childrenSubItem.active }">
+                                    <!-- Link -->
+                                    @if (childrenSubItem.type === 'link') {
+                                      <a [routerLink]="!childrenSubItem.type ? null : [childrenSubItem.path]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                                        {{ childrenSubItem.title | translate }}
+                                      </a>
+                                    }
+                                    <!-- External Link -->
+                                    @if (childrenSubItem.type === 'extLink') {
+                                      <a href="{{ !childrenSubItem.type ? null : childrenSubItem.path }}" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                                        {{ childrenSubItem.title | translate }}
+                                      </a>
+                                    }
+                                    <!-- External Tab Link -->
+                                    @if (childrenSubItem.type === 'extTabLink') {
+                                      <a href="{{ !childrenSubItem.type ? null : childrenSubItem.path }}" target="_blank">
+                                        {{ childrenSubItem.title | translate }}
+                                      </a>
+                                    }
+                                  </li>
+                                }
+                              </ul>
+                            }
+                          </li>
+                        }
                       </ul>
-                    </li>
-                  </ul>
-                </li>
+                    }
+                  </li>
+                }
 
-              
+
               </div>
             </div>
           </div>
@@ -125,8 +176,8 @@
       </div>
     </ul>
 
-  
-    
+
+
   </div>
   <div class="right-arrow" id="right-arrow" [class.d-none]="rightArrowNone" (click)="scrollToRight()">
     <app-feather-icons [icon]="'arrow-right'"></app-feather-icons>

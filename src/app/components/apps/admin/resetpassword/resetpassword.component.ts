@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
     selector: 'app-resetpassword',
     templateUrl: './resetpassword.component.html',
     styleUrls: ['./resetpassword.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ResetpasswordComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {YourServiceName } from '../../../../shared/services/notification.service'
@@ -6,6 +6,7 @@ import {YourServiceName } from '../../../../shared/services/notification.service
     selector: 'app-usernotification',
     templateUrl: './usernotification.component.html',
     styleUrls: ['./usernotification.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UsernotificationComponent {

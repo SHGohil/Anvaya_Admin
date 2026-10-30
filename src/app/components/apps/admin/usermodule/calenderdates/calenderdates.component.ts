@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, of } from 'rxjs';
 import {CalenderService} from '../../../../../shared/services/calender.service'
@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     selector: 'app-calenderdates',
     templateUrl: './calenderdates.component.html',
     styleUrls: ['./calenderdates.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CalenderdatesComponent implements OnInit {
@@ -201,6 +202,17 @@ var formattedDate  = isoString.slice(0, 10)+'T00:00:00';
     return this.months[this.currentMonthIndex];
 
  }
+/**
+ * Reloads the month the grid is showing, after an edit. Unlike getonecaledetdata it
+ * leaves showedit alone, so it is safe to call from a save handler. The save paths used
+ * to refresh only calendarData, which the grid does not read, so a saved status change
+ * showed in the details card but the coloured dot stayed stale until a page reload.
+ */
+refreshDisplayedMonth(){
+  this.calendarService.onecalenderdates(this.currentYear, this.currentMonthIndex + 1).subscribe(data => {
+    this.onecalendarData = data;
+  });
+}
 getonecaledetdata(month){
   this.calendarService.onecalenderdates(this.currentYear,month).subscribe(data => {
     this.onecalendarData = data;
@@ -570,11 +582,12 @@ getonecaledetdata(month){
 
   if(parseInt(this.currentStatus) != 2 && parseInt(this.currentStatus) != 3  ) {
         
-      this.calendarService.updateEvent(this.roleid,payload).subscribe(data => {
+      this.calendarService.updateEvent(payload).subscribe(data => {
       
         const currentYear = new Date().getFullYear()
         this.getcalenderdata(currentYear);
-          this.showedit = false; 
+        this.refreshDisplayedMonth();
+          this.showedit = false;
           this.modalService.dismissAll();
          this.getoncedatedata(this.currentdateselected);
           this.toast.success('Success', 'Event Updated Successfully');
@@ -595,6 +608,7 @@ getonecaledetdata(month){
         this.modalService.dismissAll();
         this.toast.success('Saved', 'Event Details Sent for Authentication');
         this.getcalenderdata(currentYear);
+        this.refreshDisplayedMonth();
           this.showedit = false;
       },(error:any)=>{
         Swal.fire({

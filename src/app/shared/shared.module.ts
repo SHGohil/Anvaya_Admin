@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 // import { DragulaModule } from "ng2-dragula";
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
 // Components
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { FeatherIconsComponent } from "./components/feather-icons/feather-icons.component";
@@ -70,11 +70,11 @@ import { ToastContainerComponent } from "./components/toast-container/toast-cont
     ReactiveFormsModule,
     NgbModule,
     // DragulaModule.forRoot(),
-    TranslateModule.forRoot(),
+    TranslatePipe,
     CarouselModule],
   providers: [NavService, LayoutService, DecimalPipe],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
     LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, StatusBadgeComponent, PageHeaderComponent, EventCardCompactComponent, EventCardDetailedComponent, EventDetailComponent, ToastContainerComponent],
 })
 export class SharedModule {}

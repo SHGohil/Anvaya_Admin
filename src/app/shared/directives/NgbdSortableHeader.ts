@@ -28,7 +28,7 @@ export class NgbdSortableHeader {
     @Input() direction: SortDirection = '';
     @Output() sort = new EventEmitter<SortEvent>();
 
-    @HostListener('click', ['$event']) rotate() {
+    @HostListener('click') rotate() {
         console.info('clicked: ');
         this.direction = rotate[this.direction];
         this.sort.emit({ column: this.sortable, direction: this.direction });

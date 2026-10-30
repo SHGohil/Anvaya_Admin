@@ -12,10 +12,10 @@ export class CalenderService {
 
   constructor(public http : HttpClient) 
   {  } 
-  updateEvent(roleId,payload){
+  updateEvent(payload){
     
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-    var url = environment.backendAPIURL+`/Events/${payload.eventsId}?roleId=${roleId}`
+    var url = environment.backendAPIURL+`/Events/${payload.eventsId}`
 
     return this.http.post(url, payload, { headers, responseType: 'json', context: skipGlobalErrorDialog() });
   } 

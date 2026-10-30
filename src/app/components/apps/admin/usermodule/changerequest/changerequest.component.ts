@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {ChangerequestService} from '../../../../../shared/services/changerequest.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
     selector: 'app-changerequest',
     templateUrl: './changerequest.component.html',
     styleUrls: ['./changerequest.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ChangerequestComponent implements OnInit {

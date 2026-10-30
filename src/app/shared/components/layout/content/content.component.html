@@ -21,7 +21,9 @@
     <!-- Page Body End-->
   </div>
 </div>
-<div class="sidebar-backdrop" *ngIf="!navServices.collapseSidebar" (click)="navServices.collapseSidebar = true"></div>
+@if (!navServices.collapseSidebar) {
+  <div class="sidebar-backdrop" (click)="navServices.collapseSidebar = true"></div>
+}
 <app-toast-container></app-toast-container>
 <!-- <app-customizer></app-customizer> -->
 <!-- page-wrapper End-->

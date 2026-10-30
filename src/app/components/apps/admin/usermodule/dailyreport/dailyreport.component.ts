@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, MinLengthValidator, ValidatorFn, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, MinLengthValidator, type ValidatorFn, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalenderService } from 'src/app/shared/services/calender.service';
 import { EventDataService } from 'src/app/shared/services/event-data.service';
@@ -13,6 +13,7 @@ import * as FileSaver from 'file-saver';
     selector: 'app-dailyreport',
     templateUrl: './dailyreport.component.html',
     styleUrls: ['./dailyreport.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DailyreportComponent  implements OnInit {
@@ -1035,7 +1036,7 @@ console.log(typeof(this.status))
 console.log(payload,"---------------payload-------")
 if(parseInt(this.currentStatus) != 2 && parseInt(this.currentStatus) != 3  ) {
       
-    this.calendarService.updateEvent(this.roleid,payload).subscribe(data => {
+    this.calendarService.updateEvent(payload).subscribe(data => {
     
       const currentYear = new Date().getFullYear()
         this.showedit = false; 
@@ -1085,11 +1086,16 @@ if(parseInt(this.currentStatus) != 2 && parseInt(this.currentStatus) != 3  ) {
         ? event.eventTimeIdslist.map(et => et?.eventTimeName).join(", ")
         : "",
       Phone: event?.phonenumber,
-      EventType: event?.eventTypeName,
+      // The API nests this as eventType.eventTypeName; reading event.eventTypeName left
+      // the whole column empty.
+      // trim(): the stored names end in a line break, which would sit inside the cell.
+      EventType: (event?.eventType?.eventTypeName ?? event?.eventTypeName)?.trim(),
       Status: event?.eventStatusName,
       FoodType: event?.eventFoodTypeName,
-      BumpIn: new Date(event?.bumpIN),
-      BumpOut: new Date(event?.bumpOUT)
+      // Blank when there is no value: new Date(undefined) is an Invalid Date, which
+      // Excel shows as 1/0/00 in every row.
+      BumpIn: event?.bumpIN ? new Date(event.bumpIN) : '',
+      BumpOut: event?.bumpOUT ? new Date(event.bumpOUT) : ''
     }));
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);

@@ -18,8 +18,13 @@ export class AdminGuard {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
     const user = this.readUser();
 
-    // No stored user, an unparseable one, or one without a token: not signed in.
-    if (!user || !user.token) {
+    // No stored user, an unparseable one, one without a token, or one whose token
+    // has expired: not signed in. An expired token used to pass this check and then
+    // fail every API call with a 401 from inside a screen that looked signed in.
+    if (!user || !user.token || isTokenExpired(user.token)) {
+      if (user) {
+        localStorage.removeItem("user");
+      }
       // Returning a UrlTree both cancels this navigation and redirects, rather
       // than starting a second navigation that races the first.
       return this.router.createUrlTree(["/auth/login"], {
@@ -50,5 +55,46 @@ export class AdminGuard {
       localStorage.removeItem("user");
       return null;
     }
+  }
+}
+
+/**
+ * True when the JWT's `exp` claim is in the past. A token that cannot be decoded is
+ * treated as expired, so a mangled value signs the user out rather than being trusted.
+ */
+function isTokenExpired(token: string): boolean {
+  try {
+    const payload = token.split(".")[1];
+    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+    const exp = JSON.parse(json).exp;
+    return typeof exp === "number" && exp * 1000 <= Date.now();
+  } catch {
+    return true;
+  }
+}
+
+/**
+ * Keeps non-admins off the admin-only screens (Users, Change Requests).
+ *
+ * The sidebar already hides those links, but a hidden link does not stop anyone typing
+ * the address. The API enforces the role independently; this just stops the screen
+ * opening and showing an empty or failing page.
+ */
+@Injectable({
+  providedIn: "root",
+})
+export class AdminRoleGuard {
+  constructor(private router: Router) {}
+
+  canActivate(): boolean | UrlTree {
+    try {
+      const user = JSON.parse(localStorage.getItem("user") ?? "null");
+      if (user?.userdata?.roleId === 1) {
+        return true;
+      }
+    } catch {
+      // fall through: an unreadable user is not an admin
+    }
+    return this.router.createUrlTree(["/admin/dashboard"]);
   }
 }

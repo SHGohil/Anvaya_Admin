@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 @Component({
     selector: 'app-confirmedevents',
     templateUrl: './confirmedevents.component.html',
     styleUrls: ['./confirmedevents.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ConfirmedeventsComponent implements OnInit {

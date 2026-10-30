@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {TodaysqueryService} from './../../../../../shared/services/todaysquery.service'
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     selector: 'app-todaysevents',
     templateUrl: './todaysevents.component.html',
     styleUrls: ['./todaysevents.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TodayseventsComponent implements OnInit {

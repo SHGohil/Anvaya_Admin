@@ -1,14 +1,18 @@
 <div class="notification-box"routerLink="admin/notification" (click)="toggleNotificationMobile()">
   <app-svg-icon icon="bell"></app-svg-icon>
-  <span class="badge rounded-pill badge-secondary" *ngIf="notificationCount > 0">{{notificationCount}}</span>
+  @if (notificationCount > 0) {
+    <span class="badge rounded-pill badge-secondary">{{notificationCount}}</span>
+  }
 </div>
 <div class="onhover-show-div notification-dropdown" style="overflow-y: scroll !important;" >
   <h6 class="f-18 mb-0 dropdown-title">Notitications</h6>
   <ul  >
-    <li class="border-4" [ngClass]="{'b-l-warning': item.eventdetails?.eventStatusId === 1,'b-l-success': item.eventdetails?.eventStatusId === 2,'b-l-danger': item.eventdetails?.eventStatusId === 3}"   *ngFor="let item of firstFourNotifications"  >
-      <p>{{item.action}}<span class="font-danger">Event Date: {{ item.eventdetails.eventDate | date:'yyyy-MM-dd' }}</span></p>
-    </li>
+    @for (item of firstFourNotifications; track item) {
+      <li class="border-4" [ngClass]="{'b-l-warning': item.eventdetails?.eventStatusId === 1,'b-l-success': item.eventdetails?.eventStatusId === 2,'b-l-danger': item.eventdetails?.eventStatusId === 3}"    >
+        <p>{{item.action}}<span class="font-danger">Event Date: {{ item.eventdetails.eventDate | date:'yyyy-MM-dd' }}</span></p>
+      </li>
+    }
     <li><a class="f-w-700" routerLink="admin/notification" >Check all</a></li>
   </ul>
-  
+
 </div>

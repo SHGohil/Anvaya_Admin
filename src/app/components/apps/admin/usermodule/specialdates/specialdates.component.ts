@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpecialdatesService } from 'src/app/shared/services/specialdates.service';
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
     selector: 'app-specialdates',
     templateUrl: './specialdates.component.html',
     styleUrls: ['./specialdates.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SpecialdatesComponent implements OnInit {
@@ -81,10 +82,10 @@ export class SpecialdatesComponent implements OnInit {
 
   getselecteddate() {
     this.service.specialdates().subscribe((apidata: []) => {
-      const specialDates = apidata.map((c: any) => c.date); // Get special dates from API
-      specialDates.forEach(date => {
-        this.selectedDates.push(date);
-      });
+      // Replace the list rather than appending to it. This runs again after every save,
+      // and appending put each date in the array twice, so the header count doubled and
+      // the next save would have posted every date twice.
+      this.selectedDates = Array.from(new Set(apidata.map((c: any) => c.date)));
     });
   }
   

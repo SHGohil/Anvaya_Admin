@@ -6,7 +6,7 @@ import { Directive, HostListener, HostBinding } from '@angular/core';
 })
 export class DisableKeyPressDirective {
 
-  @HostBinding('autocomplete') public autocomplete;
+  @HostBinding('attr.autocomplete') public autocomplete;
 
   constructor() {
     this.autocomplete = 'off';

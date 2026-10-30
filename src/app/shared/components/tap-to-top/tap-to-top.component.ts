@@ -1,10 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 
 @Component({
     selector: 'app-tap-to-top',
     templateUrl: './tap-to-top.component.html',
     styleUrls: ['./tap-to-top.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TapToTopComponent implements OnInit {

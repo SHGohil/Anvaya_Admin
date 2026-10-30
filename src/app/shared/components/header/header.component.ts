@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, DOCUMENT } from "@angular/core";
+import { Component, OnInit, Inject, DOCUMENT, ChangeDetectionStrategy } from "@angular/core";
 
 import { NavService } from "../../services/nav.service";
 import { LayoutService } from "../../services/layout.service";
@@ -7,6 +7,7 @@ import { LayoutService } from "../../services/layout.service";
     selector: "app-header",
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class HeaderComponent implements OnInit {

@@ -1,129 +1,163 @@
 <div class="container-fluid pt-3">
-    <app-page-header title="Users" subtitle="{{ usersLoading ? '' : (userdata?.length || 0) + ' user' + (userdata?.length === 1 ? '' : 's') }}">
-        <button class="btn btn-sm btn-primary" (click)="add(content)">Add User</button>
-    </app-page-header>
-    <div class="card">
-        <div class="card-body">
-            <div class="users-toolbar" *ngIf="!usersLoading && userdata?.length">
-                <input type="search" class="form-control users-search" aria-label="Search users" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
-            </div>
-            <div class="table-responsive">
-            <table class="table">
-
-                <thead>
-                  <tr class="border-bottom-primary">
-                    <th scope="col">User Name</th>
-                    <th scope="col">Mobile Number</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Created By</th>
-                    <th scope="col">Created Date</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody *ngIf="usersLoading">
-                  <tr class="border-bottom-secondary" *ngFor="let i of [1,2,3,4,5]">
-                    <th scope="row" colspan="7"><div class="skeleton" style="height: 18px; width: 100%;"></div></th>
-                  </tr>
-                </tbody>
-                <tbody *ngIf="!usersLoading && !userdata?.length">
-                  <tr>
-                    <td colspan="7" class="text-center text-grey py-4">No users found.</td>
-                  </tr>
-                </tbody>
-                <tbody *ngIf="!usersLoading && userdata?.length && !filteredUsers.length">
-                  <tr>
-                    <td colspan="7" class="text-center text-grey py-4">No users match "{{searchTerm}}".</td>
-                  </tr>
-                </tbody>
-                <tbody *ngIf="!usersLoading && filteredUsers?.length">
-                  <tr class="border-bottom-secondary" *ngFor="let item of filteredUsers">
-                    <th scope="row">{{item.userName}}</th>
-                    <td>{{item.mobileNumber || '—'}}</td>
-                    <td>{{item.email}}</td>
-                    <td>{{item.roleName}}</td>
-                    <td>{{item.createdByName || '—'}}</td>
-                    <td>{{item.createdDate|date:'dd-MM-yyyy'}}</td>
-                    <td>
-                        <div ngbDropdown container="body" class="d-inline-block">
-                            <button class="btn btn-xs btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Options</button>
-                            <div class="dropdown-menu" ngbDropdownMenu>
-                                <h6 class="dropdown-header">Select Actions</h6>
-                                <div class="dropdown-divider"></div>
-                              <a class="dropdown-item " style="cursor: pointer;"  ngbDropdownItem (click)="edit(item,content)">Edit</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="delete(item)">Delete</a>
-                            </div>
-                        </div>
-                    </td>
-                  
-                  </tr>
-               
-                </tbody>
-              </table>
-            </div>
-            </div>
+  <app-page-header title="Users" subtitle="{{ usersLoading ? '' : (userdata?.length || 0) + ' user' + (userdata?.length === 1 ? '' : 's') }}">
+    <button class="btn btn-sm btn-primary" (click)="add(content)">Add User</button>
+  </app-page-header>
+  <div class="card">
+    <div class="card-body">
+      @if (!usersLoading && userdata?.length) {
+        <div class="users-toolbar">
+          <input type="search" class="form-control users-search" aria-label="Search users" placeholder="Search by name, email, or mobile number" [(ngModel)]="searchTerm">
         </div>
-    
+      }
+      <div class="table-responsive">
+        <table class="table">
+
+          <thead>
+            <tr class="border-bottom-primary">
+              <th scope="col">User Name</th>
+              <th scope="col">Mobile Number</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Created By</th>
+              <th scope="col">Created Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          @if (usersLoading) {
+            <tbody>
+              @for (i of [1,2,3,4,5]; track i) {
+                <tr class="border-bottom-secondary">
+                  <th scope="row" colspan="7"><div class="skeleton" style="height: 18px; width: 100%;"></div></th>
+                </tr>
+              }
+            </tbody>
+          }
+          @if (!usersLoading && !userdata?.length) {
+            <tbody>
+              <tr>
+                <td colspan="7" class="text-center text-grey py-4">No users found.</td>
+              </tr>
+            </tbody>
+          }
+          @if (!usersLoading && userdata?.length && !filteredUsers.length) {
+            <tbody>
+              <tr>
+                <td colspan="7" class="text-center text-grey py-4">No users match "{{searchTerm}}".</td>
+              </tr>
+            </tbody>
+          }
+          @if (!usersLoading && filteredUsers?.length) {
+            <tbody>
+              @for (item of filteredUsers; track item) {
+                <tr class="border-bottom-secondary">
+                  <th scope="row">{{item.userName}}</th>
+                  <td>{{item.mobileNumber || '—'}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.roleName}}</td>
+                  <td>{{item.createdByName || '—'}}</td>
+                  <td>{{item.createdDate|date:'dd-MM-yyyy'}}</td>
+                  <td>
+                    <div ngbDropdown container="body" class="d-inline-block">
+                      <button class="btn btn-xs btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Options</button>
+                      <div class="dropdown-menu" ngbDropdownMenu>
+                        <h6 class="dropdown-header">Select Actions</h6>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item " style="cursor: pointer;"  ngbDropdownItem (click)="edit(item,content)">Edit</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem (click)="delete(item)">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          }
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
 <ng-template #content let-modal>
 
-        <div class="modal-header bg-primary" *ngIf="flag==1">
-          <h6 class="modal-title">Add User</h6>
-          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-header bg-primary" *ngIf="flag==2">
-          <h6 class="modal-title" >Update User</h6>
-          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <form [formGroup]="userForm" class="modal-body">
-            <div class="row m-2">
-              <div class="col-lg-6">
-                <label for="userName">Name<span class="mandatory">*</span></label>
-                <input id="userName" class="form-control" formControlName="userName" type="text">
-                <div *ngIf="userForm.get('userName').touched && userForm.get('userName').hasError('required')" class="text text-danger mt-1">Name is required</div>
-              </div>
+  @if (flag==1) {
+    <div class="modal-header bg-primary">
+      <h6 class="modal-title">Add User</h6>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+  }
+  @if (flag==2) {
+    <div class="modal-header bg-primary">
+      <h6 class="modal-title" >Update User</h6>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+  }
+  <form [formGroup]="userForm" class="modal-body">
+    <div class="row m-2">
+      <div class="col-lg-6">
+        <label for="userName">Name<span class="mandatory">*</span></label>
+        <input id="userName" class="form-control" formControlName="userName" type="text" autocomplete="off">
+        @if (userForm.get('userName').touched && userForm.get('userName').hasError('required')) {
+          <div class="text text-danger mt-1">Name is required</div>
+        }
+      </div>
 
-              <div class="col-lg-6">
-                <label for="mobileNumber">Mobile Number<span class="mandatory">*</span></label>
-                <input id="mobileNumber" class="form-control" formControlName="mobileNumber" type="text" (input)="onPhoneNumberInput($event)">
-                <div *ngIf="userForm.get('mobileNumber').touched && userForm.get('mobileNumber').hasError('required')" class="text text-danger mt-1">Mobile number is required</div>
-              </div>
+      <div class="col-lg-6">
+        <label for="mobileNumber">Mobile Number<span class="mandatory">*</span></label>
+        <input id="mobileNumber" class="form-control" formControlName="mobileNumber" type="text" (input)="onPhoneNumberInput($event)">
+        @if (userForm.get('mobileNumber').touched && userForm.get('mobileNumber').hasError('required')) {
+          <div class="text text-danger mt-1">Mobile number is required</div>
+        }
+      </div>
 
-              <div class="col-lg-6 mt-3">
-                <label for="email">Email<span class="mandatory">*</span></label>
-                <input id="email" class="form-control" formControlName="email" type="email">
-                <div *ngIf="userForm.get('email').touched && userForm.get('email').hasError('required')" class="text text-danger mt-1">Email is required</div>
-                <div *ngIf="userForm.get('email').touched && userForm.get('email').hasError('email')" class="text text-danger mt-1">Invalid email format</div>
-              </div>
+      <div class="col-lg-6 mt-3">
+        <label for="email">Email<span class="mandatory">*</span></label>
+        <input id="email" class="form-control" formControlName="email" type="email" autocomplete="off">
+        @if (userForm.get('email').touched && userForm.get('email').hasError('required')) {
+          <div class="text text-danger mt-1">Email is required</div>
+        }
+        @if (userForm.get('email').touched && userForm.get('email').hasError('email')) {
+          <div class="text text-danger mt-1">Invalid email format</div>
+        }
+      </div>
 
-              <div class="col-lg-6 mt-3">
-                <label for="roleId">Role<span class="mandatory">*</span></label>
-                <select id="roleId" class="form-control form-select" formControlName="roleId">
-                  <option selected disabled>Select Role</option>
-                  <option *ngFor="let item of rolesdata" [value]="item.rolesId">{{item.roleName}}</option>
-                </select>
-                <div *ngIf="userForm.get('roleId').touched && userForm.get('roleId').hasError('required')" class="text text-danger mt-1">Role is required</div>
-              </div>
+      <div class="col-lg-6 mt-3">
+        <label for="roleId">Role<span class="mandatory">*</span></label>
+        <select id="roleId" class="form-control form-select" formControlName="roleId">
+          <option selected disabled>Select Role</option>
+          @for (item of rolesdata; track item) {
+            <option [value]="item.rolesId">{{item.roleName}}</option>
+          }
+        </select>
+        @if (userForm.get('roleId').touched && userForm.get('roleId').hasError('required')) {
+          <div class="text text-danger mt-1">Role is required</div>
+        }
+      </div>
 
-              <div class="col-lg-12 mt-3">
-                <label for="password">Password<span class="mandatory">*</span></label>
-                <input id="password" class="form-control" formControlName="password" [type]="show ? 'text' : 'password'" required placeholder="*********">
-                <div class="show-hide" (click)="showPassword()" *ngIf="!show"><span class="show"></span></div>
-                <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
-                <div *ngIf="userForm.get('password').touched && userForm.get('password').hasError('required')" class="text text-danger mt-1">Password is required</div>
-              </div>
-            </div>
-          </form>
-          
-          
-          
-        <div class="modal-footer bg-light-primary "  >
-            <div class="col-lg-6 text-end">
-                <button class="btn btn-sm btn-primary" (click)="postUser(userForm.value)" >Save</button> 
-                <button class="btn btn-sm btn-Danger" style="margin-left:5px" (click)="cancel()" >Cancel</button>
-            </div>
-        </div>
+      <div class="col-lg-12 mt-3">
+        <label for="password">Password@if (flag == 1) {<span class="mandatory">*</span>}</label>
+        <input id="password" class="form-control" formControlName="password" [type]="show ? 'text' : 'password'" [required]="flag == 1" autocomplete="new-password" [placeholder]="flag == 1 ? '*********' : 'Leave blank to keep the current password'">
+        @if (!show) {
+          <div class="show-hide" (click)="showPassword()"><span class="show"></span></div>
+        }
+        @if (show) {
+          <div class="show-hide" (click)="showPassword()"><span class="Hide"></span></div>
+        }
+        @if (userForm.get('password').touched && userForm.get('password').hasError('required')) {
+          <div class="text text-danger mt-1">Password is required</div>
+        }
+      </div>
+    </div>
+  </form>
+
+
+
+  <div class="modal-footer bg-light-primary "  >
+    <div class="col-lg-6 text-end">
+      <button class="btn btn-sm btn-primary" (click)="postUser(userForm.value)" >Save</button>
+      <button class="btn btn-sm btn-Danger" style="margin-left:5px" (click)="cancel()" >Cancel</button>
+    </div>
+  </div>
 </ng-template>

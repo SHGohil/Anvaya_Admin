@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import {UsersService} from '../../../../../shared/services/users.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
     selector: 'app-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UsersComponent implements OnInit {
@@ -110,16 +111,23 @@ getRoles(){
 add(content){
   this.flag=1;
   this.userForm.reset();
+  // A new user must have a password.
+  this.userForm.controls.password.setValidators(Validators.required);
+  this.userForm.controls.password.updateValueAndValidity();
   this.modalService.open(content, { size: 'lg'})
 }
 edit(item,content){
 this.flag=2;
+  // The list never carries a password, so editing must not demand one. Leaving it
+  // blank keeps the current password; typing one sets a new password.
+  this.userForm.controls.password.clearValidators();
+  this.userForm.controls.password.updateValueAndValidity();
   this.modalService.open(content, { size: 'lg'})
   this.userForm.controls.userId.setValue(item.userId)
   this.userForm.controls.userName.setValue(item.userName)
   this.userForm.controls.mobileNumber.setValue(item.mobileNumber)
   this.userForm.controls.email.setValue(item.email)
-  this.userForm.controls.password.setValue(item.password)
+  this.userForm.controls.password.setValue('')
   this.userForm.controls.roleId.setValue(item.roleId)
 }
 cancel(){
