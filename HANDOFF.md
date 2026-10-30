@@ -2,6 +2,12 @@
 
 Read `CLAUDE.md` first.
 
+## Renamed from Anvaya to Venexa (2026-10-30)
+
+The visible name is now **Venexa** (sidebar, login page, browser tab, theme files). The API it talks to was renamed the same
+day (see `Anvaya_API/HANDOFF.md`). Unchanged on purpose: the live API hostname in `environment.prod.ts`, the GitHub repo
+and folder names, and `package.json`. The browser-tab icon (`assets/images/sLogo.png`, an orange star with no text) is the old artwork; swap it when the new logo exists.
+
 ## State
 
 - **Everything is on `main` and pushed** (`SHGohil/Anvaya_Admin`, last commit `5be913a`). The old

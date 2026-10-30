@@ -17,7 +17,7 @@ abandoned Azure DevOps copy (see below). Ask before any of those.
 
 ## Project
 
-Angular 22 admin front end for the Anvaya Convention API (event and venue booking for a
+Angular 22 admin front end for the Venexa Convention API (event and venue booking for a
 convention centre). Originally built on a purchased admin theme ("cuba"); as of the UI
 re-skin (2026-08) the unused ~95% of that theme — blog, e-commerce, email, chat, job-search,
 gallery, the 68-component demo dashboard, and 91k lines of theme SCSS — has been deleted.

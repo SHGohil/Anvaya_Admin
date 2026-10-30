@@ -1,4 +1,4 @@
-/* Anvaya UI theme v1 - design tokens + base components.
+/* Venexa UI theme v1 - design tokens + base components.
    Plain CSS custom properties so it works with Angular, needs no build step,
    and switches light/dark by [data-theme] on <html> (falls back to the OS setting). */
 
