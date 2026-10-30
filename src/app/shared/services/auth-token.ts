@@ -26,3 +26,24 @@ export function readAuthToken(): string {
     return '';
   }
 }
+
+/** The long-lived token that renews the access token, or '' when signed out. */
+export function readRefreshToken(): string {
+  try {
+    return JSON.parse(localStorage.getItem('user') ?? '{}')?.refreshToken ?? '';
+  } catch {
+    return '';
+  }
+}
+
+/** Stores a renewed pair in the saved login without disturbing the rest of it. */
+export function saveRenewedTokens(token: string, refreshToken: string): void {
+  try {
+    const user = JSON.parse(localStorage.getItem('user') ?? '{}');
+    user.token = token;
+    user.refreshToken = refreshToken;
+    localStorage.setItem('user', JSON.stringify(user));
+  } catch {
+    // Unreadable saved login: the next request will 401 and sign the user out.
+  }
+}

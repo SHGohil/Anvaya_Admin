@@ -21,7 +21,9 @@ export class AdminGuard {
     // No stored user, an unparseable one, one without a token, or one whose token
     // has expired: not signed in. An expired token used to pass this check and then
     // fail every API call with a 401 from inside a screen that looked signed in.
-    if (!user || !user.token || isTokenExpired(user.token)) {
+    // An expired access token is fine while a refresh token exists: the first API call
+    // gets a 401 and the interceptor renews the session.
+    if (!user || !user.token || (isTokenExpired(user.token) && !user.refreshToken)) {
       if (user) {
         localStorage.removeItem("user");
       }

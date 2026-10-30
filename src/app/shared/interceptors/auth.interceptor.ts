@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { type HttpEvent, HttpHandler, type HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { type HttpEvent, HttpBackend, HttpClient, HttpHandler, type HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize, shareReplay, switchMap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { environment } from '../../../environments/environment';
-import { readAuthToken } from '../services/auth-token';
+import { readAuthToken, readRefreshToken, saveRenewedTokens } from '../services/auth-token';
 import { SKIP_GLOBAL_ERROR } from './http-error.context';
 
 /**
@@ -24,7 +24,16 @@ import { SKIP_GLOBAL_ERROR } from './http-error.context';
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  // One renewal at a time: when several calls 401 together they all wait for the same
+  // refresh, because a refresh token can be used only once.
+  private refreshing$: Observable<string> | null = null;
+
+  // Built on the raw backend so the renewal call does not pass back through this interceptor.
+  private http: HttpClient;
+
+  constructor(private router: Router, backend: HttpBackend) {
+    this.http = new HttpClient(backend);
+  }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const isOwnApi = req.url.startsWith(environment.backendAPIURL);
@@ -36,6 +45,18 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
+        if (isOwnApi && error.status === 401 && this.canRenew(req)) {
+          return this.renewToken().pipe(
+            switchMap(newToken =>
+              next.handle(req.clone({ setHeaders: { Authorization: `Bearer ${newToken}` } }))
+            ),
+            catchError((retryError: HttpErrorResponse) => {
+              this.report(retryError, req.context.get(SKIP_GLOBAL_ERROR));
+              return throwError(() => retryError);
+            })
+          );
+        }
+
         if (isOwnApi) {
           this.report(error, req.context.get(SKIP_GLOBAL_ERROR));
         }
@@ -43,6 +64,29 @@ export class AuthInterceptor implements HttpInterceptor {
         return throwError(() => error);
       })
     );
+  }
+
+  /** Sign-in and renewal calls themselves are never retried, and renewal needs a refresh token. */
+  private canRenew(req: HttpRequest<unknown>): boolean {
+    return !req.url.includes('/Login') && !!readRefreshToken();
+  }
+
+  private renewToken(): Observable<string> {
+    if (!this.refreshing$) {
+      this.refreshing$ = this.http
+        .post<{ token: string; refreshToken: string }>(`${environment.backendAPIURL}/Login/refresh`, {
+          refreshToken: readRefreshToken()
+        })
+        .pipe(
+          switchMap(r => {
+            saveRenewedTokens(r.token, r.refreshToken);
+            return [r.token];
+          }),
+          finalize(() => (this.refreshing$ = null)),
+          shareReplay(1)
+        );
+    }
+    return this.refreshing$;
   }
 
   private report(error: HttpErrorResponse, callerHandlesIt: boolean): void {

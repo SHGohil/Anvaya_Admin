@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
+import { readRefreshToken } from "src/app/shared/services/auth-token";
 import { PermissionService } from "src/app/shared/services/permission.service";
 import { clippingParents } from "@popperjs/core";
 
@@ -16,7 +19,7 @@ export class MyAccountComponent implements OnInit {
   roleid: any;
   username: any;
 
-  constructor(public router: Router, private permissions: PermissionService) {
+  constructor(public router: Router, private permissions: PermissionService, private http: HttpClient) {
 
     let user;
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -36,6 +39,11 @@ export class MyAccountComponent implements OnInit {
     
   }
   logoutFunc() {
+    // Retire the refresh token on the server so a copy of it stops working.
+    const refreshToken = readRefreshToken();
+    if (refreshToken) {
+      this.http.post(`${environment.backendAPIURL}/Login/logout`, { refreshToken }).subscribe({ error: () => {} });
+    }
     this.permissions.clear();
     localStorage.clear();
     localStorage.removeItem('user')
